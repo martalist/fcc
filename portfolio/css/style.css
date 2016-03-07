@@ -24,7 +24,6 @@ video {
   max-width: 100%;
 }
 
-a,
 button {
   min-width: 48px;
   min-height: 48px;
@@ -57,6 +56,18 @@ h2 {
 h3 {
   font-family: 'Amatic SC', cursive;
   font-size: 1.7em;
+}
+
+h3 a {
+  font-family: 'Amatic SC', cursive;
+  color: #555;
+  text-decoration: none;
+}
+
+h3 a:hover {
+  font-family: 'Amatic SC', cursive;
+  color: rgb(0, 135, 206);
+  text-decoration: none;
 }
 
 .uppercase {
