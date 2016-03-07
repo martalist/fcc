@@ -238,7 +238,7 @@ header {
 .home-img {
   display: block;
   position: absolute;
-  background: url('https://imgur.com/aoUNrbT.jpg') center;
+  background: url('../images/laptop.jpg') center;
   background-size: cover;
   min-height: 70vh;
   z-index: -10;
@@ -525,6 +525,6 @@ footer div {
   }
 
   .home-img {
-    background-image: url('https://s3.amazonaws.com/StartupStockPhotos/uploads/46.jpg');
+    background-image: url('../images/laptop_large.jpg');
   }
 }
