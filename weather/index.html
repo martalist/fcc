@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/css/bootstrap3/bootstrap-switch.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Share+Tech+Mono' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/skycons/1396634940/skycons.min.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.2/js/bootstrap-switch.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <title>Weather in [your city]</title>
+  </head>
+  <body>
+    <div class="loading-wrap hidden">
+      <div class="loading outer hidden">
+        <div class="loading inner"></div>
+      </div>
+    </div>
+    <main class="container text-center">
+
+      <!-- Address and description -->
+      <div class="address row">
+        <div class="col-xs-12">
+          <form class="manual-location" action="#" autocomplete="off">
+            <div class="loc-time">
+              <input class="text-center text-uppercase" type="text" name="location" value="" placeholder="Enter a location">
+              <button class="search btn-xs" type="submit" name="submit"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+            </div>
+          </form>
+          <h2 class="weather-description"></h2>
+        </div>
+      </div>
+
+      <!-- Icon and temperature -->
+      <div class="icon-temp row">
+        <div class="col-xs-12 col-sm-6">
+          <canvas id="icon1" width="192" height="192"></canvas>
+        </div>
+        <div class="current-temp col-xs-12 col-sm-6">
+          <h1 id="temp">0</h1>
+        </div>
+      </div>
+
+      <!-- Min/max and progress -->
+      <div class="min-max row">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-6">
+          <!-- arrow -->
+          <div class="arrow-up"></div>
+        </div>
+        <div class="col-xs-12">
+          <div class="progress">
+            <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100" style="width: 1%"></div>
+          </div>
+        </div>
+        <div class="min-temp col-xs-6 text-left">
+          <h2 id="min"></h2>
+        </div>
+        <div class="max-temp col-xs-6 text-right">
+          <h2 id="max"></h2>
+        </div>
+      </div>
+
+      <!-- Other weather detals -->
+      <div class="details row">
+        <!-- humidity -->
+        <div class="more-info col-xs-12 col-sm-6 col-lg-3">
+          <div class="row">
+              <span class="more-info-icon col-xs-12 glyphicon glyphicon-tint" aria-hidden="true"></span>
+              <p class="row">
+                <span class="col-sm-12 more-info-title">humidity: </span>
+                <span id="humidity" class="col-sm-12 more-info-value">N/A</span>
+              </p>
+          </div>
+        </div>
+        <!-- pressure -->
+        <div class="more-info col-xs-12 col-sm-6 col-lg-3">
+          <div class="row">
+              <span class="more-info-icon col-xs-12 glyphicon glyphicon-dashboard" aria-hidden="true"></span>
+              <p class="row">
+                <span class="col-sm-12 more-info-title">pressure: </span>
+                <span id="pressure" class="col-sm-12 more-info-value">N/A</span>
+              </p>
+          </div>
+        </div>
+        <!-- wind speed -->
+        <div class="more-info col-xs-12 col-sm-6 col-lg-3">
+          <div class="row">
+              <span class="more-info-icon col-xs-12 glyphicon glyphicon-tree-conifer" aria-hidden="true"></span>
+              <p class="row">
+                <span class="col-sm-12 more-info-title">wind speed: </span>
+                <span id="wind-speed" class="col-sm-12 more-info-value">0</span>
+              </p>
+          </div>
+        </div>
+        <!-- wind direction -->
+        <div class="more-info col-xs-12 col-sm-6 col-lg-3">
+          <div class="row">
+              <span class="more-info-icon col-xs-12 glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+              <p class="row">
+                <span class="col-sm-12 more-info-title">wind direction: </span>
+                <span id="wind-direction" class="col-sm-12 more-info-value">N/A</span>
+              </p>
+          </div>
+        </div>
+      </div>
+      <div class="toggle row">
+        <div class="col-xs-12">
+          <input type="checkbox" name="deg-switch" checked>
+        </div>
+      </div>
+    </main>
+
+    <!-- <a href="http://openweathermap.org/weather-conditions" target="_blank">info about icon codes</a>
+    <a href="http://openweathermap.org/forecast5" target="_blank">5 day weather forecast</a>
+    <h3>Some icon fonts:</h3>
+    <ul>
+      <li><a href="http://forecastfont.iconvau.lt/">ForecastFont</a></li>
+      <li><a href="http://www.alessioatzeni.com/meteocons/">Meteocons</a></li>
+      <li><a href="https://erikflowers.github.io/weather-icons/">Weather Icons</a></li>
+      <li><a href="https://icomoon.io/app/#/select">Icomon.io</a></li>
+    </ul>
+    <p><a href="http://www.bootstrap-switch.org/" target="_blank">Bootstrap Switch</a> might also be helpful.</p>
+    -->
+
+
+    <!-- Thanks to Adonis K. for the spinner: http://codepen.io/adonisk/pen/IAzbo -->
+  </body>
+</html>
