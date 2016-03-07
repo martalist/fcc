@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.0.15/css/bulma.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script src="js/app.js"></script>
+    <title>Random Quotes</title>
+  </head>
+  <body>
+    <!-- Full height hero -->
+    <div class="hero is-primary is-bold is-fullheight">
+
+      <!-- header -->
+      <div class="hero-header">
+        <header class="header">
+          <div class="container">
+            <!-- Left side -->
+            <div class="header-left">
+              <h1 class="header-item heading"><i class="fa fa-quote-left"></i>Random Quote Generator</h1>
+            </div>
+            <!-- Hamburger menu (on mobile) -->
+            <span class="header-toggle">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+            <!-- Right side -->
+            <div class="header-right header-menu">
+              <span class="header-item">
+                <a id="new-quote" class="button is-primary is-inverted"><i class="fa fa-refresh icon"></i> New quote</a>
+              </span>
+            </div>
+
+          </div>
+        </header>
+      </div>
+
+      <main>
+        <section class="hero-content">
+          <div class="container is-8 is-offset-2">
+            <div class="columns">
+              <div class="column is-2">
+                <div>
+                  <i class="fa fa-quote-left fa-5x"></i>
+                </div>
+              </div>
+              <div class="column is-8">
+                <div class="content quote">
+                  <blockquote cite="" class="blockquote">
+                  </blockquote>
+                  <cite></cite>
+                </div>
+              </div>
+              <div class="column is-2 right-quote">
+                <div>
+                  <i class="fa fa-quote-right fa-5x"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Social media share buttons -->
+            <div class="social">
+              <div class="is-2">
+                <nav class="navbar">
+
+                  <div class="nav-item">
+                    <a class="button is-medium is-info is-outlined is-inverted twitter-share-button" href="#" target="_blank">
+                      <i class="fa fa-twitter icon"></i>
+                    </a>
+                  </div>
+
+                  <div class="nav-item">
+                    <a class="button is-medium is-info is-outlined is-inverted email-share-button" href="mailto:" target="_blank">
+                      <i class="fa fa-envelope icon"></i>
+                    </a>
+                  </div>
+
+                </nav>
+              </div>
+            </div>
+
+          </div>
+        </section>
+      </main>
+
+      <!-- Footer -->
+      <footer class="hero-footer">
+        <div class="content">
+          <p class="is-centered">
+            Copyright Alistair Martin © 2016
+          </p>
+        </div>
+      </footer>
+
+    </div>
+  </body>
+</html>

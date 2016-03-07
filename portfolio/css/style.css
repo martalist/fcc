@@ -44,8 +44,7 @@ h6 {
   font-family: 'Dancing Script', cursive;
 }
 
-h1,
-h3 {
+h1 {
   font-family: 'Amatic SC', cursive;
 }
 
@@ -53,6 +52,11 @@ h2 {
   font-family: 'Dancing Script', cursive;
   font-size: 2em;
   color: #555;
+}
+
+h3 {
+  font-family: 'Amatic SC', cursive;
+  font-size: 1.7em;
 }
 
 .uppercase {

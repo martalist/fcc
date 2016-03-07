@@ -1,0 +1,58 @@
+.quote {
+  padding-top: 10px;
+}
+
+.blockquote {
+  background: none !important;
+  border-left: none !important;
+  font-size: large;
+}
+
+.right-quote {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.is-centered {
+  margin: auto;
+}
+
+.header-item .fa-quote-left {
+  margin-right: 10px;
+}
+
+.header-item .icon {
+  font-size: 15px;
+}
+
+.social {
+  margin-top: 70px;
+}
+
+.social .is-2 {
+  margin: auto;
+}
+
+.social .navbar {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.social .nav-item {
+  min-width: 100px;
+}
+
+footer .content {
+  min-height: 48px;
+  background-color: rgba(200, 200, 200, 0.2);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.brown-buttons {
+  color: rgba(0,0,0,0.5) !important;
+  border-color: rgba(0,0,0,0.5) !important;
+}
