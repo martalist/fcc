@@ -11,31 +11,27 @@ $(document).ready( function() {
 
   $('#search-text').keyup( function () {
     var query = $(this).val();
-    searchWikipedia(query);
-  });
-
-  function searchWikipedia(query) {
     $.getJSON( url.format(query), function(json) {
-
+      
       // remove existing results
       $('.result').each( function() {
         $(this).remove();
       });
 
       // add new results to the DOM
-      var result, results = json.slice(1);
-      console.log(results[0].length);
-      if (results[0].length >= 1) {
-        for (var i = 0; i < results[0].length; i++) {
+      var result = "", results = json.slice(1);
+      numResults = results[0].length;
+      if (numResults > 0) {
+        for (var i = 0; i < numResults; i++) {
           var cite = results[2][i].replace("https://", "");
-          result = resultHTML.format(results[2][i], results[0][i], cite, results[1][i]);
+          result += resultHTML.format(results[2][i], results[0][i], cite, results[1][i]);
         }
       } else {
         result = noMatch.format(query);
       }
       $('.results').append(result);
     });
-  }
+  });
 });
 
 String.prototype.format = function() {
