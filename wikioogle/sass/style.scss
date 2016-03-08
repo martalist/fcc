@@ -1,0 +1,39 @@
+$color-primary: #4285f4;
+$color-secondary: #3b78e7;
+$color-main: #fff;
+$color-header: #f1f1f1;
+$color-border: #666;
+$color-link: #1a0dab;
+$color-link-visited: #609;
+$color-cite: #006621;
+$color-font: #545454;
+
+.logo {
+  width: 150px;
+  height: auto;
+  animation: pop 0.2s 2s 2 ease forwards;
+  & path {
+    transform-origin: center center;
+    transition: transform 0.1s ease-out;
+    &:hover {
+      transform: rotateY(180deg);
+    }
+  }
+}
+
+
+@keyframes pop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+
+// TODO: Wikioogle homepage
+
+// main {
+//   background: $color-main;
+// }
+//
+// .input-group-btn {
+//   z-index: -10;
+// }
