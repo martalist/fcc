@@ -11,8 +11,19 @@ $(document).ready( function() {
 
   $('#search-text').keyup( function () {
     var query = $(this).val();
+    getWikipediaResults(query);
+
+  });
+
+  $('.btn-search').click( function (e) {
+    e.preventDefault();
+    var query = $('#search-text').val();
+    getWikipediaResults(query);
+  });
+
+  function getWikipediaResults(query) {
     $.getJSON( url.format(query), function(json) {
-      
+
       // remove existing results
       $('.result').each( function() {
         $(this).remove();
@@ -31,7 +42,7 @@ $(document).ready( function() {
       }
       $('.results').append(result);
     });
-  });
+  }
 });
 
 String.prototype.format = function() {
