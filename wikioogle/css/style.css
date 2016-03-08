@@ -7,7 +7,7 @@ h3, cite, p {
 h3 {
   font-size: 18px;
   margin: 0;
-  height: 21px;
+  min-height: 21px;
   line-height: 21.6px;
   text-decoration: none;
   color: #1a0dab; }
@@ -20,7 +20,8 @@ h3 {
 cite {
   font-size: 14px;
   line-height: 16px;
-  color: #006621; }
+  color: #006621;
+  word-break: break-all; }
 
 .page-header {
   padding: 13px 15px;

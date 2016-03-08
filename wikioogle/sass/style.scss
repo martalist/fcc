@@ -28,7 +28,7 @@ h3 {
   @extend %base-font;
   font-size: 18px;
   margin: 0;
-  height: 21px;
+  min-height: 21px;
   line-height: 21.6px;
   text-decoration: none;
   color: $color-link;
@@ -46,6 +46,7 @@ cite {
   font-size: 14px;
   line-height: 16px;
   color: $color-cite;
+  word-break: break-all;
 }
 
 p {
