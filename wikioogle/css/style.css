@@ -25,6 +25,13 @@ cite {
 .result {
   margin-bottom: 23px; }
 
+.no-result {
+  margin: 40px 0 0; }
+  .no-result p {
+    font-size: 16px; }
+  .no-result ul {
+    font-size: 16px; }
+
 .page-header {
   margin: 0 0 30px;
   padding: 13px 0;
