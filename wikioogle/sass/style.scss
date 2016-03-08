@@ -57,30 +57,6 @@ p {
   border-bottom: 1px solid $color-border;
 }
 
-.form-group {
-  margin: 0;
-}
-
-.form-control {
-  font-size: 16px;
-  height: 38px;
-  border-radius: 0;
-  border-color: $color-border;
-}
-
-.btn-search {
-  width: 38px;
-  height: 38px;
-  border-radius: 0;
-  background-color: $color-primary;
-  &:hover {
-    background-color: $color-secondary;
-  }
-  & span {
-    margin: -10px 0 0 -7px;
-  }
-}
-
 .logo {
   position: relative;
   float: right;
@@ -94,6 +70,42 @@ p {
     &:hover {
       transform: rotateY(180deg);
     }
+  }
+}
+
+.form-group {
+  margin: 0;
+}
+
+.form-control {
+  font-size: 16px;
+  height: 38px;
+  border-radius: 0;
+  border-color: $color-border;
+}
+
+.btn {
+  height: 38px;
+  border-radius: 0;
+}
+
+.btn-search {
+  width: 38px;
+  background-color: $color-primary;
+  &:hover {
+    background-color: $color-secondary;
+  }
+  & span {
+    margin: -10px 0 0 -7px;
+  }
+}
+
+.feeling-lucky {
+  background-color: $color-main;
+  border-color: $color-border;
+  &:hover {
+    background-color: $color-primary;
+    color: $color-main;
   }
 }
 
