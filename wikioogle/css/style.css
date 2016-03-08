@@ -1,3 +1,30 @@
+h3, cite, p {
+  font-family: arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px; }
+
+h3 {
+  font-size: 18px;
+  margin: 0;
+  height: 21px;
+  line-height: 21.6px;
+  text-decoration: none;
+  color: #1a0dab; }
+  h3 a {
+    color: #1a0dab; }
+  h3 a:visited {
+    color: #609;
+    text-decoration: underline; }
+
+cite {
+  font-size: 14px;
+  line-height: 16px;
+  color: #006621; }
+
+.result {
+  margin-bottom: 23px; }
+
 .logo {
   width: 150px;
   height: auto;

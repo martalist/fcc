@@ -1,3 +1,4 @@
+// colours
 $color-primary: #4285f4;
 $color-secondary: #3b78e7;
 $color-main: #fff;
@@ -7,6 +8,46 @@ $color-link: #1a0dab;
 $color-link-visited: #609;
 $color-cite: #006621;
 $color-font: #545454;
+
+// fonts
+%base-font {
+  font-family: arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+}
+
+h3 {
+  @extend %base-font;
+  font-size: 18px;
+  margin: 0;
+  height: 21px;
+  line-height: 21.6px;
+  text-decoration: none;
+  color: $color-link;
+  & a {
+    color: $color-link;
+  }
+  & a:visited {
+    color: $color-link-visited;
+    text-decoration: underline;
+  }
+}
+
+cite {
+  @extend %base-font;
+  font-size: 14px;
+  line-height: 16px;
+  color: $color-cite;
+}
+
+p {
+  @extend %base-font;
+}
+
+.result {
+  margin-bottom: 23px;
+}
 
 .logo {
   width: 150px;
