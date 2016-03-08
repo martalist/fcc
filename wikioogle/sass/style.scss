@@ -9,6 +9,13 @@ $color-link-visited: #609;
 $color-cite: #006621;
 $color-font: #545454;
 
+// media queries
+@mixin respond-to($query, $value) {
+  @media ($query: $value) {
+    @content;
+  }
+}
+
 // fonts
 %base-font {
   font-family: arial, sans-serif;
@@ -45,33 +52,26 @@ p {
   @extend %base-font;
 }
 
-.result {
-  margin-bottom: 23px;
-}
 
-.no-result {
-  margin: 40px 0 0;
-  p {
-    font-size: 16px;
-  }
-  ul {
-    font-size: 16px;
-  }
-}
+// Header
 
 .page-header {
   margin: 0 0 30px;
-  padding: 13px 0;
-  height: 60px;
-  background-color: $color-header;
-  border-bottom: 1px solid $color-border;
+  padding: 13px 15px;
+  border-bottom: none;
+  @include respond-to(min-width, 768px) {
+    background-color: $color-header;
+    border-bottom: 1px solid $color-border;
+    height: 60px;
+
+  };
 }
 
 .logo {
   position: relative;
-  float: right;
-  right: 15px;
-  width: 150px;
+  display: block;
+  margin: 20px auto 10px;
+  width: 50vw;
   height: auto;
   animation: pop 0.2s 2s 2 ease forwards;
   path {
@@ -81,10 +81,18 @@ p {
       transform: rotateY(180deg);
     }
   }
+  @include respond-to(min-width, 768px) {
+    float: right;
+    width: 150px;
+    margin: 0;
+  }
 }
 
 .form-group {
-  margin: 0;
+  margin-bottom: 25px;
+  @include respond-to(min-width, 768px) {
+    margin: 0;
+  };
 }
 
 .form-control {
@@ -115,12 +123,38 @@ p {
   color: $color-font;
   background-color: $color-main;
   border-color: $color-border;
+  display: block;
+  margin: 0 auto;
   &:hover {
     background-color: $color-primary;
     color: $color-main;
   }
+  @include respond-to(min-width, 768px) {
+    margin: 0;
+    display: inline-block;
+  };
 }
 
+
+// Search results
+
+.container-fluid {
+  padding: 0 15px;
+}
+
+.result {
+  margin-bottom: 23px;
+}
+
+.no-result {
+  margin: 40px 0 0;
+  p {
+    font-size: 16px;
+  }
+  ul {
+    font-size: 16px;
+  }
+}
 
 @keyframes pop {
   0%, 100% { transform: scale(1); }

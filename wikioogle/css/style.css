@@ -22,28 +22,21 @@ cite {
   line-height: 16px;
   color: #006621; }
 
-.result {
-  margin-bottom: 23px; }
-
-.no-result {
-  margin: 40px 0 0; }
-  .no-result p {
-    font-size: 16px; }
-  .no-result ul {
-    font-size: 16px; }
-
 .page-header {
   margin: 0 0 30px;
-  padding: 13px 0;
-  height: 60px;
-  background-color: #f1f1f1;
-  border-bottom: 1px solid #e5e5e5; }
+  padding: 13px 15px;
+  border-bottom: none; }
+  @media (min-width: 768px) {
+    .page-header {
+      background-color: #f1f1f1;
+      border-bottom: 1px solid #e5e5e5;
+      height: 60px; } }
 
 .logo {
   position: relative;
-  float: right;
-  right: 15px;
-  width: 150px;
+  display: block;
+  margin: 20px auto 10px;
+  width: 50vw;
   height: auto;
   animation: pop 0.2s 2s 2 ease forwards; }
   .logo path {
@@ -51,9 +44,17 @@ cite {
     transition: transform 0.1s ease-out; }
     .logo path:hover {
       transform: rotateY(180deg); }
+  @media (min-width: 768px) {
+    .logo {
+      float: right;
+      width: 150px;
+      margin: 0; } }
 
 .form-group {
-  margin: 0; }
+  margin-bottom: 25px; }
+  @media (min-width: 768px) {
+    .form-group {
+      margin: 0; } }
 
 .form-control {
   font-size: 16px;
@@ -77,10 +78,29 @@ cite {
 .feeling-lucky {
   color: #545454;
   background-color: #fff;
-  border-color: #e5e5e5; }
+  border-color: #e5e5e5;
+  display: block;
+  margin: 0 auto; }
   .feeling-lucky:hover {
     background-color: #4285f4;
     color: #fff; }
+  @media (min-width: 768px) {
+    .feeling-lucky {
+      margin: 0;
+      display: inline-block; } }
+
+.container-fluid {
+  padding: 0 15px; }
+
+.result {
+  margin-bottom: 23px; }
+
+.no-result {
+  margin: 40px 0 0; }
+  .no-result p {
+    font-size: 16px; }
+  .no-result ul {
+    font-size: 16px; }
 
 @keyframes pop {
   0%, 100% {
