@@ -90,10 +90,21 @@ cite {
       display: inline-block; } }
 
 .container-fluid {
-  padding: 0 15px; }
+  padding: 0 15px;
+  background-color: #f1f1f1; }
+  @media (min-width: 768px) {
+    .container-fluid {
+      background-color: #fff; } }
 
 .result {
-  margin-bottom: 23px; }
+  margin-bottom: 23px;
+  padding: 10px;
+  border: 1px solid #e5e5e5;
+  background-color: #fff; }
+  @media (min-width: 768px) {
+    .result {
+      padding: 0;
+      border: none; } }
 
 .no-result {
   margin: 40px 0 0; }

@@ -140,10 +140,21 @@ p {
 
 .container-fluid {
   padding: 0 15px;
+  background-color: $color-header;
+  @include respond-to(min-width, 768px) {
+    background-color: $color-main;
+  };
 }
 
 .result {
   margin-bottom: 23px;
+  padding: 10px;
+  border: 1px solid $color-border;
+  background-color: $color-main;
+  @include respond-to(min-width, 768px) {
+    padding: 0;
+    border: none;
+  };
 }
 
 .no-result {
