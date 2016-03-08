@@ -3,7 +3,7 @@ $color-primary: #4285f4;
 $color-secondary: #3b78e7;
 $color-main: #fff;
 $color-header: #f1f1f1;
-$color-border: #666;
+$color-border: #e5e5e5;
 $color-link: #1a0dab;
 $color-link-visited: #609;
 $color-cite: #006621;
@@ -49,7 +49,42 @@ p {
   margin-bottom: 23px;
 }
 
+.page-header {
+  margin: 0 0 30px;
+  padding: 13px 0;
+  height: 60px;
+  background-color: $color-header;
+  border-bottom: 1px solid $color-border;
+}
+
+.form-group {
+  margin: 0;
+}
+
+.form-control {
+  font-size: 16px;
+  height: 38px;
+  border-radius: 0;
+  border-color: $color-border;
+}
+
+.btn-search {
+  width: 38px;
+  height: 38px;
+  border-radius: 0;
+  background-color: $color-primary;
+  &:hover {
+    background-color: $color-secondary;
+  }
+  & span {
+    margin: -10px 0 0 -7px;
+  }
+}
+
 .logo {
+  position: relative;
+  float: right;
+  right: 15px;
   width: 150px;
   height: auto;
   animation: pop 0.2s 2s 2 ease forwards;
