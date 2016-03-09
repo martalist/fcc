@@ -1,5 +1,5 @@
 $(document).ready( function() {
-  var accounts =  ["freecodecamp", "storbeck", "terakilobyte", "habathcx","RobotCaleb","thomasballinger","noobs2ninjas","beohoff"];
+  var accounts =  ["freecodecamp", "storbeck", "terakilobyte", "habathcx","RobotCaleb","thomasballinger","noobs2ninjas","beohoff", "brunofin"];
   var resultHTML = '<article class="media box {0}"><figure class="media-left">' +
     '<p class="image is-64x64"><img src="{1}" alt="{2}"></p></figure><div class="media-content">' +
     '<div class="content"><p><strong><a href="{3}" target="_blank">{4}</a></strong><br>{5}</p></div><nav class="navbar">' +
@@ -14,28 +14,33 @@ $(document).ready( function() {
   // fetch data
   accounts.forEach( function(acc) {
     $.getJSON( url.replace( "{}", acc ), function(json) {
-      var bio, tagClass, status;
-      if (!!json.status) { // check if the channel is streaming
+      var url = json.url;
+      var alt = acc + "'s logo";
+      var name = json.display_name;
+      var views = json.views, followers = json.followers;
+      var bio, tagClass, tagLabel, status;
+      if ( json.status === 422 ) { // check if account exists
+        bio = '<em>This account no longer exists</em>';
+        tagClass = 'is-danger';
+        status = 'offline';
+        tagLabel = "Removed";
+        url = "#";
+        name = acc;
+        views = 0;
+        followers = 0;
+      } else if (!!json.status) { // check if the channel is streaming
         bio = json.status;
         tagClass = 'is-success';
         status = 'online';
+        tagLabel = status[0].toUpperCase() + status.slice(1);
       } else {
         bio = '<em>Not streaming at this time...</em>';
         tagClass = 'is-warning';
         status = 'offline';
+        tagLabel = status[0].toUpperCase() + status.slice(1);
       }
       var logo = (!!json.logo)? json.logo: "images/twitch.png"; // check for a logo, or use default
-      var result = resultHTML.format(status,
-                                    logo,
-                                    json.display_name + "'s logo",
-                                    json.url,
-                                    json.display_name,
-                                    bio,
-                                    json.followers,
-                                    json.views,
-                                    tagClass,
-                                    status[0].toUpperCase() + status.slice(1)
-                                  );
+      var result = resultHTML.format(status, logo, acc, url, name, bio, followers, views, tagClass, tagLabel);
       $('.results').append(result);
     });
   });
