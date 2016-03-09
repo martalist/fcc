@@ -4,6 +4,8 @@
 .hero.is-primary .tabs.is-boxed li.is-active a {
   color: #6441a5;
   font-size: 18px; }
+  .hero.is-primary .tabs.is-boxed li.is-active a:hover {
+    color: #7550ba; }
 
 .control.is-grouped .input:first-child {
   border-radius: 16px 0 0 16px;
@@ -18,5 +20,22 @@ strong a {
   color: #69707a; }
   strong a:link {
     color: #69707a; }
+  strong a:hover {
+    text-decoration: underline;
+    color: #6441a5; }
+
+.media.box {
+  padding: 20px; }
+  .media.box:hover {
+    box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.2); }
+
+.media-left {
+  margin-right: 20px; }
+
+img {
+  opacity: 0.8;
+  transition: opacity 0.3s; }
+  img:hover {
+    opacity: 1; }
 
 /*# sourceMappingURL=style.css.map */

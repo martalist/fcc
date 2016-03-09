@@ -6,9 +6,12 @@ $color-body: #69707a;
   background-color: $color-primary;
 }
 
-.hero.is-primary .tabs.is-boxed li.is-active a{
+.hero.is-primary .tabs.is-boxed li.is-active a {
   color: $color-primary;
   font-size: 18px;
+  &:hover {
+    color: $color-secondary;
+  }
 }
 
 .control.is-grouped .input:first-child {
@@ -23,8 +26,31 @@ $color-body: #69707a;
 }
 
 strong a {
-  color: #69707a;
+  color: $color-body;
   &:link {
-    color: #69707a;
+    color: $color-body;
+  }
+  &:hover {
+    text-decoration: underline;
+    color: $color-primary;
+  }
+}
+
+.media.box {
+  padding: 20px;
+  &:hover {
+    box-shadow: 0 3px 4px rgba(0,0,0,0.1),0 0 0 1px rgba(0,0,0,0.2);
+  }
+}
+
+.media-left {
+  margin-right: 20px;
+}
+
+img {
+  opacity: 0.8;
+  transition: opacity 0.3s;
+  &:hover {
+    opacity: 1;
   }
 }
