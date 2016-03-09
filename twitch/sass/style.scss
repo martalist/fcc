@@ -1,0 +1,30 @@
+$color-primary: #6441a5;
+$color-secondary: #7550ba;
+$color-body: #69707a;
+
+.hero.is-primary {
+  background-color: $color-primary;
+}
+
+.hero.is-primary .tabs.is-boxed li.is-active a{
+  color: $color-primary;
+  font-size: 18px;
+}
+
+.control.is-grouped .input:first-child {
+  border-radius: 16px 0 0 16px;
+  padding-left: 20px
+}
+
+.control.is-grouped .button.is-default {
+  border-radius: 0 16px 16px 0;
+  color: $color-primary;
+  padding: 3px 12px 3px 8px;
+}
+
+strong a {
+  color: #69707a;
+  &:link {
+    color: #69707a;
+  }
+}

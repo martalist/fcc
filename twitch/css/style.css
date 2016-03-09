@@ -1,3 +1,22 @@
+.hero.is-primary {
+  background-color: #6441a5; }
 
+.hero.is-primary .tabs.is-boxed li.is-active a {
+  color: #6441a5;
+  font-size: 18px; }
+
+.control.is-grouped .input:first-child {
+  border-radius: 16px 0 0 16px;
+  padding-left: 20px; }
+
+.control.is-grouped .button.is-default {
+  border-radius: 0 16px 16px 0;
+  color: #6441a5;
+  padding: 3px 12px 3px 8px; }
+
+strong a {
+  color: #69707a; }
+  strong a:link {
+    color: #69707a; }
 
 /*# sourceMappingURL=style.css.map */
