@@ -11,10 +11,11 @@ $(document).ready( function() {
     '</div></nav></div></article>';
   var url = "https://api.twitch.tv/kraken/channels/{}?callback=?";
 
+  // fetch data
   accounts.forEach( function(acc) {
     $.getJSON( url.replace( "{}", acc ), function(json) {
       var bio, tagClass, status;
-      if (!!json.status) {
+      if (!!json.status) { // check if the channel is streaming
         bio = json.status;
         tagClass = 'is-success';
         status = 'online';
@@ -23,7 +24,7 @@ $(document).ready( function() {
         tagClass = 'is-warning';
         status = 'offline';
       }
-      var logo = (!!json.logo)? json.logo: "images/twitch.png";
+      var logo = (!!json.logo)? json.logo: "images/twitch.png"; // check for a logo, or use default
       var result = resultHTML.format(status,
                                     logo,
                                     json.display_name + "'s logo",
@@ -38,6 +39,35 @@ $(document).ready( function() {
       $('.results').append(result);
     });
   });
+
+  // Animate tabs
+
+  $('#online').click( function() {
+    if ( $(this).hasClass('is-active') ) return;
+    filter('online');
+  });
+
+  $('#offline').click( function() {
+    if ( $(this).hasClass('is-active') ) return;
+    filter('offline');
+  });
+
+  $('#all').click( function() {
+    if ( $(this).hasClass('is-active') ) return;
+    filter('all');
+  });
+
+  function filter(tab) {
+    $('li.is-active').removeClass('is-active');
+    $('#' + tab).addClass('is-active');
+    $('.results').children().each( function() {
+      if ( tab === "all" || $(this).hasClass(tab) ) {
+        $(this).css("display", "flex");
+      } else {
+        $(this).css("display", "none");
+      }
+    });
+  }
 });
 
 
