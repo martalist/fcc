@@ -73,6 +73,26 @@ $(document).ready( function() {
       }
     });
   }
+
+  // search bar
+  $('input.search').keyup( function() {
+    if ( !$(this).val() ) {
+      return;
+    } else {
+      var term = new RegExp( $(this).val(), 'gi' );
+      var tab = $('.is-active a').text().toLowerCase();
+    }
+    $('.results').children().each( function() {
+      if ( !( $(this).find('strong a').text().match(term) ) ) {
+        $(this).css("display", "none");
+      } else {
+        var status = ($(this).hasClass("online"))? "online": "offline";
+        if (tab === status || tab === "all") {
+          $(this).css("display", "flex");
+        }
+      }
+    });
+  });
 });
 
 
