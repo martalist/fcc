@@ -28,16 +28,17 @@ cite {
   border-bottom: none; }
   @media (min-width: 768px) {
     .page-header {
-      background-color: #f1f1f1;
-      border-bottom: 1px solid #e5e5e5;
-      height: 60px;
-      margin: 0 0 30px; } }
+      background-color: #fff;
+      border-bottom: none;
+      height: 100vh;
+      margin: 0; } }
 
 .logo {
   position: relative;
   display: block;
   margin: 20px auto 10px;
   width: 50vw;
+  max-width: 375px;
   height: auto;
   animation: pop 0.2s 2s 2 ease forwards; }
   .logo path {
@@ -47,15 +48,13 @@ cite {
       transform: rotateY(180deg); }
   @media (min-width: 768px) {
     .logo {
-      float: right;
-      width: 150px;
-      margin: 0; } }
+      margin: 180px auto 30px; } }
 
 .form-group {
   margin-bottom: 25px; }
   @media (min-width: 768px) {
     .form-group {
-      margin: 0; } }
+      margin: 0 0 30px; } }
 
 .form-control {
   font-size: 16px;
@@ -77,9 +76,9 @@ cite {
     margin: 2px 0 0 -4px; }
 
 .feeling-lucky {
-  color: #545454;
-  background-color: #fff;
+  background-color: #f1f1f1;
   border-color: #e5e5e5;
+  color: #545454;
   display: block;
   margin: 0 auto; }
   .feeling-lucky:hover {
@@ -87,8 +86,35 @@ cite {
     color: #fff; }
   @media (min-width: 768px) {
     .feeling-lucky {
-      margin: 0;
-      display: inline-block; } }
+      margin: 0 auto;
+      width: 127px; } }
+
+@media (min-width: 768px) {
+  .has-user-input-header {
+    background-color: #f1f1f1;
+    border-bottom: 1px solid #e5e5e5;
+    height: 60px;
+    margin: 0 0 30px; } }
+
+@media (min-width: 768px) {
+  .has-user-input-logo {
+    float: right;
+    width: 150px;
+    margin: 0; } }
+
+.has-user-input-form {
+  margin-bottom: 25px; }
+  @media (min-width: 768px) {
+    .has-user-input-form {
+      margin: 0; } }
+
+@media (min-width: 768px) {
+  .has-user-input-lucky {
+    background-color: #fff;
+    border-color: #e5e5e5;
+    margin: 0;
+    display: inline-block;
+    width: auto; } }
 
 .container-fluid {
   padding: 0 15px;

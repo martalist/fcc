@@ -9,10 +9,15 @@ $(document).ready( function() {
 
   var url = "https://en.wikipedia.org/w/api.php?action=opensearch&search={0}&callback=?";
 
+  var firstKeyup = true;
+
   $('#search-text').keyup( function () {
+    if ( firstKeyup && !!$(this).val() ) {
+      changeLayout();
+      firstKeyup = false;
+    }
     var query = $(this).val();
     getWikipediaResults(query);
-
   });
 
   $('.btn-search').click( function (e) {
@@ -42,6 +47,13 @@ $(document).ready( function() {
       }
       $('.results').append(result);
     });
+  }
+  function changeLayout() {
+    $('header').addClass("has-user-input-header");
+    $('.logo').addClass("has-user-input-logo").parent().addClass("col-sm-2 col-sm-offset-1");
+    $('.search-header').removeClass("col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3").addClass("col-sm-6");
+    $('.form-group').addClass("has-user-input-form");
+    $('.feeling-lucky').addClass("has-user-input-lucky").parent().addClass("col-sm-3");
   }
 });
 

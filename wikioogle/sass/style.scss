@@ -59,11 +59,12 @@ p {
 .page-header {
   padding: 13px 15px;
   border-bottom: none;
+  // transition: all 0.2s ease;
   @include respond-to(min-width, 768px) {
-    background-color: $color-header;
-    border-bottom: 1px solid $color-border;
-    height: 60px;
-    margin: 0 0 30px;
+    background-color: $color-main;
+    border-bottom: none;
+    height: 100vh;
+    margin: 0;
   };
 }
 
@@ -72,6 +73,7 @@ p {
   display: block;
   margin: 20px auto 10px;
   width: 50vw;
+  max-width: 375px;
   height: auto;
   animation: pop 0.2s 2s 2 ease forwards;
   path {
@@ -82,16 +84,14 @@ p {
     }
   }
   @include respond-to(min-width, 768px) {
-    float: right;
-    width: 150px;
-    margin: 0;
+    margin: 180px auto 30px;
   }
 }
 
 .form-group {
   margin-bottom: 25px;
   @include respond-to(min-width, 768px) {
-    margin: 0;
+    margin: 0 0 30px;
   };
 }
 
@@ -120,9 +120,9 @@ p {
 }
 
 .feeling-lucky {
-  color: $color-font;
-  background-color: $color-main;
+  background-color: $color-header;
   border-color: $color-border;
+  color: $color-font;
   display: block;
   margin: 0 auto;
   &:hover {
@@ -130,11 +130,45 @@ p {
     color: $color-main;
   }
   @include respond-to(min-width, 768px) {
-    margin: 0;
-    display: inline-block;
+    margin: 0 auto;
+    width: 127px;
   };
 }
 
+
+.has-user-input-header {
+  @include respond-to(min-width, 768px) {
+    background-color: $color-header;
+    border-bottom: 1px solid $color-border;
+    height: 60px;
+    margin: 0 0 30px;
+  };
+}
+
+.has-user-input-logo {
+  @include respond-to(min-width, 768px) {
+    float: right;
+    width: 150px;
+    margin: 0;
+  };
+}
+
+.has-user-input-form {
+  margin-bottom: 25px;
+  @include respond-to(min-width, 768px) {
+    margin: 0;
+  };
+}
+
+.has-user-input-lucky {
+  @include respond-to(min-width, 768px) {
+    background-color: $color-main;
+    border-color: $color-border;
+    margin: 0;
+    display: inline-block;
+    width: auto;
+  }
+}
 
 // Search results
 
