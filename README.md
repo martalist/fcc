@@ -14,7 +14,7 @@ This is a set of projects I'm working on as part of [Free Code Camp](http://www.
 - [x] Build a Random Quote Machine | [Requirements](http://www.freecodecamp.com/challenges/build-a-random-quote-machine) | [Demo](http://martalist.github.io/fcc/random-quotes/) | [Source](https://github.com/martalist/fcc/tree/gh-pages/random-quotes)
 - [x] Show the Local Weather | [Requirements](http://www.freecodecamp.com/challenges/show-the-local-weather) | [Demo](http://martalist.github.io/fcc/weather/) | [Source](https://github.com/martalist/fcc/tree/gh-pages/weather)
 - [x] Build a Wikipedia Viewer | [Requirements](http://www.freecodecamp.com/challenges/build-a-wikipedia-viewer) | [Demo](http://martalist.github.io/fcc/wikioogle/) | [Source](https://github.com/martalist/fcc/tree/gh-pages/wikioole)
-- [ ] Use the Twitch.tv JSON API | [Requirements](http://www.freecodecamp.com/challenges/use-the-twitchtv-json-api) | Demo
+- [x] Use the Twitch.tv JSON API | [Requirements](http://www.freecodecamp.com/challenges/use-the-twitchtv-json-api) | [Demo](http://martalist.github.io/fcc/twitch/) | [Source](https://github.com/martalist/fcc/tree/gh-pages/twitch)
 
 ### Advanced Front End Development Projects
 
