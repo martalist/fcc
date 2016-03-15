@@ -9,39 +9,60 @@ $(document).ready( function() {
     ' {7}</p></div><div class="navbar-right">' +
     '<div class="navbar-item"><span class="tag {8}">{9}</span></div>' +
     '</div></nav></div></article>';
-  var url = "https://api.twitch.tv/kraken/channels/{}?callback=?";
+  var url = "https://api.twitch.tv/kraken/streams/{0}?callback=?";
 
-  // fetch data
   accounts.forEach( function(acc) {
-    $.getJSON( url.replace( "{}", acc ), function(json) {
-      var url = json.url;
-      var alt = acc + "'s logo";
-      var name = json.display_name;
-      var views = json.views, followers = json.followers;
-      var bio, tagClass, tagLabel, status;
-      if ( json.status === 422 ) { // check if account exists
+    $.getJSON(url.format(acc), function(j) {
+      var url, views, followers, status, tagClass, tagLabel, bio, logo, result,
+          alt = acc + "'s logo";
+          name = acc;
+      if (j.hasOwnProperty('status') && j.status === 422) {
         bio = '<em>This account no longer exists</em>';
-        tagClass = 'is-danger';
         status = 'offline';
+        tagClass = 'is-danger';
         tagLabel = "Removed";
         url = "#";
-        name = acc;
         views = 0;
         followers = 0;
-      } else if (!!json.status) { // check if the channel is streaming
-        bio = json.status;
-        tagClass = 'is-success';
-        status = 'online';
-        tagLabel = status[0].toUpperCase() + status.slice(1);
-      } else {
-        bio = '<em>Not streaming at this time...</em>';
-        tagClass = 'is-warning';
-        status = 'offline';
-        tagLabel = status[0].toUpperCase() + status.slice(1);
+        logo = "images/twitch.png";
+        result = resultHTML.format(status, logo, acc, url, name, bio, followers, views, tagClass, tagLabel);
+        $('.results').append(result);
       }
-      var logo = (!!json.logo)? json.logo: "images/twitch.png"; // check for a logo, or use default
-      var result = resultHTML.format(status, logo, acc, url, name, bio, followers, views, tagClass, tagLabel);
-      $('.results').append(result);
+      else if (j.stream === null) {
+        $.getJSON(j._links.channel, function(j2) {
+          var bio;
+          var url = j2.url;
+          var alt = acc + "'s logo";
+          var name = j2.display_name;
+          var views = j2.views;
+          var followers = j2.followers;
+          var status = 'offline';
+          var tagClass = 'is-warning';
+          var tagLabel = 'Offline';
+          if (!!j2.status) {
+            bio = j2.status;
+          } else {
+            bio = '<em>Not streaming at this time...</em>';
+          }
+          var logo = (!!j2.logo)? j2.logo: "images/twitch.png"; // check for a logo, or use default
+          var result = resultHTML.format(status, logo, acc, url, name, bio, followers, views, tagClass, tagLabel);
+          $('.results').append(result);
+        });
+      }
+      else {
+        url = j.url;
+        alt = acc + "'s logo";
+        name = j.stream.channel.display_name;
+        views = j.stream.channel.views;
+        followers = j.stream.channel.followers;
+        status = 'online';
+        tagClass = 'is-success';
+        tagLabel = 'Online';
+        bio = 'Streaming: <em>' + j.stream.game + '</em>';
+        logo = (!!j.stream.channel.logo)? j.stream.channel.logo: "images/twitch.png"; // check for a logo, or use default
+        result = resultHTML.format(status, logo, acc, url, name, bio, followers, views, tagClass, tagLabel);
+        $('.results').append(result);
+      }
     });
   });
 
