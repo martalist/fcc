@@ -5,6 +5,7 @@ $(document).ready( function() {
   var operators = /\/|\*|\+|\%|-/;
   var operatorsNoMinus = /\/|\*|\+|\%/;
   var expressionComponents = /\d+(\.\d+)?|\.?\d+|(?:\+|-|\/|\*|\%)/g;
+  var decimalAdded = false;
 
   $('button').click( function(e) {
     var val = e.currentTarget.value;
@@ -19,12 +20,26 @@ $(document).ready( function() {
 
   function evaluateInput(val) {
     if (val in clickActions) { return clickActions[val](); }
-    else if (( /^(-|0)$/.test(expression) || expression === '') && operatorsNoMinus.test(val)) { return; }
+
+    // only allow 1 decimal per number
+    else if (val === '.') {
+      if (decimalAdded === true) { return; }
+      decimalAdded = true;
+      return addToExpression(val);
+    }
+
+    // Ignore operator input if the input expression is empty, '0' or '-'
+    else if (( /^(-|0)?$/.test(expression)) && operatorsNoMinus.test(val)) { return; }
     else {
+
+      // if the input is directly following a result ("=")
       if (displayingResult) {
-        if ( /\d/.test(val) ) { expression = ''; }
-        displayingResult = false;
+        if ( /\d/.test(val) ) { expression = ''; }  // reset to blank expression on numeric input
+        displayingResult = false;                   // reset flag
       }
+      // operator === number break, so allow '.' again
+      if (operators.test(val)) { decimalAdded = false; }
+
       return addToExpression(val);
     }
   }
