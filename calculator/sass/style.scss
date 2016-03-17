@@ -1,0 +1,172 @@
+@font-face {
+  font-family: 'Digital-7';
+  src: url('digital-7/digital-7.ttf') format('truetype');
+  /* Credit goes to the font author, Sizenko Alexander */
+  font-weight: normal;
+}
+
+$font: 24px/1.5 'Source Code Pro', Monospace;
+$font-display: 32px/1.5 'Digital-7', 'Source Code Pro', Monospace;
+$color-base: #464450;
+$color-numbers: #9c9ca4;
+$color-operators: #2d2d2d;
+$color-aux: #7aa29b;
+$color-power: #b26a7f;
+$color-label: #fff;
+$color-display: #d6e1e3;
+$color-display-font: #555;
+
+$btn-width: 48px;
+
+* {
+  box-sizing: border-box;
+}
+
+%full-height {
+  height: 100%;
+  margin: 0;
+}
+
+html {
+  @extend %full-height;
+}
+
+body {
+  @extend %full-height;
+  background-color: hsl(34, 53%, 82%);
+  background-image: repeating-linear-gradient(45deg, transparent 5px, hsla(197, 62%, 11%, 0.5) 5px, hsla(197, 62%, 11%, 0.5) 10px,
+    hsla(5, 53%, 63%, 0) 10px, hsla(5, 53%, 63%, 0) 35px, hsla(5, 53%, 63%, 0.5) 35px, hsla(5, 53%, 63%, 0.5) 40px,
+    hsla(197, 62%, 11%, 0.5) 40px, hsla(197, 62%, 11%, 0.5) 50px, hsla(197, 62%, 11%, 0) 50px, hsla(197, 62%, 11%, 0) 60px,
+    hsla(5, 53%, 63%, 0.5) 60px, hsla(5, 53%, 63%, 0.5) 70px, hsla(35, 91%, 65%, 0.5) 70px, hsla(35, 91%, 65%, 0.5) 80px,
+    hsla(35, 91%, 65%, 0) 80px, hsla(35, 91%, 65%, 0) 90px, hsla(5, 53%, 63%, 0.5) 90px, hsla(5, 53%, 63%, 0.5) 110px,
+    hsla(5, 53%, 63%, 0) 110px, hsla(5, 53%, 63%, 0) 120px, hsla(197, 62%, 11%, 0.5) 120px, hsla(197, 62%, 11%, 0.5) 140px
+    ),
+  repeating-linear-gradient(135deg, transparent 5px, hsla(197, 62%, 11%, 0.5) 5px, hsla(197, 62%, 11%, 0.5) 10px,
+    hsla(5, 53%, 63%, 0) 10px, hsla(5, 53%, 63%, 0) 35px, hsla(5, 53%, 63%, 0.5) 35px, hsla(5, 53%, 63%, 0.5) 40px,
+    hsla(197, 62%, 11%, 0.5) 40px, hsla(197, 62%, 11%, 0.5) 50px, hsla(197, 62%, 11%, 0) 50px, hsla(197, 62%, 11%, 0) 60px,
+    hsla(5, 53%, 63%, 0.5) 60px, hsla(5, 53%, 63%, 0.5) 70px, hsla(35, 91%, 65%, 0.5) 70px, hsla(35, 91%, 65%, 0.5) 80px,
+    hsla(35, 91%, 65%, 0) 80px, hsla(35, 91%, 65%, 0) 90px, hsla(5, 53%, 63%, 0.5) 90px, hsla(5, 53%, 63%, 0.5) 110px,
+    hsla(5, 53%, 63%, 0) 110px, hsla(5, 53%, 63%, 0) 140px, hsla(197, 62%, 11%, 0.5) 140px, hsla(197, 62%, 11%, 0.5) 160px
+  );
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font: $font;
+  color: $color-label;
+  background-color: rgba($color-label, 0.6);
+}
+
+.calculator {
+  width: 300px;
+  height: 456px;
+  padding: 50px 30px 30px;
+  background-image:
+    linear-gradient(
+      178deg,
+      $color-base,
+      lighten($color-base, 9%) 30%,
+      $color-base 50%
+      );
+  border-radius: 15px;
+  border: 1px solid darken($color-base, 15%);
+  box-shadow:
+    inset 0 1px 5px darken($color-base, 10%),
+    inset 0 -3px 8px darken($color-base, 10%),
+    inset 2px 0 5px darken($color-base, 10%),
+    inset -3px 0 5px darken($color-base, 10%),
+    0 7px 30px 3px darken($color-base, 10%);
+}
+
+%inset {
+  box-shadow:
+    inset 0 2px 2px darken($color-base, 10%),
+    inset 2px 0 2px darken($color-base, 10%),
+    0 2px 2px lighten($color-base, 20%),
+    1px 0 2px lighten($color-base, 20%);
+}
+
+.display-surround {
+  @extend %inset;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 40px;
+}
+
+.display {
+  @extend %inset;
+  text-align: right;
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font: $font-display;
+  color: $color-display-font;
+  background-image:
+    linear-gradient(
+      -57deg,
+      $color-display,
+      lighten($color-display, 15%) 70%,
+      $color-display 97%
+      );
+  p {
+    margin: 0;
+  }
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.buttons{
+
+}
+
+.btn-surround {
+  @extend %inset;
+  padding: 2px;
+  border-radius: 3px;
+  width: calc(#{$btn-width} + 4px);
+}
+
+.btn-blank {
+  width: calc(#{$btn-width} + 4px);
+}
+
+@mixin button-shape($color, $percent) {
+  box-shadow:
+    inset 0 1px 5px lighten($color, $percent),
+    inset 0 -1px 5px darken($color, $percent),
+    inset 1px 0 5px lighten($color, $percent),
+    inset -1px 0 5px darken($color, $percent);
+}
+
+button {
+  width: $btn-width;
+  height: 42px;
+  font: $font;
+  color: $color-label;
+  background-color: $color-numbers;
+  border-radius: 3px;
+  border-style: none;
+  @include button-shape($color-numbers, 40%);
+  &.btn-ac {
+    background-color: $color-power;
+    @include button-shape($color-power, 30%);
+  }
+  &.btn-operator {
+    background-color: $color-operators;
+    @include button-shape($color-operators, 15%);
+  }
+}
