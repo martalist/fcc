@@ -1,11 +1,18 @@
 $(document).ready( function() {
   var expression = '0';
   var clickActions = { 'AC': clearAll, 'C': clearLastChar, '=': evaluateExpression };
+  var displayingResult = false;
 
   $('button').click( function(e) {
     var val = e.currentTarget.value;
     if (val in clickActions) { clickActions[val](); }
-    else { addToExpression(val); }
+    else {
+      if (displayingResult) {
+        if ( /\d/.test(val) ) { expression = ''; }
+        displayingResult = false;
+      }
+      addToExpression(val);
+    }
   });
 
   $(document).keypress( function(e) {
@@ -13,7 +20,11 @@ $(document).ready( function() {
     if (val === '\r') {
       evaluateExpression();
     }
-    else if (!!val.match( /(?:\/|\*|\+|\%|-)|\d/ )) {
+    else if ( /(?:\/|\*|\+|\%|-)|\d/.test(val) ) {
+      if (displayingResult) {
+        if ( /\d/.test(val) ) { expression = ''; }
+        displayingResult = false;
+      }
       addToExpression(val);
     }
   });
@@ -42,6 +53,7 @@ $(document).ready( function() {
     expArray = expression.match( /\d+(\.\d+)?|\.?\d+|(?:\+|-|\/|\*|\%)/g );
     expression = '' + solve(expArray);
     $('.display p').text(expression);
+    displayingResult = true;
   }
 
   function solve(arr) {
