@@ -28,8 +28,9 @@ $(document).ready( function() {
 
   function addToExpression(val) {
     if (expression === '0') { expression = val; }
-    else if (!!expression.slice(-1).match( /\/|\*|\+|\%|-/ ) &&
-             !!val.match( /\/|\*|\+|\%|-/ )) {
+    // if expression ends with an operator, and the new input is an opererator
+    else if ( /\/|\*|\+|\%|-/.test(expression.slice(-1)) &&
+             /\/|\*|\+|\%/.test(val) ) {
       expression = expression.slice(0, -1) + val;
     }
     else { expression += val; }
@@ -47,7 +48,15 @@ $(document).ready( function() {
   }
 
   function evaluateExpression() {
+    // split expression into an array of numbers/flotas and operators
     expArray = expression.match( /\d+(\.\d+)?|\.?\d+|(?:\+|-|\/|\*|\%)/g );
+
+    // ensure the last character is not an operator
+    if ( /\/|\*|\+|\%|-/.test(expArray[expArray.length - 1])) {
+      expArray.pop();
+    }
+
+    // solve and display
     expression = '' + solve(expArray);
     $('.display p').text(expression);
     displayingResult = true;
@@ -59,22 +68,39 @@ $(document).ready( function() {
     if (newArr[0] === '-') {
       newArr.splice(0, 2, '-' + newArr[1]);
     }
+    console.log(newArr);
     // perform operations in order of precedence
-    var precedence = ['%', '/', '*', '-', '+'];
+    var precedence = ['-', '%', '/', '*', '+'];
     for (var i = 0; i < precedence.length; i++) {
       var match = newArr.indexOf(precedence[i]);
       while (match > -1) {
+        console.log(newArr);
+        // treat - operator as negative number
         if (precedence[i] === '-') {
-          newArr[match] = '+';
-          newArr[match + 1] = '-' + newArr[match + 1];
+
+          // if the previous array element isn't an operator replace - with +, otherwise remove it
+          // then append - directly to the number
+          if ( (/\/|\*|\+|\%|-/.test(newArr[match - 1])) ) {  // previous element is operator
+            newArr.splice(match, 1);                          // remove - element
+            newArr[match] = '-' + newArr[match];              // append - to following number
+          }
+          else {                                              // previous element is number
+            newArr[match] = '+';                              // change - to +
+            newArr[match + 1] = '-' + newArr[match + 1];      // append - to following number
+          }
         }
         else {
-          var group = calculate(newArr.splice(match - 1, 3));
-          newArr.splice(match - 1, 0, group);
+          // calculate this pair of numbers
+          var answer = calculate(newArr.splice(match - 1, 3));
+
+          // insert the answer in place
+          newArr.splice(match - 1, 0, answer);
         }
+        console.log(newArr);
         match = newArr.indexOf(precedence[i]);
       }
     }
+    console.log(newArr[0]);
     return newArr[0];
   }
 
