@@ -46,6 +46,11 @@ $(document).ready( function() {
 
   function solve(arr) {
     var newArr = arr.slice(0);
+    // handle negative first number
+    if (newArr[0] === '-') {
+      newArr.splice(0, 2, '-' + newArr[1]);
+    }
+    // perform operations in order of precedence
     var precedence = ['%', '/', '*', '-', '+'];
     for (var i = 0; i < precedence.length; i++) {
       var match = newArr.indexOf(precedence[i]);
