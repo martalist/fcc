@@ -6,6 +6,7 @@ $(document).ready( function() {
   $('button').click( function(e) {
     var val = e.currentTarget.value;
     if (val in clickActions) { clickActions[val](); }
+    else if (( /^(-|0)$/.test(expression) || expression === '') && /(?:\/|\*|\+|\%)/.test(val)) {}
     else {
       if (displayingResult) {
         if ( /\d/.test(val) ) { expression = ''; }
@@ -20,6 +21,7 @@ $(document).ready( function() {
     if (val === '\r') {
       evaluateExpression();
     }
+    else if (( /^(-|0)$/.test(expression) || expression === '') && /(?:\/|\*|\+|\%)/.test(val)) {}
     else if ( /(?:\/|\*|\+|\%|-)|\d/.test(val) ) {
       if (displayingResult) {
         if ( /\d/.test(val) ) { expression = ''; }
