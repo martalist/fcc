@@ -2,6 +2,9 @@ $(document).ready( function() {
   var expression = '0';
   var clickActions = { 'AC': clearAll, 'C': clearLastChar, '=': evaluateExpression };
   var displayingResult = false;
+  var operators = /\/|\*|\+|\%|-/;
+  var operatorsNoMinus = /\/|\*|\+|\%/;
+  var expressionComponents = /\d+(\.\d+)?|\.?\d+|(?:\+|-|\/|\*|\%)/g;
 
   $('button').click( function(e) {
     var val = e.currentTarget.value;
@@ -16,7 +19,7 @@ $(document).ready( function() {
 
   function evaluateInput(val) {
     if (val in clickActions) { return clickActions[val](); }
-    else if (( /^(-|0)$/.test(expression) || expression === '') && /(?:\/|\*|\+|\%)/.test(val)) { return; }
+    else if (( /^(-|0)$/.test(expression) || expression === '') && operatorsNoMinus.test(val)) { return; }
     else {
       if (displayingResult) {
         if ( /\d/.test(val) ) { expression = ''; }
@@ -29,8 +32,7 @@ $(document).ready( function() {
   function addToExpression(val) {
     if (expression === '0') { expression = val; }
     // if expression ends with an operator, and the new input is an opererator
-    else if ( /\/|\*|\+|\%|-/.test(expression.slice(-1)) &&
-             /\/|\*|\+|\%/.test(val) ) {
+    else if ( operators.test(expression.slice(-1)) && operatorsNoMinus.test(val) ) {
       expression = expression.slice(0, -1) + val;
     }
     else { expression += val; }
@@ -49,10 +51,10 @@ $(document).ready( function() {
 
   function evaluateExpression() {
     // split expression into an array of numbers/flotas and operators
-    expArray = expression.match( /\d+(\.\d+)?|\.?\d+|(?:\+|-|\/|\*|\%)/g );
+    expArray = expression.match( expressionComponents );
 
     // ensure the last character is not an operator
-    if ( /\/|\*|\+|\%|-/.test(expArray[expArray.length - 1])) {
+    if ( operators.test(expArray[expArray.length - 1])) {
       expArray.pop();
     }
 
@@ -80,7 +82,7 @@ $(document).ready( function() {
 
           // if the previous array element isn't an operator replace - with +, otherwise remove it
           // then append - directly to the number
-          if ( (/\/|\*|\+|\%|-/.test(newArr[match - 1])) ) {  // previous element is operator
+          if ( (operators.test(newArr[match - 1])) ) {  // previous element is operator
             newArr.splice(match, 1);                          // remove - element
             newArr[match] = '-' + newArr[match];              // append - to following number
           }
