@@ -3,9 +3,20 @@ $(document).ready( function() {
   var clickActions = { 'AC': clearAll, 'C': clearLastChar, '=': evaluateExpression };
 
   $('button').click( function(e) {
+    // TODO: animate buttons
     var val = e.currentTarget.value;
     if (val in clickActions) { clickActions[val](); }
     else { addToExpression(val); }
+  });
+
+  $(document).keypress( function(e) {
+    var val = String.fromCharCode(e.charCode);
+    if (val === '\r') {
+      evaluateExpression();
+    }
+    else if (!!val.match( /(?:\/|\*|\+|\%|-)|\d/ )) {
+      addToExpression(val);
+    }
   });
 
   function addToExpression(val) {
