@@ -39,7 +39,7 @@ $(document).ready( function() {
   }
 
   function evaluateExpression() {
-    expArray = expression.match( /\d+(\.d+)?|(?:\+|-|\/|\*|\%)/g );
+    expArray = expression.match( /\d+(\.\d+)?|\.?\d+|(?:\+|-|\/|\*|\%)/g );
     expression = '' + solve(expArray);
     $('.display p').text(expression);
   }
