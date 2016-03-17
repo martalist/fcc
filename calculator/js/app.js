@@ -5,31 +5,26 @@ $(document).ready( function() {
 
   $('button').click( function(e) {
     var val = e.currentTarget.value;
-    if (val in clickActions) { clickActions[val](); }
-    else if (( /^(-|0)$/.test(expression) || expression === '') && /(?:\/|\*|\+|\%)/.test(val)) {}
+    evaluateInput(val);
+  });
+
+  $(document).keypress( function(e) {
+    var val = String.fromCharCode(e.charCode);
+    if (val === '\r') { val = '='; }
+    evaluateInput(val);
+  });
+
+  function evaluateInput(val) {
+    if (val in clickActions) { return clickActions[val](); }
+    else if (( /^(-|0)$/.test(expression) || expression === '') && /(?:\/|\*|\+|\%)/.test(val)) { return; }
     else {
       if (displayingResult) {
         if ( /\d/.test(val) ) { expression = ''; }
         displayingResult = false;
       }
-      addToExpression(val);
+      return addToExpression(val);
     }
-  });
-
-  $(document).keypress( function(e) {
-    var val = String.fromCharCode(e.charCode);
-    if (val === '\r') {
-      evaluateExpression();
-    }
-    else if (( /^(-|0)$/.test(expression) || expression === '') && /(?:\/|\*|\+|\%)/.test(val)) {}
-    else if ( /(?:\/|\*|\+|\%|-)|\d/.test(val) ) {
-      if (displayingResult) {
-        if ( /\d/.test(val) ) { expression = ''; }
-        displayingResult = false;
-      }
-      addToExpression(val);
-    }
-  });
+  }
 
   function addToExpression(val) {
     if (expression === '0') { expression = val; }
