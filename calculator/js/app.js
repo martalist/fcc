@@ -3,7 +3,6 @@ $(document).ready( function() {
   var clickActions = { 'AC': clearAll, 'C': clearLastChar, '=': evaluateExpression };
 
   $('button').click( function(e) {
-    // TODO: animate buttons
     var val = e.currentTarget.value;
     if (val in clickActions) { clickActions[val](); }
     else { addToExpression(val); }

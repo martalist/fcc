@@ -83,8 +83,14 @@ button {
   button.btn-ac {
     background-color: #b26a7f;
     box-shadow: inset 0 1px 5px #e6cfd6, inset 0 -1px 5px #562d39, inset 1px 0 5px #e6cfd6, inset -1px 0 5px #562d39; }
+    button.btn-ac:active {
+      box-shadow: inset 0 1px 5px #9a4f65, inset 0 -1px 5px #c38c9c, inset 1px 0 5px #9a4f65, inset -1px 0 5px #c38c9c; }
   button.btn-operator {
     background-color: #2d2d2d;
     box-shadow: inset 0 1px 5px #535353, inset 0 -1px 5px #070707, inset 1px 0 5px #535353, inset -1px 0 5px #070707; }
+    button.btn-operator:active {
+      box-shadow: inset 0 1px 5px #202020, inset 0 -1px 5px #3a3a3a, inset 1px 0 5px #202020, inset -1px 0 5px #3a3a3a; }
+  button:active {
+    box-shadow: inset 0 1px 5px #686872, inset 0 -1px 5px #d1d1d5, inset 1px 0 5px #686872, inset -1px 0 5px #d1d1d5; }
 
 /*# sourceMappingURL=style.css.map */
