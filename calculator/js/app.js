@@ -26,8 +26,9 @@ $(document).ready( function() {
 
     // Ignore operator input if the input expression is empty, '0' or '-'
     else if (( /^(-|0)?$/.test(expression)) && operatorsNoMinus.test(val)) { return; }
+    // Ignore > 2 '-' operators 
+    else if ( expression.slice(-2) === '--' && val === '-' ) { return; }
     else {
-
       // if the input is directly following a result ("=")
       if (displayingResult) {
         if ( /\d/.test(val) ) { expression = ''; }  // reset to blank expression on numeric input
