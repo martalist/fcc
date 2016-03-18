@@ -26,7 +26,7 @@ $(document).ready( function() {
 
     // Ignore operator input if the input expression is empty, '0' or '-'
     else if (( /^(-|0)?$/.test(expression)) && operatorsNoMinus.test(val)) { return; }
-    // Ignore > 2 '-' operators 
+    // Ignore > 2 '-' operators
     else if ( expression.slice(-2) === '--' && val === '-' ) { return; }
     else {
       // if the input is directly following a result ("=")
@@ -40,7 +40,10 @@ $(document).ready( function() {
   }
 
   function addToExpression(val) {
-    if (expression === '0') { expression = val; }
+    if (expression === '0') {
+      expression = val;
+      decimalAdded = (val === '.' ? true : false);
+    }
     // if expression ends with an operator, and the new input is an opererator
     else if ( operators.test(expression.slice(-1)) && operatorsNoMinus.test(val) ) {
       expression = expression.slice(0, -1) + val;
