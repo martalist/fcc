@@ -82,8 +82,6 @@ $(document).ready( function() {
 
     // solve and display
     expression = '' + solve(expArray);
-    // TODO: Make sure result fits within the display
-    // TODO: Scientific notation for really tiny/large numbers (?? this might be more trouble than it's worth)
 
     // handle zero division
     if ( /(infinity)|(nan)/i.test(expression) ) { expression = '0'; }
