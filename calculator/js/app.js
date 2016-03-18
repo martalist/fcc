@@ -31,10 +31,11 @@ $(document).ready( function() {
     else {
       // if the input is directly following a result ("=")
       if (displayingResult) {
-        if ( /\d/.test(val) ) { expression = ''; }  // reset to blank expression on numeric input
-        displayingResult = false;                   // reset flag
+        if ( /\d/.test(val) ) {
+          expression = '';        // reset to blank expression on numeric input
+          decimalAdded = false;   // reset decimal
+         }
       }
-
       return addToExpression(val);
     }
   }
@@ -58,6 +59,7 @@ $(document).ready( function() {
       decimalAdded = (!decimalAdded || operators.test(val) ? false: true);
       expression += val;
     }
+    displayingResult = false;
     adjustFontSize(expression);
     $('.display p').text(expression);
   }
@@ -90,7 +92,10 @@ $(document).ready( function() {
     // handle zero division
     if ( /(infinity)|(nan)/i.test(expression) ) { expression = '0'; }
     // handle float rounding
-    else if (isFloat(+expression)) { expression = '' + stripFloat(+expression); }
+    else if (isFloat(+expression)) {
+      expression = '' + stripFloat(+expression);
+      decimalAdded = true;
+    }
 
     adjustFontSize(expression);
     $('.display p').text(expression);
