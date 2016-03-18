@@ -1,12 +1,13 @@
 $(document).ready( function() {
-  var MAX_LENGTH = 13;
+  var MAX_LENGTH = 13, DISPLAY_MAX = 35;
   var expression = '0';
   var clickActions = { 'AC': clearAll, 'C': clearLastChar, '=': evaluateExpression };
   var displayingResult = false;
+  var decimalAdded = false;
+  var defaultFontSize = $('.display').css('font-size').slice(0, -2);
   var operators = /\/|\*|\+|\%|-/;
   var operatorsNoMinus = /\/|\*|\+|\%/;
   var expressionComponents = /\d+(\.\d+)?|\.?\d+|(?:\+|-|\/|\*|\%)/g;
-  var decimalAdded = false;
 
   $('button').click( function(e) {
     var val = e.currentTarget.value;
@@ -20,7 +21,8 @@ $(document).ready( function() {
   });
 
   function evaluateInput(val) {
-    if (val in clickActions) { return clickActions[val](); }
+    if ((val !== 'C'&& val !== 'AC') && expression.length >= DISPLAY_MAX) { return; }    // disallow formula's that are too long
+    else if (val in clickActions) { return clickActions[val](); }
 
     // Ignore operator input if the input expression is empty, '0' or '-'
     else if (( /^(-|0)?$/.test(expression)) && operatorsNoMinus.test(val)) { return; }
@@ -52,6 +54,7 @@ $(document).ready( function() {
       decimalAdded = (!decimalAdded || operators.test(val) ? false: true);
       expression += val;
     }
+    adjustFontSize(expression);
     $('.display p').text(expression);
   }
 
@@ -59,12 +62,14 @@ $(document).ready( function() {
     var lastChar = expression.slice(-1);
     if (lastChar === '.') { decimalAdded = false; }   // allow decimals again
     expression = expression.length === 1? '0' : expression.slice(0, -1);
+    adjustFontSize(expression);
     $('.display p').text(expression);
   }
 
   function clearAll() {
     expression = '0';
     decimalAdded = false;   // allow decimals again
+    adjustFontSize(expression);
     $('.display p').text(expression);
   }
 
@@ -79,12 +84,13 @@ $(document).ready( function() {
     expression = '' + solve(expArray);
     // TODO: Make sure result fits within the display
     // TODO: Scientific notation for really tiny/large numbers (?? this might be more trouble than it's worth)
-    
+
     // handle zero division
     if ( /(infinity)|(nan)/i.test(expression) ) { expression = '0'; }
     // handle float rounding
-    else if (isFloat(expression)) { expression = '' + stripFloat(+expression); }
+    else if (isFloat(+expression)) { expression = '' + stripFloat(+expression); }
 
+    adjustFontSize(expression);
     $('.display p').text(expression);
     displayingResult = true;
   }
@@ -150,10 +156,24 @@ $(document).ready( function() {
   }
 
   function isFloat(num) {
-    return +num % 1 !== 0;
+    return num % 1 !== 0;
   }
 
   function stripFloat(num) {
     return (parseFloat(num.toPrecision(MAX_LENGTH - 2)));
+  }
+
+  function adjustFontSize(exp) {
+    if (exp.length > MAX_LENGTH) {
+      var sizeMap = { 14: 29, 15: 28, 16: 26, 17: 24, 18: 22, 19: 22, 20: 20, 21: 20,
+                      22: 18, 23: 18, 24: 16, 25: 16, 26: 16, 27: 14, 28: 14, 29: 14,
+                      30: 13, 31: 13, 32: 13 };
+      var size = (exp.length in sizeMap ? sizeMap[exp.length] : 12);
+      $('.display').css('font-size', size + 'px');
+    }
+    else {
+      // reset font size
+      $('.display').removeAttr('style');
+    }
   }
 });

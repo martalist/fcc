@@ -48,7 +48,7 @@ body {
   height: 42px;
   padding: 0 14px;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: flex-end;
   font: 32px/1.5 "Digital-7", "Source Code Pro", Monospace;
   color: #555;
