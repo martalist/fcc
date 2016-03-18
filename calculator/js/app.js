@@ -101,7 +101,10 @@ $(document).ready( function() {
 
           // if the previous array element isn't an operator replace - with +, otherwise remove it
           // then append - directly to the number
-          if ( (operatorsNoMinus.test(newArr[match - 1])) ) {  // previous element is operator
+          if (newArr[match + 1] === '-') {                    // two - operators in a row
+            newArr.splice(match, 2, '+');                     // replace them with a +
+          }
+          else if ( (operatorsNoMinus.test(newArr[match - 1])) ) {  // previous element is operator
             newArr.splice(match, 1);                          // remove - element
             newArr[match] = '-' + newArr[match];              // append - to following number
           }
