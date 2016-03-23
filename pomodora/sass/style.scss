@@ -4,8 +4,20 @@
 
 // https://cssanimation.rocks/clocks/
 
-$h1: normal normal 1.8em/1.5 'Monoton', cursive;
-$p: normal normal 1em/1.5 'Open Sans Condensed', sans-serif;
+$h1: normal normal 11vw/1.5 'Monofett', cursive;
+$p: normal normal 1.3em/1.5 'Open Sans Condensed', sans-serif;
+
+$color-base: lighten(#fcdca3, 10%);
+$color-down-1: #F26E5B;
+$color-down-2: #72342B;
+$color-up-1: #97FFC5;
+$color-up-2: #57af7e;
+
+@mixin respond-to($query, $value) {
+  @media ($query: $value) {
+    @content;
+  }
+}
 
 * {
   box-sizing: border-box;
@@ -18,11 +30,7 @@ html {
 
 body {
   @extend html;
-}
-
-.btn {
-  min-width: 38px;
-  min-height: 48px;
+  background-color: $color-base;
 }
 
 main {
@@ -36,14 +44,93 @@ main {
 
 header {
   width: 100%;
+  margin: 40px 0;
+  color: $color-down-2;
   h1 {
     font: $h1;
     text-align: center;
+    margin: 0;
+    text-shadow: 1px 1px 5px $color-up-1;
+                  // 5px -5px 1px $color-down-1,
+                  // -5px 5px 1px $color-down-1,
+                  // -5px -5px 1px $color-down-1;
+    @include respond-to(min-width, 768px) {
+      font-size: 8vw;
+    };
+    @include respond-to(min-width, 1024px) {
+      font-size: 6vw;
+    };
   }
 }
 
 .timer {
-  width: 100%;
+  width: 80%;
+  padding: 0 10px;
+  svg {
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+    @include respond-to(min-width, 500px) {
+      width: 80%;
+      margin: 0 auto;
+    };
+    @include respond-to(min-width, 768px) {
+      width: 100%;
+      margin: 0 auto;
+    };
+  }
+  @include respond-to(min-width, 768px) {
+    width: 40%;
+    order: 2;
+    margin-bottom: 70px;
+  };
+  @include respond-to(min-width, 1024px) {
+    width: 30%;
+  };
+}
+
+#dial {
+  fill: desaturate(darken($color-base, 8%), 30%);
+}
+
+#min-circle {
+  fill: $color-up-2;
+}
+
+#second-hand {
+  fill: $color-down-1;
+}
+
+circle {
+  fill: desaturate(darken($color-base, 8%), 30%);
+}
+
+text {
+  color: $color-base;
+}
+
+.btn {
+  color: $color-down-2;
+  font-size: 0.9em;
+  background-color: $color-down-1;
+  border: 1px solid $color-down-2;
+  border-radius: 8px;
+  min-width: 38px;
+  min-height: 48px;
+  padding: 0;
+  transition: all 0.2s ease;
+  &:hover {
+    background-color: $color-up-2;
+    border: 1px solid $color-up-1;
+    color: $color-up-1;
+  }
+  &:disabled {
+    @extend %disabled;
+    border: 1px solid desaturate(lighten($color-down-2, 30%), 20%);
+  }
+  i {
+    margin-right: 5px;
+  }
 }
 
 .duration {
@@ -53,23 +140,71 @@ header {
   justify-content: center;
   align-items: center;
   margin: 20px 0;
+  color: $color-down-2;
   p {
     font: $p;
     text-align: center;
     text-transform: uppercase;
+    margin: 2px 0;
     width: 100%;
   }
   span {
     font: $p;
-    font-size: 1.7em;
-    margin: 0 2px;
+    font-size: 1.5em;
+    text-align: center;
+    margin: 0 5px;
+    min-width: 44px;
   }
+  @include respond-to(min-width, 768px) {
+    width: 20%;
+  };
+  @include respond-to(min-width, 1024px) {
+    width: 14%;
+  };
+  &.rest {
+    @include respond-to(min-width, 768px) {
+      order: 1;
+    };
+  }
+  &.session {
+    @include respond-to(min-width, 768px) {
+      order: 3;
+    };
+  }
+  .btn {
+    color: $color-down-2;
+    background-color: $color-base;
+    border: none;
+    font: $p;
+    font-size: 1.7em;
+    &:hover {
+      background-color: $color-down-1;
+      border: 1px solid $color-down-2;
+      border-radius: 8px;
+    }
+    &:disabled {
+      @extend %disabled;
+      border: none;
+    }
+  }
+}
+
+%disabled {
+  background-color: $color-base;
+  color: desaturate(lighten($color-down-2, 30%), 20%);
+  cursor: not-allowed;
 }
 
 .controls {
   width: 100%;
   display: flex;
+  justify-content: center;
+  @include respond-to(min-width, 768px) {
+    width: 80%;
+    order: 4;
+  };
 }
+
 .control-btn {
   display: block;
   width: 33.33%;
@@ -78,16 +213,14 @@ header {
     width: 100%;
     height: 48px;
   }
+  @include respond-to(min-width, 768px) {
+    width: 25%;
+  };
+  @include respond-to(min-width, 1024px) {
+    width: 20%;
+  };
 }
 
-
-.timer {
-  width: 100%;
-  padding: 0 10px;
-  svg {
-    width: 100%;
-  }
-}
 
 // Clock animation
 #second-hand {

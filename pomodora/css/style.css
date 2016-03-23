@@ -5,9 +5,8 @@ html, body {
   height: 100%;
   margin: 0; }
 
-.btn {
-  min-width: 38px;
-  min-height: 48px; }
+body {
+  background-color: #feefd4; }
 
 main {
   width: 100%;
@@ -18,13 +17,78 @@ main {
   padding: 15px; }
 
 header {
-  width: 100%; }
+  width: 100%;
+  margin: 40px 0;
+  color: #72342B; }
   header h1 {
-    font: normal normal 1.8em/1.5 "Monoton", cursive;
-    text-align: center; }
+    font: normal normal 11vw/1.5 "Monofett", cursive;
+    text-align: center;
+    margin: 0;
+    text-shadow: 1px 1px 5px #97FFC5; }
+    @media (min-width: 768px) {
+      header h1 {
+        font-size: 8vw; } }
+    @media (min-width: 1024px) {
+      header h1 {
+        font-size: 6vw; } }
 
 .timer {
-  width: 100%; }
+  width: 80%;
+  padding: 0 10px; }
+  .timer svg {
+    width: 100%;
+    margin: 0 auto;
+    display: block; }
+    @media (min-width: 500px) {
+      .timer svg {
+        width: 80%;
+        margin: 0 auto; } }
+    @media (min-width: 768px) {
+      .timer svg {
+        width: 100%;
+        margin: 0 auto; } }
+  @media (min-width: 768px) {
+    .timer {
+      width: 40%;
+      order: 2;
+      margin-bottom: 70px; } }
+  @media (min-width: 1024px) {
+    .timer {
+      width: 30%; } }
+
+#dial {
+  fill: #f0dcba; }
+
+#min-circle {
+  fill: #57af7e; }
+
+#second-hand {
+  fill: #F26E5B; }
+
+circle {
+  fill: #f0dcba; }
+
+text {
+  color: #feefd4; }
+
+.btn {
+  color: #72342B;
+  font-size: 0.9em;
+  background-color: #F26E5B;
+  border: 1px solid #72342B;
+  border-radius: 8px;
+  min-width: 38px;
+  min-height: 48px;
+  padding: 0;
+  transition: all 0.2s ease; }
+  .btn:hover {
+    background-color: #57af7e;
+    border: 1px solid #97FFC5;
+    color: #97FFC5; }
+  .btn:disabled {
+    border: 1px solid #b48882; }
+  .btn i {
+    margin-right: 5px; }
 
 .duration {
   width: 50%;
@@ -32,20 +96,58 @@ header {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin: 20px 0; }
+  margin: 20px 0;
+  color: #72342B; }
   .duration p {
-    font: normal normal 1em/1.5 "Open Sans Condensed", sans-serif;
+    font: normal normal 1.3em/1.5 "Open Sans Condensed", sans-serif;
     text-align: center;
     text-transform: uppercase;
+    margin: 2px 0;
     width: 100%; }
   .duration span {
-    font: normal normal 1em/1.5 "Open Sans Condensed", sans-serif;
-    font-size: 1.7em;
-    margin: 0 2px; }
+    font: normal normal 1.3em/1.5 "Open Sans Condensed", sans-serif;
+    font-size: 1.5em;
+    text-align: center;
+    margin: 0 5px;
+    min-width: 44px; }
+  @media (min-width: 768px) {
+    .duration {
+      width: 20%; } }
+  @media (min-width: 1024px) {
+    .duration {
+      width: 14%; } }
+  @media (min-width: 768px) {
+    .duration.rest {
+      order: 1; } }
+  @media (min-width: 768px) {
+    .duration.session {
+      order: 3; } }
+  .duration .btn {
+    color: #72342B;
+    background-color: #feefd4;
+    border: none;
+    font: normal normal 1.3em/1.5 "Open Sans Condensed", sans-serif;
+    font-size: 1.7em; }
+    .duration .btn:hover {
+      background-color: #F26E5B;
+      border: 1px solid #72342B;
+      border-radius: 8px; }
+    .duration .btn:disabled {
+      border: none; }
+
+.btn:disabled, .duration .btn:disabled {
+  background-color: #feefd4;
+  color: #b48882;
+  cursor: not-allowed; }
 
 .controls {
   width: 100%;
-  display: flex; }
+  display: flex;
+  justify-content: center; }
+  @media (min-width: 768px) {
+    .controls {
+      width: 80%;
+      order: 4; } }
 
 .control-btn {
   display: block;
@@ -54,12 +156,12 @@ header {
   .control-btn .btn {
     width: 100%;
     height: 48px; }
-
-.timer {
-  width: 100%;
-  padding: 0 10px; }
-  .timer svg {
-    width: 100%; }
+  @media (min-width: 768px) {
+    .control-btn {
+      width: 25%; } }
+  @media (min-width: 1024px) {
+    .control-btn {
+      width: 20%; } }
 
 #second-hand {
   transform-origin: bottom center;
