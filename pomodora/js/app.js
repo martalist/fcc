@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // pause clocks
   document.getElementById('pause').addEventListener('click', function() {
-    // TODO: handle pause<>start properly in all situations.
     clearInterval(app.timer);
     app.toggleDisable();
     app.paused = true;
@@ -49,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
     app.session.elem.innerText = (app.session.total / 60) + ':00';
     app.rest.elem.innerText = (app.rest.total / 60) + ':00';
     app.stopSecondHand();
+    app.paused = false;
   });
 
   // start clock
