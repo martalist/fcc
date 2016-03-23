@@ -4,6 +4,13 @@ app.session = {};
 app.rest = {};
 
 document.addEventListener("DOMContentLoaded", function() {
+  // fetch duration elements
+  app.session.elem = document.getElementById('session-duration');
+  app.rest.elem = document.getElementById('rest-duration');
+
+  // set clock totals
+  app.session.total = +app.session.elem.innerText.slice(0, -3) * 60;
+  app.rest.total = +app.rest.elem.innerText.slice(0, -3) * 60;
 
   // incrementing time buttons
   document.getElementById('session-minus').addEventListener('click', function() {
@@ -33,22 +40,17 @@ document.addEventListener("DOMContentLoaded", function() {
     app.toggleDisable();
   });
 
-
   // start clock
   document.getElementById('start').addEventListener('click', function() {
     // disable all buttons, except stop
     app.toggleDisable();
-
-    // fetch duration elements
-    var session = document.getElementById('session-duration');
-    var rest = document.getElementById('rest-duration');
 
     // set counters
     app.session.counter = app.session.total;
     app.rest.counter = app.rest.total;
 
     // start the clock
-    app.timer = setInterval(app.countDown, 1000, 'session', {'session': session, 'rest': rest });
+    app.timer = setInterval(app.countDown, 1000, 'session', {'session': app.session.elem, 'rest': app.rest.elem });
 
   });
 });
