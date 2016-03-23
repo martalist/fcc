@@ -1,4 +1,7 @@
 var app = {};
+app.timer = null;
+app.session = {};
+app.rest = {};
 
 document.addEventListener("DOMContentLoaded", function() {
 
@@ -23,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function() {
     app.updateTime(element, '+');
   });
 
-
   // stop clocks
   document.getElementById('stop').addEventListener('click', function() {
     clearInterval(app.timer);
@@ -33,27 +35,24 @@ document.addEventListener("DOMContentLoaded", function() {
 
   // start clock
   document.getElementById('start').addEventListener('click', function() {
+    // disable all buttons, except stop
     app.toggleDisable();
-    var elem = document.getElementById('session-duration');
-    // calculate # of seconds
-    var sessSeconds = (+elem.innerText.slice(0, -3) * 60) + (+elem.innerText.slice(-2));
-    var restSeconds = document.getElementById('break-duration').innerText.slice(0, -3) * 60;
-    // while remaining sec > 0
-    app.timer = setInterval( function() {
-      sessSeconds--;
-      var minRemaining = Math.floor(sessSeconds / 60);
-      var secRemaining = sessSeconds % 60;
-      secRemaining = (secRemaining / 10 < 1) ? '0' + secRemaining : secRemaining;
-      elem.innerText = minRemaining + ':' + secRemaining;
-      if (sessSeconds === 0) {
-        // TODO: trigger next timer (break or session)
-        clearInterval(timer);
-      }
-    }, 1000);
+
+    // fetch duration elements
+    var session = document.getElementById('session-duration');
+    var rest = document.getElementById('break-duration');
+
+    // calculate # of seconds, and store them in app obj.
+    app.session.total = (+session.innerText.slice(0, -3) * 60) + (+session.innerText.slice(-2));
+    app.session.counter = app.session.total;
+    app.rest.total = (+rest.innerText.slice(0, -3) * 60) + (+rest.innerText.slice(-2));
+    app.rest.counter = app.rest.total;
+
+    // start the clock
+    app.timer = setInterval(app.countDown, 1000, 'session', {'session': session, 'rest': rest });
+
   });
 });
-
-app.timer = null;
 
 app.updateTime = function updateTime(elem, sign) {
   var time = +elem.innerText.slice(0, -3);
@@ -70,4 +69,28 @@ app.toggleDisable = function() {
   buttons.forEach( function(v) {
     v.disabled = (!!v.disabled ? false : true);
   });
+};
+
+app.countDown = function(elem, elems) {
+  app[elem].counter--;
+  minRemaining = Math.floor(app[elem].counter / 60);
+  var sec = app[elem].counter % 60;
+  secRemaining = (sec / 10 < 1) ? '0' + sec : sec;
+
+  // update relevant display time
+  elems[elem].innerText = minRemaining + ':' + secRemaining;
+
+  if (app[elem].counter <= 0) {
+    // clear this timer
+    clearInterval(app.timer);
+    app[elem].counter = app[elem].total;
+
+    // start the next
+    if (elem === 'session') {
+      app.timer = setInterval(app.countDown, 1000, 'rest', elems);
+    }
+    else {
+      app.timer = setInterval(app.countDown, 1000, 'session', elems);
+    }
+  }
 };
