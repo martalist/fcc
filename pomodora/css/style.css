@@ -43,15 +43,17 @@ header {
     font-size: 1.7em;
     margin: 0 2px; }
 
-.start-stop {
+.controls {
   width: 100%;
-  display: flex;
-  justify-content: space-around; }
-  .start-stop .btn {
-    display: block;
-    width: 45%;
-    min-width: 48px;
-    min-height: 48px; }
+  display: flex; }
+
+.control-btn {
+  display: block;
+  width: 33.33%;
+  padding: 10px; }
+  .control-btn .btn {
+    width: 100%;
+    height: 48px; }
 
 .timer {
   width: 100%;

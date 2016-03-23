@@ -66,15 +66,17 @@ header {
   }
 }
 
-.start-stop {
+.controls {
   width: 100%;
   display: flex;
-  justify-content: space-around;
+}
+.control-btn {
+  display: block;
+  width: 33.33%;
+  padding: 10px;
   .btn {
-    display: block;
-    width: 45%;
-    min-width: 48px;
-    min-height: 48px;
+    width: 100%;
+    height: 48px;
   }
 }
 
