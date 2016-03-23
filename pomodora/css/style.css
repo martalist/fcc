@@ -63,9 +63,7 @@ header {
 
 #second-hand {
   transform-origin: bottom center;
-  transform: rotate(0deg);
-  transition: transform 60s infinite steps(60) forwards; }
-  #second-hand:hover {
-    transform: rotate(360deg); }
+  transform: rotate(360deg);
+  transition: transform 0.3s cubic-bezier(0.4, 2.08, 0.55, 0.44); }
 
 /*# sourceMappingURL=style.css.map */

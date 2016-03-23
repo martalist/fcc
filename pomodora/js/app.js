@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
     app.toggleDisable();
     app.session.elem.innerText = (app.session.total / 60) + ':00';
     app.rest.elem.innerText = (app.rest.total / 60) + ':00';
+    app.stopSecondHand();
   });
 
   // start clock
@@ -99,6 +100,7 @@ app.countDown = function(elem, elems) {
 
   // update relevant display time
   elems[elem].innerText = minRemaining + ':' + secRemaining;
+  app.moveSecondHand(sec);
 
   if (app[elem].counter <= 0) {
     // clear this timer
@@ -113,4 +115,19 @@ app.countDown = function(elem, elems) {
       app.timer = setInterval(app.countDown, 1000, 'session', elems);
     }
   }
+};
+
+app.moveSecondHand = function(sec) {
+  var hand = document.getElementById('second-hand');
+  var rotation = 'rotate(' + (sec * 6) + 'deg)';
+  hand.style.transform = rotation;
+};
+
+app.stopSecondHand = function() {
+  var hand = document.getElementById('second-hand');
+  hand.style.transitionTimingFunction = "ease-out";
+  app.moveSecondHand(60);
+  var replaceTransition = setTimeout( function() {
+    hand.style.transitionTimingFunction = "cubic-bezier(.4,2.08,.55,.44)";
+  }, 600);
 };
