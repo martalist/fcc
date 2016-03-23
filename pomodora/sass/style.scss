@@ -63,50 +63,132 @@ header {
   }
 }
 
+$timer-height-sm: calc((100vw - 30px) * 0.8);
+$timer-height-md: calc((100vw - 30px) * 0.4);
+$timer-height-lg: calc((100vw - 30px) * 0.3);
 .timer {
   width: 80%;
-  padding: 0 10px;
-  svg {
-    width: 100%;
-    margin: 0 auto;
-    display: block;
-    @include respond-to(min-width, 500px) {
-      width: 80%;
-      margin: 0 auto;
-    };
-    @include respond-to(min-width, 768px) {
-      width: 100%;
-      margin: 0 auto;
-    };
-  }
+  margin: 0 10px;
+  position: relative;
+  background: $color-base url(../clock_bg.svg) no-repeat center;
+  background-size: 100%;
+  height: $timer-height-sm;
   @include respond-to(min-width, 768px) {
+    height: $timer-height-md;
     width: 40%;
     order: 2;
     margin-bottom: 70px;
   };
   @include respond-to(min-width, 1024px) {
+    height: $timer-height-lg;
     width: 30%;
   };
 }
 
-#dial {
-  fill: desaturate(darken($color-base, 8%), 30%);
+@mixin timer-container($width, $height, $top: 0, $left: 0) {
+  width: $width;
+  height: $height;
+  top: $top;
+  left: $left;
+  position: absolute;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  transform-origin: bottom center;
+  transition: transform 0.3s cubic-bezier(.4,2.08,.55,.44);
 }
 
-#min-circle {
-  fill: $color-up-2;
+.seconds-container {
+  @include timer-container(100%, 50%);
+  transform: rotate(360deg);
+  z-index: 10;
 }
 
-#second-hand {
-  fill: $color-down-1;
+$second-hand-length: 70%;
+.seconds {
+  position: relative;
+  width: 1%;
+  height: $second-hand-length;
+  background-color: $color-down-1;
 }
 
-circle {
-  fill: desaturate(darken($color-base, 8%), 30%);
+
+.minutes-container {
+  @include timer-container(
+    $second-hand-length,
+    $second-hand-length,
+    calc((100% - #{$second-hand-length}) / 2),
+    calc((100% - #{$second-hand-length}) / 2)
+  );
 }
 
-text {
-  color: $color-base;
+// the nested brackets correspend directly to $timer-height
+@mixin semi-circle($radius) {
+  width: 50%;
+  height: 100%;
+  border-radius: 0 $radius $radius 0;
+}
+
+$minute-radius: calc( ((100vw - 30px) * 0.8) * 0.7);
+.minutes {
+  @include semi-circle($minute-radius);
+  background-color: $color-up-1;
+  &:first-child {
+    transform: rotate(180deg);
+  }
+}
+
+.minutes-mask-container {
+  @include timer-container(
+    calc(#{$second-hand-length} + 5%),
+    calc(#{$second-hand-length} + 5%),
+    calc(((100% - #{$second-hand-length}) - 5%)/ 2),
+    calc(((100% - #{$second-hand-length}) - 5%)/ 2)
+  );
+}
+
+.minutes-mask {
+  @include semi-circle(calc( ((100vw - 30px) * 0.8) * 0.75));
+  position: absolute;
+  top: 0;
+  left: 50%;
+  background-color: $color-base;
+  content: "";
+  overflow: hidden;
+  transform-origin: left center;
+  &:first-child {
+    transform: rotate(180deg);
+  }
+  &:hover {
+    transform: rotate(30deg);
+  }
+}
+
+$remaining-time-size: 40%;
+.remaining-time {
+  position: absolute;
+  width: $remaining-time-size;
+  height: $remaining-time-size;
+  border-radius: 50%;
+  top: calc(50% - (#{$remaining-time-size} / 2));
+  left: calc(50% - (#{$remaining-time-size} / 2));
+  background-color: desaturate(darken($color-base, 8%), 30%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+  p {
+    font: $p;
+    color: $color-down-2;
+    line-height: 1;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    &.remaining-minutes {
+      font-size: 2em;
+    }
+  }
 }
 
 .btn {
@@ -219,12 +301,4 @@ text {
   @include respond-to(min-width, 1024px) {
     width: 20%;
   };
-}
-
-
-// Clock animation
-#second-hand {
-  transform-origin: bottom center;
-  transform: rotate(360deg);
-  transition: transform 0.3s cubic-bezier(.4,2.08,.55,.44);
 }
