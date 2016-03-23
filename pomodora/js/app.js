@@ -68,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // start the clock
+    app.countDown(sessionOrRest, {'session': app.session.elem, 'rest': app.rest.elem });
     app.timer = setInterval(app.countDown, 1000, sessionOrRest, {'session': app.session.elem, 'rest': app.rest.elem });
 
   });
