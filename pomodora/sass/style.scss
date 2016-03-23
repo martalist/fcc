@@ -46,6 +46,10 @@ header {
   width: 100%;
   margin: 40px 0;
   color: $color-down-2;
+  @include respond-to(min-width, 768px) {
+    margin: 5px 0 20px;
+  };
+
   h1 {
     font: $h1;
     text-align: center;
@@ -64,8 +68,8 @@ header {
 }
 
 $timer-height-sm: calc((100vw - 30px) * 0.8);
-$timer-height-md: calc((100vw - 30px) * 0.4);
-$timer-height-lg: calc((100vw - 30px) * 0.3);
+$timer-height-md: calc((100vw - 30px) * 0.35);
+$timer-height-lg: calc((100vw - 30px) * 0.25);
 .timer {
   width: 80%;
   margin: 0 10px;
@@ -75,13 +79,13 @@ $timer-height-lg: calc((100vw - 30px) * 0.3);
   height: $timer-height-sm;
   @include respond-to(min-width, 768px) {
     height: $timer-height-md;
-    width: 40%;
+    width: 35%;
     order: 2;
-    margin-bottom: 70px;
+    margin-bottom: 40px;
   };
   @include respond-to(min-width, 1024px) {
     height: $timer-height-lg;
-    width: 30%;
+    width: 25%;
   };
 }
 

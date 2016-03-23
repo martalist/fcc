@@ -20,6 +20,9 @@ header {
   width: 100%;
   margin: 40px 0;
   color: #72342B; }
+  @media (min-width: 768px) {
+    header {
+      margin: 5px 0 20px; } }
   header h1 {
     font: normal normal 11vw/1.5 "Monofett", cursive;
     text-align: center;
@@ -41,14 +44,14 @@ header {
   height: calc((100vw - 30px) * 0.8); }
   @media (min-width: 768px) {
     .timer {
-      height: calc((100vw - 30px) * 0.4);
-      width: 40%;
+      height: calc((100vw - 30px) * 0.35);
+      width: 35%;
       order: 2;
-      margin-bottom: 70px; } }
+      margin-bottom: 40px; } }
   @media (min-width: 1024px) {
     .timer {
-      height: calc((100vw - 30px) * 0.3);
-      width: 30%; } }
+      height: calc((100vw - 30px) * 0.25);
+      width: 25%; } }
 
 .seconds-container {
   width: 100%;
