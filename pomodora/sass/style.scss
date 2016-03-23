@@ -1,0 +1,98 @@
+// CSS pie timer: https://css-tricks.com/css-pie-timer/
+// SVG pie timer: http://codepen.io/agrimsrud/pen/EmCoa
+// Timer done in almost pure CSS: http://codepen.io/redfrost/pen/dPmLVQ/?editors=0100
+
+// https://cssanimation.rocks/clocks/
+
+$h1: normal normal 1.8em/1.5 'Monoton', cursive;
+$p: normal normal 1em/1.5 'Open Sans Condensed', sans-serif;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  @extend html;
+}
+
+.btn {
+  min-width: 38px;
+  min-height: 48px;
+}
+
+main {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+header {
+  width: 100%;
+  h1 {
+    font: $h1;
+    text-align: center;
+  }
+}
+
+.timer {
+  width: 100%;
+}
+
+.duration {
+  width: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  p {
+    font: $p;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100%;
+  }
+  span {
+    font: $p;
+    font-size: 1.7em;
+    margin: 0 2px;
+  }
+}
+
+.start-stop {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  .btn {
+    display: block;
+    width: 45%;
+    min-width: 48px;
+    min-height: 48px;
+  }
+}
+
+
+.timer {
+  width: 100%;
+  padding: 0 10px;
+  svg {
+    width: 100%;
+  }
+}
+
+// Clock animation
+#second-hand {
+  transform-origin: bottom center;
+  transform: rotate(0deg);
+  transition: transform 60s infinite steps(60) forwards;
+  &:hover {
+    transform: rotate(360deg);
+  }
+}
