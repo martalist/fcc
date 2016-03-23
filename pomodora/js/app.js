@@ -16,18 +16,19 @@ document.addEventListener("DOMContentLoaded", function() {
     app.updateTime(element, '+');
   });
 
-  document.getElementById('break-minus').addEventListener('click', function() {
-    var element = document.getElementById('break-duration');
+  document.getElementById('rest-minus').addEventListener('click', function() {
+    var element = document.getElementById('rest-duration');
     app.updateTime(element, '-');
   });
 
-  document.getElementById('break-plus').addEventListener('click', function() {
-    var element = document.getElementById('break-duration');
+  document.getElementById('rest-plus').addEventListener('click', function() {
+    var element = document.getElementById('rest-duration');
     app.updateTime(element, '+');
   });
 
   // stop clocks
   document.getElementById('stop').addEventListener('click', function() {
+    // TODO: handle stop<>start properly in all situations.
     clearInterval(app.timer);
     app.toggleDisable();
   });
@@ -40,12 +41,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // fetch duration elements
     var session = document.getElementById('session-duration');
-    var rest = document.getElementById('break-duration');
+    var rest = document.getElementById('rest-duration');
 
-    // calculate # of seconds, and store them in app obj.
-    app.session.total = (+session.innerText.slice(0, -3) * 60) + (+session.innerText.slice(-2));
+    // set counters
     app.session.counter = app.session.total;
-    app.rest.total = (+rest.innerText.slice(0, -3) * 60) + (+rest.innerText.slice(-2));
     app.rest.counter = app.rest.total;
 
     // start the clock
@@ -62,6 +61,7 @@ app.updateTime = function updateTime(elem, sign) {
   else if (sign === '+' && time < 60) {
     elem.innerText = ++time + ':00';
   }
+  app[elem.id.split('-')[0]].total = time * 60;
 };
 
 app.toggleDisable = function() {
