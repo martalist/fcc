@@ -59,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector('.remaining-minutes').innerText = app.session.total / 60;
     app.stopSecondHand();
     app.moveMinutes(app.session.total / 60);
+    app.moveBreak(app.rest.total / 60);
     app.toggleFade('none');
     app.paused = false;
   });
