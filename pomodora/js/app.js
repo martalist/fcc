@@ -116,7 +116,14 @@ app.countDown = function(elem, elems) {
 
   // update relevant display time
   elems[elem].innerText = minRemaining + ':' + secRemaining;
-  document.querySelector('.remaining-minutes').innerText = minRemaining;
+  if (minRemaining === 0) {
+    document.querySelector('.remaining-minutes').innerText = secRemaining;
+    document.querySelector('.remaining-time p:last-child').innerText = 'sec';
+  }
+  else {
+    document.querySelector('.remaining-minutes').innerText = minRemaining;
+    document.querySelector('.remaining-time p:last-child').innerText = 'min';
+  }
   app.moveSecondHand(sec);
   if (elem === 'session') { app.moveMinutes(minRemaining); }
   else { app.moveBreak(minRemaining); }
@@ -126,8 +133,21 @@ app.countDown = function(elem, elems) {
     clearInterval(app.timer);
     app[elem].counter = app[elem].total;
 
-    // start the next
+    // set up for the next timer
+    if (elem === 'session') {
+      app.rest.elem.innerText = app.rest.total / 60 + ':00';
+      app.moveBreak(app.rest.total / 60);
+      document.querySelector('.remaining-minutes').innerText = app.rest.total / 60;
+    }
+    else {
+      app.session.elem.innerText = app.session.total / 60 + ':00';
+      app.moveMinutes(app.session.total / 60);
+      document.querySelector('.remaining-minutes').innerText = app.session.total / 60;
+    }
+    document.querySelector('.remaining-time p:last-child').innerText = 'min';
     app.toggleFade();
+
+    // start the next
     if (elem === 'session') {
       app.timer = setInterval(app.countDown, 1000, 'rest', elems);
     }
