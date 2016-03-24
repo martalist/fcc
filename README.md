@@ -18,8 +18,8 @@ This is a set of projects I'm working on as part of [Free Code Camp](http://www.
 
 ### Advanced Front End Development Projects
 
-  - [ ] Build a JavaScript Calculator | [Requirements](http://www.freecodecamp.com/challenges/build-a-javascript-calculator) | Demo
-  - [ ] Build a Pomodoro Clock | [Requirements](http://www.freecodecamp.com/challenges/build-a-pomodoro-clock) | Demo
+  - [x] Build a JavaScript Calculator | [Requirements](http://www.freecodecamp.com/challenges/build-a-javascript-calculator) | [Demo](http://martalist.github.io/fcc/calculator/)
+  - [x] Build a Pomodoro Clock | [Requirements](http://www.freecodecamp.com/challenges/build-a-pomodoro-clock) | [Demo](http://martalist.github.io/fcc/pomodoro/)
   - [ ] Build a Tic Tac Toe Game | [Requirements](http://www.freecodecamp.com/challenges/build-a-tic-tac-toe-game) | Demo
   - [ ] Build a Simon Game | [Requirements](http://www.freecodecamp.com/challenges/build-a-simon-game) | Demo
 
