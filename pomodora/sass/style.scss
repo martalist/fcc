@@ -4,7 +4,9 @@
 
 // https://cssanimation.rocks/clocks/
 
-$h1: normal normal 11vw/1.5 'Monofett', cursive;
+@import url(https://fonts.googleapis.com/css?family=Schoolbell);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300);
+$h1: normal normal 11vw/1.5 'Schoolbell', cursive;
 $p: normal normal 1.3em/1.5 'Open Sans Condensed', sans-serif;
 
 $color-base: lighten(#fcdca3, 10%);
@@ -45,7 +47,7 @@ main {
 
 header {
   width: 100%;
-  margin: 40px 0;
+  margin: 15px 0 30px;
   color: $color-down-2;
   @include respond-to(min-width, 768px) {
     margin: 5px 0 20px;
