@@ -100,7 +100,7 @@ $timer-height-lg: calc((100vw - 30px) * 0.25);
 
 .seconds-container {
   @include timer-container(100%, 50%);
-  transform: rotate(360deg);
+  transform: rotate(0deg);
   transform-origin: bottom center;
   transition: transform 0.3s cubic-bezier(.4,2.08,.55,.44);
   z-index: 10;
@@ -274,6 +274,7 @@ $remaining-time-size: 40%;
   min-height: 48px;
   padding: 0;
   transition: all 0.2s ease;
+  cursor: pointer;
   &:hover {
     background-color: $color-up-2;
     border: 1px solid $color-up-1;

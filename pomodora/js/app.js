@@ -6,6 +6,7 @@ app.timer = null;
 app.session = {};
 app.rest = {};
 app.paused = false;
+app.secondsRotation = 0;
 
 document.addEventListener("DOMContentLoaded", function() {
   // fetch duration elements
@@ -124,10 +125,11 @@ app.countDown = function(elem, elems) {
     document.querySelector('.remaining-minutes').innerText = minRemaining;
     document.querySelector('.remaining-time p:last-child').innerText = 'min';
   }
-  app.moveSecondHand(sec);
+  app.moveSecondHand(1);
   if (elem === 'session') { app.moveMinutes(minRemaining); }
   else { app.moveBreak(minRemaining); }
 
+  // when the current counter as reached 0
   if (app[elem].counter <= 0) {
     // clear this timer
     clearInterval(app.timer);
@@ -159,14 +161,15 @@ app.countDown = function(elem, elems) {
 
 app.moveSecondHand = function(sec) {
   var hand = document.getElementById('second-hand');
-  var rotation = 'rotate(' + (sec * 6) + 'deg)';
-  hand.style.transform = rotation;
+  app.secondsRotation -= sec * 6;
+  hand.style.transform = 'rotate(' + app.secondsRotation + 'deg)';
 };
 
 app.stopSecondHand = function() {
   var hand = document.getElementById('second-hand');
   hand.style.transitionTimingFunction = "ease-out";
-  app.moveSecondHand(60);
+  app.secondsRotation -= (app.secondsRotation % 360);
+  hand.style.transform = 'rotate(' + app.secondsRotation + 'deg)';
   var replaceTransition = setTimeout( function() {
     hand.style.transitionTimingFunction = "cubic-bezier(.4,2.08,.55,.44)";
   }, 600);
