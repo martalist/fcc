@@ -17,11 +17,13 @@ document.addEventListener("DOMContentLoaded", function() {
   document.getElementById('session-minus').addEventListener('click', function() {
     var element = document.getElementById('session-duration');
     app.updateTime(element, '-');
+    app.moveMinutes(app.session.total / 60);
   });
 
   document.getElementById('session-plus').addEventListener('click', function() {
     var element = document.getElementById('session-duration');
     app.updateTime(element, '+');
+    app.moveMinutes(app.session.total / 60);
   });
 
   document.getElementById('rest-minus').addEventListener('click', function() {
@@ -47,7 +49,9 @@ document.addEventListener("DOMContentLoaded", function() {
     app.toggleDisable();
     app.session.elem.innerText = (app.session.total / 60) + ':00';
     app.rest.elem.innerText = (app.rest.total / 60) + ':00';
+    document.querySelector('.remaining-minutes').innerText = app.session.total / 60;
     app.stopSecondHand();
+    app.moveMinutes(app.session.total / 60);
     app.paused = false;
   });
 
@@ -82,6 +86,7 @@ app.updateTime = function updateTime(elem, sign) {
   else if (sign === '+' && time < 60) {
     elem.innerText = ++time + ':00';
   }
+  document.querySelector('.remaining-minutes').innerText = time;
   app[elem.id.split('-')[0]].total = time * 60;
   app.paused = false;
 };
@@ -101,7 +106,9 @@ app.countDown = function(elem, elems) {
 
   // update relevant display time
   elems[elem].innerText = minRemaining + ':' + secRemaining;
+  document.querySelector('.remaining-minutes').innerText = minRemaining;
   app.moveSecondHand(sec);
+  app.moveMinutes(minRemaining);
 
   if (app[elem].counter <= 0) {
     // clear this timer
@@ -131,4 +138,24 @@ app.stopSecondHand = function() {
   var replaceTransition = setTimeout( function() {
     hand.style.transitionTimingFunction = "cubic-bezier(.4,2.08,.55,.44)";
   }, 600);
+};
+
+app.moveMinutes = function(minutes) {
+  var thirtyMinMask = document.getElementById('00-30'),
+      sixtyMinMask = document.getElementById('30-60'),
+      thirtyMin = document.querySelector('.minutes:last-child');
+      deg = minutes * 6;
+  console.log(deg);
+  if (deg > 180) {
+    thirtyMinMask.style.transform = 'rotate(180deg)';
+    thirtyMinMask.style.zIndex = 0;
+    sixtyMinMask.style.transform = 'rotate(' + deg + 'deg)';
+    thirtyMin.style.zIndex = 4;
+  }
+  else {
+    sixtyMinMask.style.transform = 'rotate(180deg)';
+    thirtyMinMask.style.transform = 'rotate(' + deg + 'deg)';
+    thirtyMinMask.style.zIndex = 3;
+    thirtyMin.style.zIndex = 1;
+  }
 };

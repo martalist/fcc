@@ -55,9 +55,6 @@ header {
     text-align: center;
     margin: 0;
     text-shadow: 1px 1px 5px $color-up-1;
-                  // 5px -5px 1px $color-down-1,
-                  // -5px 5px 1px $color-down-1,
-                  // -5px -5px 1px $color-down-1;
     @include respond-to(min-width, 768px) {
       font-size: 8vw;
     };
@@ -98,13 +95,13 @@ $timer-height-lg: calc((100vw - 30px) * 0.25);
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  transform-origin: bottom center;
-  transition: transform 0.3s cubic-bezier(.4,2.08,.55,.44);
 }
 
 .seconds-container {
   @include timer-container(100%, 50%);
   transform: rotate(360deg);
+  transform-origin: bottom center;
+  transition: transform 0.3s cubic-bezier(.4,2.08,.55,.44);
   z-index: 10;
 }
 
@@ -136,9 +133,12 @@ $second-hand-length: 70%;
 $minute-radius: calc( ((100vw - 30px) * 0.8) * 0.7);
 .minutes {
   @include semi-circle($minute-radius);
-  background-color: $color-up-1;
+  background-color: $color-up-2;
+  box-shadow: 4px 0 5px 1px $color-up-1;
+  z-index: 2;
   &:first-child {
     transform: rotate(180deg);
+    z-index: 1;
   }
 }
 
@@ -155,16 +155,18 @@ $minute-radius: calc( ((100vw - 30px) * 0.8) * 0.7);
   @include semi-circle(calc( ((100vw - 30px) * 0.8) * 0.75));
   position: absolute;
   top: 0;
-  left: 50%;
+  left: calc(50% - 1px);
   background-color: $color-base;
+  border: 1px solid $color-base;
   content: "";
   overflow: hidden;
   transform-origin: left center;
+  transform: rotate(150deg);
+  transition: transform 0.3s cubic-bezier(.4,2.08,.55,.44);
+  z-index: 3;
   &:first-child {
+    left: calc(50% + 1px);
     transform: rotate(180deg);
-  }
-  &:hover {
-    transform: rotate(30deg);
   }
 }
 
