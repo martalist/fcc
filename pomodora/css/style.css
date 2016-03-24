@@ -277,7 +277,7 @@ header {
     .duration .btn:disabled {
       border: none; }
 
-.btn:disabled, .duration .btn:disabled {
+.btn:disabled, .duration .btn:disabled, .faded {
   background-color: #feefd4;
   color: #b48882;
   cursor: not-allowed; }

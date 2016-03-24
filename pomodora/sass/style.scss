@@ -350,6 +350,10 @@ $remaining-time-size: 40%;
   cursor: not-allowed;
 }
 
+.faded {
+  @extend %disabled;
+}
+
 .controls {
   width: 100%;
   display: flex;

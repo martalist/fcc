@@ -1,3 +1,6 @@
+// 'use strict';
+'esversion: 6';
+
 var app = {};
 app.timer = null;
 app.session = {};
@@ -56,6 +59,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.querySelector('.remaining-minutes').innerText = app.session.total / 60;
     app.stopSecondHand();
     app.moveMinutes(app.session.total / 60);
+    app.toggleFade('none');
     app.paused = false;
   });
 
@@ -73,11 +77,13 @@ document.addEventListener("DOMContentLoaded", function() {
       // set counters
       app.session.counter = app.session.total;
       app.rest.counter = app.rest.total;
+      app.toggleFade(sessionOrRest);    // fade non-active counter
     }
 
     // start the clock
-    app.countDown(sessionOrRest, {'session': app.session.elem, 'rest': app.rest.elem });
-    app.timer = setInterval(app.countDown, 1000, sessionOrRest, {'session': app.session.elem, 'rest': app.rest.elem });
+    var elems = {'session': app.session.elem, 'rest': app.rest.elem };
+    app.countDown(sessionOrRest, elems);
+    app.timer = setInterval(app.countDown, 1000, sessionOrRest, elems);
 
   });
 });
@@ -120,6 +126,7 @@ app.countDown = function(elem, elems) {
     app[elem].counter = app[elem].total;
 
     // start the next
+    app.toggleFade();
     if (elem === 'session') {
       app.timer = setInterval(app.countDown, 1000, 'rest', elems);
     }
@@ -147,7 +154,7 @@ app.stopSecondHand = function() {
 app.moveMinutes = function(minutes) {
   var thirtyMinMask = document.getElementById('00-30'),
       sixtyMinMask = document.getElementById('30-60'),
-      thirtyMin = document.querySelector('.minutes:last-child');
+      thirtyMin = document.querySelector('.minutes:last-child'),
       deg = minutes * 6;
   if (deg > 180) {
     thirtyMinMask.style.transform = 'rotate(180deg)';
@@ -166,7 +173,7 @@ app.moveMinutes = function(minutes) {
 app.moveBreak = function(minutes) {
   var thirtyMinMask = document.getElementById('break-00-30'),
       sixtyMinMask = document.getElementById('break-30-60'),
-      thirtyMin = document.querySelector('.break:last-child');
+      thirtyMin = document.querySelector('.break:last-child'),
       deg = minutes * 6;
   if (deg > 180) {
     thirtyMinMask.style.transform = 'rotate(180deg)';
@@ -179,5 +186,26 @@ app.moveBreak = function(minutes) {
     thirtyMinMask.style.transform = 'rotate(' + deg + 'deg)';
     thirtyMinMask.style.zIndex = 8;
     thirtyMin.style.zIndex = 6;
+  }
+};
+
+app.toggleFade = function(timer = 'session') {
+  var rest = app.rest.elem.parentNode,
+      session = app.session.elem.parentNode;
+  if (timer === 'none') {
+    rest.classList.remove('faded');
+    session.classList.remove('faded');
+  }
+  else if (rest.classList.contains('faded') || session.classList.contains('faded')) {
+    rest.classList.toggle('faded');
+    session.classList.toggle('faded');
+  }
+  else if (timer === 'session') {
+    rest.classList.add('faded');
+    session.classList.remove('faded');
+  }
+  else {
+    rest.classList.add('faded');
+    session.classList.remove('faded');
   }
 };
