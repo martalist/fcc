@@ -8,10 +8,11 @@ $h1: normal normal 11vw/1.5 'Monofett', cursive;
 $p: normal normal 1.3em/1.5 'Open Sans Condensed', sans-serif;
 
 $color-base: lighten(#fcdca3, 10%);
-$color-down-1: #F26E5B;
-$color-down-2: #72342B;
-$color-up-1: #97FFC5;
+$color-down-1: #f26e5b;
+$color-down-2: #72342b;
+$color-up-1: #97ffc5;
 $color-up-2: #57af7e;
+$color-break: lighten(desaturate(#c2d0e3, 15%), 2%);
 
 @mixin respond-to($query, $value) {
   @media ($query: $value) {
@@ -105,7 +106,7 @@ $timer-height-lg: calc((100vw - 30px) * 0.25);
   z-index: 10;
 }
 
-$second-hand-length: 70%;
+$second-hand-length: 75%;
 .seconds {
   position: relative;
   width: 1%;
@@ -113,13 +114,13 @@ $second-hand-length: 70%;
   background-color: $color-down-1;
 }
 
-
+$minutes-diameter: 70%;
 .minutes-container {
   @include timer-container(
-    $second-hand-length,
-    $second-hand-length,
-    calc((100% - #{$second-hand-length}) / 2),
-    calc((100% - #{$second-hand-length}) / 2)
+    $minutes-diameter,
+    $minutes-diameter,
+    calc((100% - #{$minutes-diameter}) / 2),
+    calc((100% - #{$minutes-diameter}) / 2)
   );
 }
 
@@ -130,11 +131,26 @@ $second-hand-length: 70%;
   border-radius: 0 $radius $radius 0;
 }
 
+@mixin mask($z) {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 1px);
+  background-color: $color-base;
+  overflow: hidden;
+  transform-origin: left center;
+  transition: transform 0.3s cubic-bezier(.4,2.08,.55,.44);
+  z-index: $z;
+  &:first-child {
+    left: calc(50% + 1px);
+    transform: rotate(180deg);
+  }
+}
+
 $minute-radius: calc( ((100vw - 30px) * 0.8) * 0.7);
 .minutes {
   @include semi-circle($minute-radius);
   background-color: $color-up-2;
-  box-shadow: 4px 0 5px 1px $color-up-1;
+  // box-shadow: 4px 0 5px 1px $color-up-1;
   z-index: 2;
   &:first-child {
     transform: rotate(180deg);
@@ -144,28 +160,79 @@ $minute-radius: calc( ((100vw - 30px) * 0.8) * 0.7);
 
 .minutes-mask-container {
   @include timer-container(
-    calc(#{$second-hand-length} + 5%),
-    calc(#{$second-hand-length} + 5%),
-    calc(((100% - #{$second-hand-length}) - 5%)/ 2),
-    calc(((100% - #{$second-hand-length}) - 5%)/ 2)
+    calc(#{$minutes-diameter} + 5%),
+    calc(#{$minutes-diameter} + 5%),
+    calc(((100% - #{$minutes-diameter}) - 5%)/ 2),
+    calc(((100% - #{$minutes-diameter}) - 5%)/ 2)
   );
+}
+
+.minutes-full-mask {
+  position: absolute;
+  width: 80%;
+  height: 80%;
+  top: 10%;
+  left: 10%;
+  border-radius: 80%;
+  background-color: $color-base;
+  z-index: 5;
 }
 
 .minutes-mask {
   @include semi-circle(calc( ((100vw - 30px) * 0.8) * 0.75));
-  position: absolute;
-  top: 0;
-  left: calc(50% - 1px);
-  background-color: $color-base;
-  border: 1px solid $color-base;
-  content: "";
-  overflow: hidden;
-  transform-origin: left center;
+  @include mask(3);
   transform: rotate(150deg);
-  transition: transform 0.3s cubic-bezier(.4,2.08,.55,.44);
-  z-index: 3;
   &:first-child {
-    left: calc(50% + 1px);
+    transform: rotate(180deg);
+  }
+}
+
+$break-diameter: 55%;
+.break-container {
+  @include timer-container(
+  $break-diameter,
+  $break-diameter,
+  calc((100% - #{$break-diameter}) / 2),
+  calc((100% - #{$break-diameter}) / 2)
+  );
+}
+
+.break {
+  @include semi-circle($minute-radius);
+  // background-color: lighten(desaturate($color-up-2, 5%), 35%);
+  background-color: $color-break;
+  z-index: 6;
+  &:first-child {
+    transform: rotate(180deg);
+    // z-index: 6;
+  }
+}
+
+.break-mask-container {
+  @include timer-container(
+    calc(#{$break-diameter} + 5%),
+    calc(#{$break-diameter} + 5%),
+    calc(((100% - #{$break-diameter}) - 5%)/ 2),
+    calc(((100% - #{$break-diameter}) - 5%)/ 2)
+  );
+}
+
+.break-full-mask {
+  position: absolute;
+  width: 74%;
+  height: 74%;
+  top: 13%;
+  left: 13%;
+  border-radius: 74%;
+  background-color: $color-base;
+  z-index: 10;
+}
+
+.break-mask {
+  @include semi-circle(calc( ((100vw - 30px) * 0.8) * 0.75));
+  @include mask(8);
+  transform: rotate(30deg);
+  &:first-child {
     transform: rotate(180deg);
   }
 }
