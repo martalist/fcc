@@ -228,7 +228,7 @@ header {
     border: 1px solid #97ffc5;
     color: #97ffc5; }
   .btn:disabled {
-    border: 1px solid #b48882; }
+    border: 1px solid #c7a6a2; }
   .btn i {
     margin-right: 5px; }
 
@@ -279,7 +279,7 @@ header {
 
 .btn:disabled, .duration .btn:disabled, .faded {
   background-color: #feefd4;
-  color: #b48882;
+  color: #c7a6a2;
   cursor: not-allowed; }
 
 .controls {
