@@ -1,35 +1,35 @@
+var BOARD_SIZE = 3;
+var EMPTY = null;
+
+
 // Board constructor function. Creates an empty board, width/height = size
-var Board = function(size) {
-  // inherit from Array
-  Array.call(this);
-  this.length = size;
+var Board = function(size, empty) {
+  this.positions = (function(size, empty) {
+    positions = [];
+    for (var i = 0; i < size; i++) {
+      var row = [];
+      for (var j = 0; j < size; j++) {
+        row.push(empty);
+      }
+      positions[i] = row;
+    }
+    return positions;
+  })(size, empty);
   this.firstMove = true;
   this.computerMovesFirst = true;
   this.humansTurn = false;
   this.gameOver = false;
 };
-Board.prototype = Object.create(Array.prototype);
-Board.prototype.constuctor = Board;
 
-Board.prototype.init = function() {
-  for (var i = 0; i < this.length; i++) {
-    var row = [];
-    for (var j = 0; j < this.length; j++) {
-      row.push(EMPTY);
-    }
-    this[i] = row;
+Board.prototype.clearPositions = function(empty) {
+  function clear(arr) {
+    newArr = arr.map( function(value, i) {
+      var reset = Array.isArray(value) ? clear(arr[i]) : empty;
+      return reset;
+    });
+    return newArr;
   }
-};
-
-Board.prototype.clear = function() {
-  // Recursively makes all values in the board empty
-  for (var i = 0; i < this.length; i++) {
-    if (Array.isArray(this[i])) {
-      Board.prototype.clear.call(this[i]);
-    } else {
-      this[i] = EMPTY;
-    }
-  }
+  this.positions = clear(this.positions);
 };
 
 Board.prototype.computerMove = function() {
@@ -65,20 +65,17 @@ Board.prototype.gameDrawn = function() {
   return checkIfFull(this);
 };
 
+/*
 document.addEventListener("DOMContentLoaded", function() {
 
-  var EMPTY = null;
-  var BOARD_SIZE = 3;
-
   // create the playing the playing board
-  var board = new Board(BOARD_SIZE);
-  board.init();
+  var board = new Board(BOARD_SIZE, EMPTY);
 
   // Player to select X or O
-  var humanSymbol;
-  do {
-    humanSymbol = prompt('Play as X or O?', 'X').toUpperCase();
-  } while (humanSymbol !== 'X' || humanSymbol !== 'O');
+  // var humanSymbol;
+  // do {
+  //   humanSymbol = prompt('Play as X or O?', 'X').toUpperCase();
+  // } while (humanSymbol !== 'X' || humanSymbol !== 'O');
 
   // Start game
   while (true) {
@@ -120,6 +117,7 @@ document.addEventListener("DOMContentLoaded", function() {
     board.computerMovesFirst = !board.computerMovesFirst;
 
     // clear the board
-    board.clear();
+    board.clearPositions(EMPTY);
   }
 });
+*/
