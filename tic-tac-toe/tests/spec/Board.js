@@ -1,10 +1,3 @@
-function checkIfEmpty(arr) {
-  return arr.reduce( function(a, b) {
-    if (Array.isArray(b)) { var newB = checkIfEmpty(b); return (a && newB); }
-    return (a && !b);
-  }, true);
-}
-
 describe("new Board", function() {
   var board;
   beforeEach(function() {
@@ -59,5 +52,32 @@ describe("cleared Board", function() {
 
   it("cells are empty", function () {
     expect(checkIfEmpty(board.positions)).toBe(true);
+  });
+});
+
+describe("game drawn", function() {
+  var board;
+  beforeEach(function() {
+    board = new Board(BOARD_SIZE);
+  });
+
+  it("is false when all cells are empty", function () {
+    expect(board.hasNoEmptyCells()).toBe(false);
+  });
+
+  it("is false when one row is full, all others empty", function () {
+    board.positions[0] = board.positions[0].map(function(v) {
+      return 'X';
+    });
+    expect(board.hasNoEmptyCells()).toBe(false);
+  });
+
+  it("is true when all cells are full", function() {
+    for (var i = 0; i < BOARD_SIZE; i++) {
+      for (var j = 0; j < BOARD_SIZE; j++) {
+        board.positions[i][j] = 'X';
+      }
+    }
+    expect(board.hasNoEmptyCells()).toBe(true);
   });
 });

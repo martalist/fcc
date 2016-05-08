@@ -46,23 +46,22 @@ Board.prototype.humanMove = function() {
 
 Board.prototype.newWinner = function(latestMove) {
   // latestMove is an Array, consisting of the position of the last move, and the player who made it
+  var player = latestMove[0], newMove = latestMove[1];
   // check the board, from the latestMove, to see if there's a winner
   // return true if game is won
 };
 
-Board.prototype.gameDrawn = function() {
+Board.prototype.hasNoEmptyCells = function() {
   // determine whether any slots in the board are empty
   // return false if there are empty slots, true if not
-  function checkIfFull(arr) {
-    return arr.reduce( function(a, b) {
-      if (Array.isArray(b)) {
-        b = checkIfFull(b);
-      }
-      return (a && b);
-    }, true);
+  function isFull(arr) {
+    var result = true;
+    arr.forEach( function(v) {
+      result = (Array.isArray(v)) ? (result && isFull(v)) : (result && !!v);
+    });
+    return result;
   }
-
-  return checkIfFull(this);
+  return isFull(this.positions);
 };
 
 /*
@@ -102,7 +101,7 @@ document.addEventListener("DOMContentLoaded", function() {
       }
 
       // Check for a winner
-      if ( board.newWinner(newMove) || board.gameDrawn() ) {
+      if ( board.newWinner(newMove) || board.hasNoEmptyCells() ) {
         board.gameOver = true;
 
         // TODO: display who the winner is, and give the user the ability to start the next game
