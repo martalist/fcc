@@ -1,0 +1,82 @@
+
+@import url(https://fonts.googleapis.com/css?family=Monoton);
+
+$p: normal normal 7vw/1 'Monoton', cursive;
+
+@mixin respond-to($query, $value) {
+  @media ($query: $value) {
+    @content;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  font: $p;
+  color: #fff;
+}
+
+main {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.board {
+  width: 85vw;
+  height: 85vw;
+  padding: 15px;
+  background-color: #000;
+  @include respond-to(min-width, 768px) {
+    width: 65vw;
+    height: 65vw;
+  };
+  @include respond-to(min-width, 1024px) {
+    width: 50vw;
+    height: 50vw;
+  };
+  @include respond-to(min-width, 1500px) {
+    width: 35vw;
+    height: 35vw;
+  };
+}
+
+.row {
+  width: 100%;
+  height: 33.33%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.col {
+  width: 33.33%;
+  height: 100%;
+  border: 3px solid #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cell-top {
+  border-top: 0px;
+}
+
+.cell-bottom {
+  border-bottom: 0px;
+}
+
+.cell-left {
+  border-left: 0px;
+}
+
+.cell-right {
+  border-right: 0px;
+}
