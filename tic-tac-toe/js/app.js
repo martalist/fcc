@@ -14,10 +14,8 @@ var Board = function(size, empty) {
     }
     return positions;
   })(size, empty);
-  // this.firstMove = true;
   this.computerMovesFirst = false;
   this.humansTurn = false;
-  this.gameOver = true;
   this.solutions = [
     ['00', '01', '02'],
     ['00', '11', '22'],
@@ -34,15 +32,6 @@ Board.prototype.startGame = function() {
   this.clearPositions(EMPTY);
   this.computerMovesFirst = !this.computerMovesFirst;
   this.humansTurn = !this.computerMovesFirst;
-  this.gameOver = false;
-  // this.firstMove = true;
-  //
-  // if (this.firstMove) {
-  // // set who has first move
-  // this.humansTurn = this.computerMovesFirst ? false : true;
-  // this.firstMove = false;
-  // }
-
   if (!this.humansTurn) {
     this.computerMove();
   }
