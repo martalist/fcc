@@ -1,7 +1,6 @@
 var BOARD_SIZE = 3;
 var EMPTY = null;
 
-
 // Board constructor function. Creates an empty board, width/height = size
 var Board = function(size, empty) {
   this.positions = (function(size, empty) {
@@ -15,13 +14,42 @@ var Board = function(size, empty) {
     }
     return positions;
   })(size, empty);
-  this.firstMove = true;
-  this.computerMovesFirst = true;
+  // this.firstMove = true;
+  this.computerMovesFirst = false;
   this.humansTurn = false;
+  this.gameOver = true;
+  this.solutions = [
+    ['00', '01', '02'],
+    ['00', '11', '22'],
+    ['00', '10', '20'],
+    ['01', '11', '21'],
+    ['02', '11', '20'],
+    ['02', '12', '22'],
+    ['10', '11', '12'],
+    ['20', '21', '22']
+  ];
+};
+
+Board.prototype.startGame = function() {
+  this.clearPositions(EMPTY);
+  this.computerMovesFirst = !this.computerMovesFirst;
+  this.humansTurn = !this.computerMovesFirst;
   this.gameOver = false;
+  // this.firstMove = true;
+  //
+  // if (this.firstMove) {
+  // // set who has first move
+  // this.humansTurn = this.computerMovesFirst ? false : true;
+  // this.firstMove = false;
+  // }
+
+  if (!this.humansTurn) {
+    this.computerMove();
+  }
 };
 
 Board.prototype.clearPositions = function(empty) {
+  // clear this.positions
   function clear(arr) {
     newArr = arr.map( function(value, i) {
       var reset = Array.isArray(value) ? clear(arr[i]) : empty;
@@ -30,25 +58,69 @@ Board.prototype.clearPositions = function(empty) {
     return newArr;
   }
   this.positions = clear(this.positions);
+
+  // clear DOM
+  var cells = Array.prototype.slice.call(document.getElementsByClassName('cell'));
+  cells.forEach( function(cell) {
+    cell.innerHTML = '';
+  });
+};
+
+Board.prototype.addNewMarker = function(cell, marker, row, col) {
+  // append to DOM
+  var html = document.createElement("i");
+  html.innerText = marker;
+  cell.appendChild(html);
+
+  // add to 'positions'
+  this.positions[row][col] = marker;
 };
 
 Board.prototype.computerMove = function() {
   // Assess the positions on the board
   // Move to the most optimal position
   // return ['computer', board[row][column]]
+  var computer = this.humanPlayer === 'X' ? 'O' : 'X';
+
+  // random for now
+  var row, col;
+  do {
+    row = Math.floor(Math.random() * 3);
+    col = Math.floor(Math.random() * 3);
+  } while (this.positions[row][col] !== EMPTY);
+
+  var cell = document.getElementById([row, col].join(''));
+
+  var computerIsThinking = setTimeout(function(board) {
+    board.addNewMarker(cell, computer, row, col);
+    board.evaluate('computer');
+  }, 500, this);
+
 };
 
-Board.prototype.humanMove = function() {
-  // get input from human player
-  // add symbol to the board
-  // return ['computer', board[row][column]]
+Board.prototype.humanMove = function(cell) {
+  var row = cell.id[0],
+      col = cell.id[1];
+
+  this.addNewMarker(cell, this.humanPlayer, row, col);
+
+  // check game status
+  this.evaluate('human');
 };
 
-Board.prototype.newWinner = function(latestMove) {
-  // latestMove is an Array, consisting of the position of the last move, and the player who made it
-  var player = latestMove[0], newMove = latestMove[1];
-  // check the board, from the latestMove, to see if there's a winner
-  // return true if game is won
+Board.prototype.checkForWinner = function() {
+  var s = this.solutions;
+  var p = this. positions;
+  for (var i = 0; i < this.solutions.length; i++) {
+    // get rows and columns each cell in the possilbe solution
+    var r0 = s[i][0][0], c0 = s[i][0][1],
+        r1 = s[i][1][0], c1 = s[i][1][1],
+        r2 = s[i][2][0], c2 = s[i][2][1];
+    if ((!!p[r0][c0]) && (p[r0][c0] === p[r1][c1]) && (p[r1][c1] === p[r2][c2])) {
+      return true;
+    }
+  }
+  return false;
 };
 
 Board.prototype.hasNoEmptyCells = function() {
@@ -64,59 +136,62 @@ Board.prototype.hasNoEmptyCells = function() {
   return isFull(this.positions);
 };
 
-/*
+Board.prototype.evaluate = function(lastPlayer) {
+  if ( this.checkForWinner() ) {
+    // TODO: Winner!!
+    this.startGame();
+  }
+  else if (this.hasNoEmptyCells()) {
+    // TODO: drawn!! ... start a new game
+    this.startGame();
+  }
+  else {
+    this.humansTurn = !this.humansTurn;
+    if (!this.humansTurn) {
+      // give computer a go
+      this.computerMove();
+    }
+  }
+};
+
 document.addEventListener("DOMContentLoaded", function() {
 
   // create the playing the playing board
   var board = new Board(BOARD_SIZE, EMPTY);
 
-  // Player to select X or O
-  // var humanSymbol;
-  // do {
-  //   humanSymbol = prompt('Play as X or O?', 'X').toUpperCase();
-  // } while (humanSymbol !== 'X' || humanSymbol !== 'O');
+  // fetch and display the modal window
+  var modal = document.getElementsByClassName("modal-container")[0];
+  var showModal = window.setTimeout(function() {
+    modal.classList.toggle('active');
+  }, 1);
 
-  // Start game
-  while (true) {
-    board.gameOver = false;
-    board.firstMove = true;
+  // Add event listener for X / O buttons
+  var buttons = document.getElementsByTagName('button');
+  Array.prototype.forEach.call(buttons, function (button) {
+    button.addEventListener('click', function (e) {
+      board.humanPlayer = e.target.name;
 
-    // Show who's move it is on screen
+      // hide modal
+      modal.classList.toggle('active');
 
-    while (!board.gameOver) {
+      board.startGame();
+    });
+  });
 
-      if (board.firstMove) {
-        // set who has first move
-        board.humansTurn = board.computerMovesFirst ? false : true;
-        board.firstMove = false;
+  // Add event listener for cells
+  var cells = document.getElementsByClassName('cell');
+  Array.prototype.forEach.call(cells, function (cell) {
+    cell.addEventListener('click', function (e) {
+      var row = cell.id[0],
+          col = cell.id[1];
+
+      if (!!board.positions[row][col]) {  // cell is already populated
+        return;
       }
-
-      // Make a move (computer or human)
-      var newMove;
-      if (board.humansTurn) {
-        newMove = board.humanMove();
+      else if (board.humansTurn) {        // computer's turn
+        board.humanMove(cell);
       }
-      else {
-        newMove = board.computerMove();
-      }
+    });
+  });
 
-      // Check for a winner
-      if ( board.newWinner(newMove) || board.hasNoEmptyCells() ) {
-        board.gameOver = true;
-
-        // TODO: display who the winner is, and give the user the ability to start the next game
-      }
-      else {
-        // toggle who's turn it is
-        board.humansTurn = !board.humansTurn;
-      }
-    }
-
-    // Alternate player who has the first move (before starting the next game)
-    board.computerMovesFirst = !board.computerMovesFirst;
-
-    // clear the board
-    board.clearPositions(EMPTY);
-  }
 });
-*/
