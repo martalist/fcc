@@ -109,6 +109,8 @@ Board.prototype.humanMove = function(cell) {
 };
 
 Board.prototype.checkForWinner = function() {
+  // returns the winning cells, as an array or strings
+  // otherwise returns false
   var s = this.solutions;
   var p = this. positions;
   for (var i = 0; i < this.solutions.length; i++) {
@@ -117,7 +119,7 @@ Board.prototype.checkForWinner = function() {
         r1 = s[i][1][0], c1 = s[i][1][1],
         r2 = s[i][2][0], c2 = s[i][2][1];
     if ((!!p[r0][c0]) && (p[r0][c0] === p[r1][c1]) && (p[r1][c1] === p[r2][c2])) {
-      return true;
+      return s[i];
     }
   }
   return false;
@@ -137,13 +139,37 @@ Board.prototype.hasNoEmptyCells = function() {
 };
 
 Board.prototype.evaluate = function(lastPlayer) {
-  if ( this.checkForWinner() ) {
-    // TODO: Winner!!
-    this.startGame();
+  var winner = this.checkForWinner();
+  if ( !!winner ) {
+    // Highlight winning cells
+    var winningCells = Array.prototype.slice.call(document.getElementsByClassName('cell'))
+        .filter( function(cell) {
+          switch (cell.id) {
+            case winner[0]:
+            case winner[1]:
+            case winner[2]:
+              return true;
+            default:
+              return false;
+          }
+        });
+    var showWinner = function(cells) {
+      cells.forEach( function(cell) {
+        cell.classList.toggle('winner');
+      });
+    };
+    showWinner(winningCells);
+
+    // After a delay, remove highlighting and start the next game
+    var shortDelay = setTimeout(function(cells, board) {
+      showWinner(cells);
+      board.startGame();
+    }, 1500, winningCells, this);
   }
   else if (this.hasNoEmptyCells()) {
-    // TODO: drawn!! ... start a new game
-    this.startGame();
+    var anotherDelay = setTimeout(function(board) {
+      board.startGame();
+    }, 1500, this);
   }
   else {
     this.humansTurn = !this.humansTurn;

@@ -105,7 +105,7 @@ describe('Game won', function() {
     board.positions[0][0] = 'X';
     board.positions[0][1] = 'X';
     board.positions[0][2] = 'X';
-    expect(board.checkForWinner()).toBe(true);
+    expect(board.checkForWinner()).toBeTruthy();
   });
 
   it("with three in a row, of differing kinds === false", function () {
@@ -119,7 +119,7 @@ describe('Game won', function() {
     board.positions[0][1] = 'X';
     board.positions[1][1] = 'X';
     board.positions[2][1] = 'X';
-    expect(board.checkForWinner()).toBe(true);
+    expect(board.checkForWinner()).toBeTruthy();
   });
 
   it("with three of differing kinds in a column === false", function () {
@@ -133,7 +133,7 @@ describe('Game won', function() {
     board.positions[0][0] = 'X';
     board.positions[1][1] = 'X';
     board.positions[2][2] = 'X';
-    expect(board.checkForWinner()).toBe(true);
+    expect(board.checkForWinner()).toBeTruthy();
   });
 
 });
