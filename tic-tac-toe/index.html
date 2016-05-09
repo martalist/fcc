@@ -7,42 +7,54 @@
     <title>Tic Tac Toe</title>
   </head>
   <body>
-    <main>
-      <div class="board">
-        <div class="row">
-          <div class="col cell-left cell-top">
-            <p id="00"></p>
+    <main class="container">
+      <section class="row">
+        <div class="board">
+          <div class="row board-row">
+            <div id="00" class="cell cell-left cell-top">
+            </div>
+            <div id="01" class="cell cell-top">
+            </div>
+            <div id="02" class="cell cell-right cell-top">
+            </div>
           </div>
-          <div class="col cell-top">
-            <p id="01"></p>
+          <div class="row board-row">
+            <div id="10" class="cell cell-left">
+            </div>
+            <div id="11" class="cell">
+            </div>
+            <div id="12" class="cell cell-right">
+            </div>
           </div>
-          <div class="col cell-right cell-top">
-            <p id="02"></p>
+          <div class="row board-row">
+            <div id="20" class="cell cell-left cell-bottom">
+            </div>
+            <div id="21" class="cell cell-bottom">
+            </div>
+            <div id="22" class="cell cell-right cell-bottom">
+            </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col cell-left">
-            <p id="10"></p>
+      </section>
+    </main>
+
+    <!-- Modal window -->
+    <section class="container modal-container">
+      <div class="row">
+        <div class="modal">
+          <header class="row">
+            <h2>Do you X or O?</h2>
+          </header>
+          <div class="modal-body row">
+            <p>Pick your symbol.</p>
           </div>
-          <div class="col">
-            <p id="11"></p>
-          </div>
-          <div class="col cell-right">
-            <p id="12"></p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col cell-left cell-bottom">
-            <p id="20"></p>
-          </div>
-          <div class="col cell-bottom">
-            <p id="21"></p>
-          </div>
-          <div class="col cell-right cell-bottom">
-            <p id="22"></p>
-          </div>
+          <footer class="row">
+            <button type="button" name="X">X</button>
+            <button type="button" name="O">O</button>
+          </footer>
         </div>
       </div>
-    </main>
+    </section>
+
   </body>
 </html>
