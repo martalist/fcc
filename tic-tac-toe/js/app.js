@@ -175,9 +175,11 @@ document.addEventListener("DOMContentLoaded", function() {
   var board = new Board(BOARD_SIZE, EMPTY);
 
   // fetch and display the modal window
-  var modal = document.getElementsByClassName("modal-container")[0];
-  var showModal = window.setTimeout(function() {
-    modal.classList.toggle('active');
+  var modalBackground = document.getElementsByClassName("modal-container")[0];
+  var modal = document.getElementsByClassName("modal")[0];
+  var show = window.setTimeout(function() {
+    modalBackground.classList.toggle('dim');
+    modal.classList.toggle('modal-active');
   }, 1);
 
   // Add event listener for X / O buttons
@@ -187,7 +189,8 @@ document.addEventListener("DOMContentLoaded", function() {
       board.humanPlayer = e.target.name;
 
       // hide modal
-      modal.classList.toggle('active');
+      modalBackground.classList.toggle('dim');
+      modal.classList.toggle('modal-active');
 
       board.startGame();
     });
