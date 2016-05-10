@@ -1,8 +1,9 @@
+{ "esversion": 6 };
 var BOARD_SIZE = 3;
 var EMPTY = null;
 
 // Board constructor function. Creates an empty board, width/height = size
-var Board = function(size, empty) {
+var Board = function(size, empty=EMPTY) {
   this.positions = (function(size, empty) {
     positions = [];
     for (var i = 0; i < size; i++) {
@@ -37,7 +38,7 @@ Board.prototype.startGame = function() {
   }
 };
 
-Board.prototype.clearPositions = function(empty) {
+Board.prototype.clearPositions = function(empty=EMPTY) {
   // clear this.positions
   function clear(arr) {
     newArr = arr.map( function(value, i) {
@@ -66,23 +67,14 @@ Board.prototype.addNewMarker = function(cell, marker, row, col) {
 };
 
 Board.prototype.computerMove = function() {
-  // Assess the positions on the board
-  // Move to the most optimal position
-  // return ['computer', board[row][column]]
-  var computer = this.humanPlayer === 'X' ? 'O' : 'X';
-
-  // random for now
-  var row, col;
-  do {
-    row = Math.floor(Math.random() * 3);
-    col = Math.floor(Math.random() * 3);
-  } while (this.positions[row][col] !== EMPTY);
-
-  var cell = document.getElementById([row, col].join(''));
+  var move = this.computer.makeAMove(this),
+      cell = document.getElementById(move),
+      row = move[0],
+      col = move[1];
 
   var computerIsThinking = setTimeout(function(board) {
-    board.addNewMarker(cell, computer, row, col);
-    board.evaluate('computer');
+    board.addNewMarker(cell, board.computer.marker, row, col);
+    board.evaluate();
   }, 500, this);
 
 };
@@ -94,7 +86,7 @@ Board.prototype.humanMove = function(cell) {
   this.addNewMarker(cell, this.humanPlayer, row, col);
 
   // check game status
-  this.evaluate('human');
+  this.evaluate();
 };
 
 Board.prototype.checkForWinner = function() {
@@ -127,7 +119,7 @@ Board.prototype.hasNoEmptyCells = function() {
   return isFull(this.positions);
 };
 
-Board.prototype.evaluate = function(lastPlayer) {
+Board.prototype.evaluate = function() {
   var winner = this.checkForWinner();
   if ( !!winner ) {
     // Highlight winning cells
@@ -169,12 +161,56 @@ Board.prototype.evaluate = function(lastPlayer) {
   }
 };
 
-document.addEventListener("DOMContentLoaded", function() {
+var Computer = function(board) {
+  this.board = board;
+  this.marker = board.humanPlayer === 'X' ? 'O' : 'X';
+};
 
+Computer.prototype.detectImminentFailure = function(board=this.board) {
+  var nextMove;
+
+  // iterate through the possible winning cell-sets
+  board.solutions.forEach(function(solution) {
+
+    // map cells to cell ids for this cell-set
+    var cells = { 'empty': [], 'X': [], 'O':[] };
+    solution.forEach(function(id) {
+      var cell = board.positions[id[0]][id[1]];
+      if (cell === EMPTY) { cells.empty.push(id); }
+      else { cells[cell].push(id); }
+    });
+
+    // if the human has 2 markers in line, and there's an empty 3rd cell...
+    if (cells[board.humanPlayer].length === 2 && cells.empty.length === 1) {
+      nextMove = cells.empty[0];
+    }
+  });
+  return (!!nextMove ? nextMove : false);
+};
+
+Computer.prototype.makeAMove = function(board=this.board) {
+  // returns a cell id for Board to position a marker if defenseive action required
+  // otherwise picks a cell randomly
+  var defence = this.detectImminentFailure(board);
+  if (!!defence) {
+    return defence;
+  }
+
+  var row, col;
+  do {
+    row = Math.floor(Math.random() * 3);
+    col = Math.floor(Math.random() * 3);
+  } while (board.positions[row][col] !== EMPTY);
+
+  return [row, col].join('');
+};
+
+
+document.addEventListener("DOMContentLoaded", function() {
   // create the playing the playing board
   var board = new Board(BOARD_SIZE, EMPTY);
 
-  // fetch and display the modal window
+  // fetch and display the modal window on page load
   var modalBackground = document.getElementsByClassName("modal-container")[0];
   var modal = document.getElementsByClassName("modal")[0];
   var show = window.setTimeout(function() {
@@ -182,11 +218,12 @@ document.addEventListener("DOMContentLoaded", function() {
     modal.classList.toggle('modal-active');
   }, 1);
 
-  // Add event listener for X / O buttons
+  // Set user's choice of marker (X or O)
   var buttons = document.getElementsByTagName('button');
   Array.prototype.forEach.call(buttons, function (button) {
     button.addEventListener('click', function (e) {
       board.humanPlayer = e.target.name;
+      board.computer = new Computer(board);
 
       // hide modal
       modalBackground.classList.toggle('dim');
@@ -196,7 +233,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 
-  // Add event listener for cells
+  // Monitor for user cell selection, and act appropriately
   var cells = document.getElementsByClassName('cell');
   Array.prototype.forEach.call(cells, function (cell) {
     cell.addEventListener('click', function (e) {
