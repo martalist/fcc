@@ -1,4 +1,4 @@
-{ "esversion": 6 };
+// { "esversion": 6 };
 var BOARD_SIZE = 3;
 var EMPTY = null;
 
