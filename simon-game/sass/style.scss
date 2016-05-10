@@ -1,0 +1,31 @@
+main {
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.input {
+  width: 20%;
+  height: 20vw;
+  background-color: red;
+  transition: scale .3s ease;
+}
+
+// the class give to active items in the sequence
+.active {
+  animation: enlarge 1s forwards;
+}
+
+@keyframes enlarge {
+  0% { transform: scale(1, 1); }
+  9% { transform: scale(1.15, 1.15); }
+  13% { transform: scale(1.1, 1.1); }
+  75% { transform: scale(1.1, 1.1); }
+  100% { transform: scale(1, 1); }
+}
