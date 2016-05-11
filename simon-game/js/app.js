@@ -73,7 +73,7 @@ Game.prototype.checkInput = function(input) {
     // TODO: notify user of incorrect input
     var pauseToLetTheirFailureSinkIn = setTimeout(function(game) {
       if (game.strict) { this.startNewGame(); }
-      else { game.animateElements(this.sequence, true); }
+      else { game.animateElements(game.sequence, true); }
   }, 1000, this);
   }
 };
