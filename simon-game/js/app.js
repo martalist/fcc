@@ -4,20 +4,20 @@ var Game = function(strict=false) {
   this.strict = strict;
   this.buttons = Array.prototype.slice.call(document.getElementsByClassName('input'));
   this.sequence = [];
-  this.userInputIndex = 0;
+  this.userCorrectCount = 0;
   this.presentingSequence = false;
   this.speed = 1000;
 };
 
 Game.prototype.startNewGame = function() {
   this.sequence = [];
-  this.userInputIndex = 0;
+  this.userCorrectCount = 0;
   this.levelUp();
 };
 
 Game.prototype.levelUp = function() {
   this.addToSequence();
-  this.playSequence();
+  this.animateElements(this.sequence, true);
 };
 
 Game.prototype.addToSequence = function() {
@@ -29,55 +29,51 @@ Game.prototype.addToSequence = function() {
   this.sequence.push( this.buttons[index] );
 };
 
-Game.prototype.playSequence = function() {
-  this.presentingSequence = true;
-  var i = 0;
-
-  // activate first button
-  this.sequence[i].classList.toggle('active');
-
-  var interval = setInterval( function(sequence) {
-    sequence[i].classList.toggle('active');     // turn off active btn
-    if (i >= sequence.length - 1) {             // stop at the end of sequence
-      clearInterval(interval);
+Game.prototype.animateElements = function(elems, isSequence=false) {
+  // elems, Array of DOM elements to animate
+  // recursively displays elements
+  if (isSequence) { this.presentingSequence = true; }
+  var wait,
+      arr = elems.slice(0),                         // copy array, to prevent sequence mutation
+      elem = arr.shift();                           // get first elem
+  elem.classList.toggle('active');                  // add class
+  wait = setTimeout( function(game, arr) {          // pause, then remove it
+    elem.classList.toggle('active');
+    if (arr.length === 0) {
+      if (isSequence) {
+      game.presentingSequence = false;              // presentation over
+      }
     }
     else {
-      i++;
-      sequence[i].classList.toggle('active');   // turn on next
+      return game.animateElements(arr, isSequence); // proceed to next elems
     }
-  }, this.speed, this.sequence);
-
-  this.presentingSequence = false;
+  }, this.speed, this, arr);
 };
 
 Game.prototype.checkInput = function(input) {
   // animate user selection
-  input.classList.toggle('active');
-  var removeClass = setTimeout( function() {
-    input.classList.toggle('active');
-  }, this.speed );
+  this.animateElements([input]);
 
   // check that user input matches next item in sequence
-  var match = this.sequence[this.userInputIndex] === input;
-  if (match) {
+  var correct = this.sequence[this.userCorrectCount] === input;
+  if (correct) {
     // TODO: show a success indicator (like a gree thumbs up, or something)
     // check if user successfully reached the end of the sequence
-    if (this.userInputIndex === this.sequence.length - 1) {
-      this.userInputIndex = 0;
+    if (this.userCorrectCount === this.sequence.length - 1) {
+      this.userCorrectCount = 0;
       var pause = setTimeout(function(game) {
-        game.addToSequence(); // TODO: limit to 20 in sequence, to win the game
-        game.playSequence();
-      }, 1500, this);
+        game.levelUp(); // TODO: limit to 20 in sequence, to win the game
+      }, 2500, this);
     }
     else {
-      this.userInputIndex++;
+      this.userCorrectCount++;
     }
   }
   else {
     // TODO: notify user of incorrect input
     var pauseToLetTheirFailureSinkIn = setTimeout(function(game) {
       if (game.strict) { this.startNewGame(); }
-      else { game.playSequence(); }
+      else { game.animateElements(this.sequence, true); }
   }, 1000, this);
   }
 };
