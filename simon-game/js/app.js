@@ -5,8 +5,15 @@ var Game = function(strict=false) {
   this.buttons = Array.prototype.slice.call(document.getElementsByClassName('input'));
   this.sequence = [];
   this.userCorrectCount = 0;
+  this.rounds = 20;
   this.presentingSequence = false;
   this.speed = 1000;
+  this.msgBoard = document.getElementById('msg');
+  this.level = document.getElementById('level');
+  this.btn = {
+    start: document.getElementById('start'),
+    restart: document.getElementById('restart')
+  };
 };
 
 Game.prototype.startNewGame = function() {
@@ -16,8 +23,19 @@ Game.prototype.startNewGame = function() {
 };
 
 Game.prototype.levelUp = function() {
-  this.addToSequence();
-  this.animateElements(this.sequence, true);
+  // limit to 20 levels, to win the game
+  if (this.sequence.length >= this.rounds) {
+    this.showMessage('You win! ... starting a new game...');
+    var baskInYourGlory = setTimeout( function(game) {
+      game.startNewGame();
+    }, this.speed * 2, this);
+  }
+  else {
+    this.addToSequence();
+    // display new level
+    this.level.innerText = this.sequence.length;
+    this.animateElements(this.sequence, true);
+  }
 };
 
 Game.prototype.addToSequence = function() {
@@ -62,8 +80,8 @@ Game.prototype.checkInput = function(input) {
     if (this.userCorrectCount === this.sequence.length - 1) {
       this.userCorrectCount = 0;
       var pause = setTimeout(function(game) {
-        game.levelUp(); // TODO: limit to 20 in sequence, to win the game
-      }, 2500, this);
+        game.levelUp();
+      }, this.speed * 2.5, this);
     }
     else {
       this.userCorrectCount++;
@@ -71,11 +89,19 @@ Game.prototype.checkInput = function(input) {
   }
   else {
     // TODO: notify user of incorrect input
+    this.showMessage('That is incorrect');
     var pauseToLetTheirFailureSinkIn = setTimeout(function(game) {
       if (game.strict) { this.startNewGame(); }
       else { game.animateElements(game.sequence, true); }
-  }, 1000, this);
+  }, this.speed * 2, this);
   }
+};
+
+Game.prototype.showMessage = function(msg) {
+  this.msgBoard.innerText = msg;
+  var remove = setTimeout( function(msgBoard) {
+    msgBoard.innerText = '';
+  }, this.speed * 2, this.msgBoard);
 };
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -83,9 +109,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // start game
   var game = new Game(strict);
-  var startBtn = document.getElementById('start');
-  start.addEventListener('click', function (e) {
-    startBtn.disabled = true;
+  game.btn.start.addEventListener('click', function (e) {
+    game.btn.start.disabled = true;
+    game.btn.restart.disabled = false;
+    game.startNewGame();
+  });
+
+  // restart
+  game.btn.restart.addEventListener('click', function(e) {
     game.startNewGame();
   });
 
