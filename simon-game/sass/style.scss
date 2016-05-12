@@ -56,18 +56,20 @@ button {
   width: 100px;
   min-height: 48px;
   margin: 10px;
+  font: bold 1.2em/1 'Alegreya Sans', sans-serif;
   background-color: $light-green;
   border-radius: 5px;
   border: 3px solid $dark-green;
   color: $dark-green;
-  font-size: 1em;
   text-transform: uppercase;
   cursor: pointer;
+  transition: all .2s ease;
   &:hover {
-    background-color: $dark-green;
-    border-color: $light-green;
-    color: $light-green;
-    box-shadow: 0 0 3px 2px $dark-green;
+    background-color: $mid-green;
+    // border-color: $mid-green;
+    color: lighten($light-green, 20%);
+    // box-shadow: 0 0 3px 2px $light-green;
+    transform: scale(1.05, 1.05);
   }
   &:disabled {
     color: lighten(desaturate($mid-green, 10%), 10%);

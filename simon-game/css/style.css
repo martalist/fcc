@@ -31,18 +31,18 @@ button {
   width: 100px;
   min-height: 48px;
   margin: 10px;
+  font: bold 1.2em/1 'Alegreya Sans', sans-serif;
   background-color: #8ead39;
   border-radius: 5px;
   border: 3px solid #3f6314;
   color: #3f6314;
-  font-size: 1em;
   text-transform: uppercase;
-  cursor: pointer; }
+  cursor: pointer;
+  transition: all .2s ease; }
   button:hover {
-    background-color: #3f6314;
-    border-color: #8ead39;
-    color: #8ead39;
-    box-shadow: 0 0 3px 2px #3f6314; }
+    background-color: #4f801d;
+    color: #bbd379;
+    transform: scale(1.05, 1.05); }
   button:disabled {
     color: #699f31;
     border-color: #699f31;
