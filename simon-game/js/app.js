@@ -33,7 +33,7 @@ Game.prototype.startNewGame = function() {
 Game.prototype.levelUp = function() {
   // limit to 20 levels, to win the game
   if (this.sequence.length >= this.rounds) {
-    this.showMessage('You win! ... starting a new game...');
+    this.showMessage('success', 'You win! ... starting a new game...');
     var baskInYourGlory = setTimeout( function(game) {
       game.startNewGame();
     }, this.speed * 2, this);
@@ -61,7 +61,10 @@ Game.prototype.addToSequence = function() {
 Game.prototype.animateElements = function(elems, isSequence=false) {
   // elems, Array of DOM elements to animate
   // recursively displays elements
-  if (isSequence) { this.presentingSequence = true; }
+  if (isSequence) {
+    this.presentingSequence = true;
+    this.showMessage('playing', "Playing now. Watch carefully!");
+  }
   var wait,
       arr = elems.slice(0),                         // copy array, to prevent sequence mutation
       elem = arr.shift(),                           // get first elem
@@ -107,20 +110,32 @@ Game.prototype.checkInput = function(input) {
   }
   else {
     // TODO: notify user of incorrect input
-    this.showMessage('That is incorrect');
+    this.showMessage('error', 'That is incorrect');
     this.resetIndicators();
     this.userCorrectCount = 0;
     var pauseToLetTheirFailureSinkIn = setTimeout(function(game) {
       if (game.strict) { this.startNewGame(); }
       else { game.animateElements(game.sequence, true); }
-  }, this.speed * 2, this);
+  }, this.speed * 2.5, this);
   }
 };
 
-Game.prototype.showMessage = function(msg) {
-  this.msgBoard.innerText = msg;
+Game.prototype.showMessage = function(msgType, msg) {
+  var status = {
+    error: 'fa-exclamation-triangle',
+    success: 'fa-trophy',
+    playing: 'fa-play'
+  };
+
+  // Set the message
+  var icon = this.msgBoard.querySelectorAll('i')[0],
+      text = this.msgBoard.querySelectorAll('p')[0];
+  icon.classList = 'fa ' + status[msgType];
+  text.innerText = msg;
+  this.msgBoard.classList.add(msgType);
+  this.msgBoard.classList.add('on-screen');
   var remove = setTimeout( function(msgBoard) {
-    msgBoard.innerText = '';
+    msgBoard.classList = 'msg';
   }, this.speed * 2, this.msgBoard);
 };
 

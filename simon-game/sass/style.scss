@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Frijole);
 @import url(https://fonts.googleapis.com/css?family=Alegreya+Sans);
 $h: 'Frijole', cursive;
-$p: 1em/1.5 'Alegreya Sans', sans-serif;
+$p: 1.1em/1.5 'Alegreya Sans', sans-serif;
 
 $dark-green: #3f6314;
 $mid-green: #4f801d;
@@ -159,6 +159,37 @@ footer {
   animation: pop .3s ease;
 }
 
+.msg {
+  width: 50%;
+  min-height: 48px;
+  padding: 5px;
+  color: $light-brown;
+  border: 2px solid $light-brown;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity .3s ease;
+  &.on-screen {
+    opacity: 1;
+  }
+  &.success {
+    border-color: $mid-green;
+    color: $mid-green;
+  }
+  &.error {
+    border-color: desaturate(red, 50%);
+    color: desaturate(red, 50%);
+  }
+  i {
+    margin: 0 8px;
+  }
+  p {
+    color: $light-brown;
+  }
+}
+
 // Animals / input
 .inputs {
   flex-grow: 2;
@@ -169,6 +200,8 @@ footer {
 .input {
   width: 20%;
   height: 20vw;
+  max-width: 220px;
+  max-height: 220px;
   cursor: pointer;
   transition: scale .3s ease;
   display: flex;
