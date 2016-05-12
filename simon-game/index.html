@@ -7,30 +7,70 @@
     <title>Simon Game</title>
   </head>
   <body>
-    <header class="container">
-      <div class="message">
-        <p id="msg"></p>
-      </div>
-    </header>
 
     <main>
-      <button id="start" type="button" name="start">Start</button>
-      <button id="restart" type="button" name="restart" disabled >Restart</button>
-      <input type="checkbox" name="strict" value="strict" selected >
-      <div id="level"></div>
+      <section>
 
+        <!-- Info and progress bar -->
+        <div class="row">
+          <div class="row">
+            <h1>Simon Game</h1>
+          </div>
+          <div class="info">
+            <p><strong>Time to test your memory.</strong></p>
+            <p>Watch and listen, then repeat. Get to level 20 to win the game!</p>
+          </div>
+        </div>
 
-      <div class="container">
-        <div class="input">
+        <!-- Buttons -->
+        <div class="row">
+          <input type="checkbox" name="strict" value="strict" selected >
+          <label for="strict">Strict mode</label>
         </div>
-        <div class="input">
+        <div class="row">
+          <button id="start" type="button" name="start">Start</button>
+          <button id="restart" type="button" name="restart" disabled >Restart</button>
         </div>
-        <div class="input">
+
+        <!-- levels -->
+        <div class="row">
+          <div class="row">
+            <h2>Level: <span id="level">0</span></h2>
+          </div>
+          <div class="progress-bar">
+          </div>
         </div>
-        <div class="input">
+
+        <!-- message area -->
+        <div class="row">
+          <div class="message">
+            <p id="msg"></p>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <!-- Animals / icons -->
+      <section class="container inputs">
+        <div id="monkey" class="input">
+          <img src="files/monkey.svg" alt="monkey" />
+        </div>
+        <div id="pig" class="input">
+          <img src="files/pig.svg" alt="pig" />
+        </div>
+        <div id="dog" class="input">
+          <img src="files/dog.svg" alt="dog" />
+        </div>
+        <div id="elephant" class="input">
+          <img src="files/elephant.svg" alt="elephant" />
+        </div>
+      </section>
     </main>
-
+    <footer>
+      <p>
+        <a href='http://www.freepik.com/free-vector/animal-banners_800702.htm'>Images</a>,
+        <a href='http://www.freepik.com/free-vector/cute-animals-collection_789264.htm'>animals</a>, and
+        <a href="http://www.freepik.com/free-vector/nature-background-of-a-grassy-landscape_844882.htm"><b></b>ackground</a> designed by Freepik.
+      </p>
+    </footer>
   </body>
 </html>
