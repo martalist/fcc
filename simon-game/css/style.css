@@ -97,11 +97,11 @@ footer {
   margin-bottom: 20px; }
 
 .progress-bar {
-  min-height: calc(20px + 22px); }
+  min-height: calc(18px + 22px); }
 
 .progress {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border: 4px solid #fec68c;
   margin: 10px 5px;
   border-radius: 50%;
