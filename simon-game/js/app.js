@@ -114,6 +114,7 @@ Game.prototype.checkInput = function(input) {
   else {
     // notify user of incorrect input
     this.showMessage('error', 'That is incorrect');
+    this.presentingSequence = true;       // prevent more incorrect inputs
     this.resetIndicators();
     this.userCorrectCount = 0;
     var pauseToLetTheirFailureSinkIn = setTimeout(function(game) {
