@@ -27,6 +27,9 @@ p {
   font: 1.1em/1.5 "Alegreya Sans", sans-serif;
   margin: 0; }
 
+label {
+  font: 1.1em/1.5 "Alegreya Sans", sans-serif; }
+
 button {
   width: 100px;
   min-height: 48px;

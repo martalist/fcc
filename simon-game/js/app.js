@@ -27,7 +27,10 @@ Game.prototype.startNewGame = function() {
   this.sequence = [];
   this.removeIndicators();
   this.userCorrectCount = 0;
-  this.levelUp();
+  this.showMessage('start', 'Starting a new game.');
+  var wait = setTimeout(function(game) {
+    game.levelUp();
+  }, this.speed * 2.2, this);
 };
 
 Game.prototype.levelUp = function() {
@@ -109,12 +112,12 @@ Game.prototype.checkInput = function(input) {
     }
   }
   else {
-    // TODO: notify user of incorrect input
+    // notify user of incorrect input
     this.showMessage('error', 'That is incorrect');
     this.resetIndicators();
     this.userCorrectCount = 0;
     var pauseToLetTheirFailureSinkIn = setTimeout(function(game) {
-      if (game.strict) { this.startNewGame(); }
+      if (game.strict) { game.startNewGame(); }
       else { game.animateElements(game.sequence, true); }
   }, this.speed * 2.5, this);
   }
@@ -124,7 +127,8 @@ Game.prototype.showMessage = function(msgType, msg) {
   var status = {
     error: 'fa-exclamation-triangle',
     success: 'fa-trophy',
-    playing: 'fa-play'
+    playing: 'fa-play',
+    start: 'fa-cog'
   };
 
   // Set the message
@@ -190,7 +194,11 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
+  // get & set strict mode
+  document.getElementsByTagName('input')[0].addEventListener('change', function(e) {
+    game.strict = e.target.checked;
+  });
+
   // other functions:
-    // restart button
     // speed adjustment
 });
