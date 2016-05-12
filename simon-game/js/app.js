@@ -100,6 +100,7 @@ Game.prototype.checkInput = function(input) {
     // check if user successfully reached the end of the sequence
     if (this.userCorrectCount === this.sequence.length - 1) {
       this.userCorrectCount = 0;          // reset the counter
+      this.presentingSequence = true;     // prevent more inputs
       var resetIndicators = setTimeout( function(game) {
         game.resetIndicators();           // reset the visual success indicators
       }, this.speed * 1.5, this);
