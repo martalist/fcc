@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
-    "production": "webpack -p --config webpack.production.config.js"
+    "production": "NODE_ENV=production && webpack -p"
   },
   "author": "Alistair Martin",
   "license": "ISC",

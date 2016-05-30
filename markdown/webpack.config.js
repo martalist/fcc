@@ -2,6 +2,7 @@ const validate          = require('webpack-validator');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const precss            = require('precss');
 const autoprefixer      = require('autoprefixer');
+const webpack           = require("webpack");
 
 module.exports = validate({
   entry: ["./source/js/main.js"],
@@ -32,6 +33,18 @@ module.exports = validate({
       }
     ]
   },
-  plugins: [new ExtractTextPlugin('style.css', {allChunks: true})],
+  plugins: [
+    new ExtractTextPlugin('style.css', {allChunks: true}),
+    new webpack.DefinePlugin({
+      'process.env':{
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    })
+  ],
   postcss: () => [precss, autoprefixer]
 });
