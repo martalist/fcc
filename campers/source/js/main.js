@@ -20,6 +20,19 @@ const TOP_ALLTIME_URL = "https://fcctop100.herokuapp.com/api/fccusers/top/alltim
 
 
 class App extends React.Component {
+  render() {
+    return (
+      <div className="container">
+        <header>
+          <h1>Hello, World!</h1>
+        </header>
+        <Table />
+      </div>
+    );
+  }
+}
+
+class Table extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -33,20 +46,7 @@ class App extends React.Component {
   }
   render() {
     const campers = this.state.topCampers30Days;
-    return (
-      <div className="container">
-        <header>
-          <h1>Hello, World!</h1>
-        </header>
-        <Table rows={campers} />
-      </div>
-    );
-  }
-}
-
-class Table extends React.Component {
-  render() {
-    let rows = this.props.rows.sort(
+    let rows = campers.sort(
       (a,b) => +b.recent - +a.recent
     ).map(
       (row,i) => <Row row={row} index={i}/>
