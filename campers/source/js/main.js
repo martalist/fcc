@@ -25,7 +25,7 @@ class App extends React.Component {
     this.state = {
       topCampers30Days: [],
       topCampersAllTime: []
-    }
+    };
     $.getJSON(TOP_30_DAYS_URL, (json) => {
       this.topCampers30Days = json;
       this.setState({topCampers30Days: json});
@@ -46,25 +46,43 @@ class App extends React.Component {
 
 class Table extends React.Component {
   render() {
-    let rows = this.props.rows.sort( (a,b) => +b.recent - +a.recent )
-    .map((row, index) => {
-      return (
-        <tr>
-          <td>{index + 1}</td>
-          <td><img src={row.img} alt={row.username} width="50px" height="50px" /></td>
-          <td>{row.username}</td>
-          <td>{row.recent}</td>
-          <td>{row.alltime}</td>
-        </tr>
-      )
-    });
+    let rows = this.props.rows.sort(
+      (a,b) => +b.recent - +a.recent
+    ).map(
+      (row,i) => <Row row={row} index={i}/>
+    );
     return (
       <table>
-        {rows}
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th></th>
+            <th>Username</th>
+            <th>Recent points</th>
+            <th>Alltime points</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows}
+        </tbody>
       </table>
-    )
+    );
   }
 }
 
+class Row extends React.Component {
+  render () {
+    const { row: { img, username, recent, alltime }, index } = this.props;
+    return (
+      <tr>
+        <td>{index + 1}</td>
+        <td><img src={img} alt={username} width="50px" height="50px" /></td>
+        <td>{username}</td>
+        <td>{recent}</td>
+        <td>{alltime}</td>
+      </tr>
+    );
+  }
+}
 // Render the application
 ReactDOM.render(<App/>, document.getElementById("app"));
