@@ -39,10 +39,14 @@ class Table extends React.Component {
       topCampers30Days: [],
       topCampersAllTime: []
     };
-    $.getJSON(TOP_30_DAYS_URL, (json) => {
-      this.topCampers30Days = json;
+  }
+  componentDidMount() {
+    let serverRequest = $.getJSON(TOP_30_DAYS_URL, (json) => {
       this.setState({topCampers30Days: json});
     });
+  }
+  componentWillUnmount() {
+    this.serverRequest.abort();
   }
   render() {
     const campers = this.state.topCampers30Days;
@@ -84,5 +88,6 @@ class Row extends React.Component {
     );
   }
 }
+
 // Render the application
 ReactDOM.render(<App/>, document.getElementById("app"));
