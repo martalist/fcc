@@ -1,0 +1,124 @@
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web:400,700);
+
+$h1: 2em/1.5 'Titillium Web', sans-serif;
+$h3: bold 1.1em/1.3 'Titillium Web', sans-serif;
+$body: 1em/1.2 'Titillium Web', sans-serif;
+
+$color-row1: #fff;
+$color-row2: #f5f7fa;
+$color-border: #d3d6db;
+$color-link: #5c7aa8;
+
+@mixin respond-to($query, $value) {
+  @media ($query: $value) {
+    @content;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font: $h1;
+  text-align: center;
+  margin: 0 0 25px;
+}
+
+h3 {
+  font: $h3;
+  margin: 0;
+  display: inline-block;
+}
+
+i {
+  margin-left: 10px;
+}
+
+main {
+  width: 100%;
+  background:
+    radial-gradient(black 15%, transparent 16%) 0 0,
+    radial-gradient(black 15%, transparent 16%) 8px 8px,
+    radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 0 1px,
+    radial-gradient(rgba(255,255,255,.1) 15%, transparent 20%) 8px 9px;
+  background-color:#282828;
+  background-size:16px 16px;
+}
+
+.container {
+  width: 100%;
+  max-width: 620px;
+  padding: 30px 0 20px;
+  margin: 0 auto;
+  background-color: $color-row1;
+  box-shadow: 0 0 15px 2px black;
+  @include respond-to(min-width, 540px) {
+    padding: 30px 20px 20px;
+  };
+}
+
+.table {
+  width: 100%;
+}
+
+%table {
+  width: 100%;
+  padding: 10px 15px;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.table-header {
+  @extend %table;
+}
+
+.table-body {
+  article {
+    @extend %table;
+    font: $body;
+    border-bottom: 1px solid $color-border;
+    &:nth-child(2n) {
+      background-color: $color-row2;
+    }
+  }
+}
+
+.col-rank { width: 5%; }
+.col-2-user { width: 43%; }
+.col-image { width: 8%; padding: 2px; }
+.col-recent { width: 26%; }
+.col-alltime { width: 26%; }
+.col-username {
+  width: 35%;
+  padding-left: 6px;
+  a {
+    color: $color-link;
+    text-decoration: none;
+    &:hover {
+      color: lighten(saturate($color-link, 40%), 10%);
+    }
+  }
+}
+
+.user-img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  border-radius: 50%;
+  opacity: 0.8;
+  transform: scale(1, 1);
+  transition: all 0.3s ease;
+  &:hover {
+    opacity: 1;
+    transform: scale(1.1, 1.1);
+  }
+}

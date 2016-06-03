@@ -62,31 +62,29 @@ export default class Table extends Component {
       (row,i) => <Row key={row.username} row={row} index={i}/>
     );
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th colSpan="2">
-              <SortColumn id="username" data={data} >
-                Username
-              </SortColumn>
-            </th>
-            <th>
-              <SortColumn id="recent" data={data} >
-                Recent points
-              </SortColumn>
-            </th>
-            <th>
-              <SortColumn id="alltime" data={data} >
-                Alltime points
-              </SortColumn>
-            </th>
-          </tr>
-        </thead>
-        <tbody>
+      <section className="table">
+        <header className="table-header">
+          <div className="col-rank"></div>
+          <div className="col-2-user">
+            <SortColumn id="username" data={data} >
+              Username
+            </SortColumn>
+          </div>
+          <div className="col-recent">
+            <SortColumn id="recent" data={data} >
+              Recent points
+            </SortColumn>
+          </div>
+          <div className="col-alltime">
+            <SortColumn id="alltime" data={data} >
+              Alltime points
+            </SortColumn>
+          </div>
+        </header>
+        <div className="table-body">
           {rows}
-        </tbody>
-      </table>
+        </div>
+      </section>
     );
   }
 }
@@ -95,15 +93,19 @@ export default class Table extends Component {
 function Row(props) {
   const { row: { img, username, recent, alltime }, index } = props;
   return (
-    <tr>
-      <td>{index + 1}</td>
-      <td><img src={img} alt={username} width="50px" height="50px" /></td>
-      <td>
+    <article>
+      <div className="col-rank">{index + 1}</div>
+      <div className="col-image">
+        <a href={"https://github.com/" + username} target="blank">
+          <img className="user-img" src={img} alt={username} />
+        </a>
+      </div>
+      <div className="col-username">
         <a href={"https://github.com/" + username} target="blank">{username}</a>
-      </td>
-      <td>{recent}</td>
-      <td>{alltime}</td>
-    </tr>
+      </div>
+      <div className="col-recent">{recent}</div>
+      <div className="col-alltime">{alltime}</div>
+    </article>
   );
 }
 
@@ -111,10 +113,10 @@ function SortColumn(props) {
   const { data: { handleSort, desc, sortColumn }, id, children } = props;
   const icon = desc ? "fa fa-caret-down" : "fa fa-caret-up";
   return (
-    <div id={id} className="sort" onClick={handleSort} >
+    <h3 id={id} className="sort" onClick={handleSort} >
       {children}
       {(sortColumn === id ? <Caret icon={icon} /> : '')}
-    </div>
+    </h3>
   );
 }
 
