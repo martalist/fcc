@@ -10,29 +10,54 @@ export default class Table extends Component {
   constructor() {
     super();
     this.state = {
-      topCampers30Days: [],
-      topCampersAllTime: [],
-      desc: true
+      campers: [],
+      desc: true,
+      sortColumn: "recent"
     };
+    this.handleSort = this.handleSort.bind(this);
   }
   componentDidMount() {
     let serverRequest = $.getJSON(TOP_30_DAYS_URL, (json) => {
-      this.setState({topCampers30Days: json});
+      this.setState({campers: json});
     });
   }
   componentWillUnmount() {
     this.serverRequest.abort();
   }
-  handleSort() {
-    this.setState({desc: !this.state.desc});
+  handleSort(event) {
+    const { sortColumn, desc } = this.state;
+    if (sortColumn === event.target.id) {
+      this.setState({desc: !this.state.desc});
+    }
+    else {
+      this.setState({
+        desc: true,
+        sortColumn: event.target.id
+      });
+    }
+  }
+  sort(arr) {
+    const { sortColumn, desc } = this.state;
+    return arr.sort((a,b) => {
+      // sort by unicode strings, ignoring case
+      if (sortColumn === "username") {
+        a = a.username.toLowerCase(), b = b.username.toLowerCase();
+        return desc ? (a < b ? -1 : 1) : (a > b ? -1 : 1);
+      }
+      // or sort by numbers
+      a = +a[sortColumn], b = +b[sortColumn];
+      return desc ? b - a : a - b;
+    });
   }
   render() {
-    const campers = this.state.topCampers30Days;
-    const { desc } = this.state;
-    let rows = campers.sort(
-      (a,b) => (desc ? +b.recent - +a.recent : +a.recent - +b.recent)
-    ).map(
-      // The "key" is important, because Row elements are dynamic.
+    const { campers, desc, sortColumn } = this.state;
+    const data = {
+      desc,
+      handleSort: this.handleSort,
+      sortColumn
+    };
+    const rows = this.sort(campers).map(
+      // The "key" is important, because Row elements are  dynamic.
       // See https://facebook.github.io/react/docs/multiple-components.html#dynamic-children
       (row,i) => <Row key={row.username} row={row} index={i}/>
     );
@@ -41,17 +66,21 @@ export default class Table extends Component {
         <thead>
           <tr>
             <th>Rank</th>
-            <th></th>
-            <th>Username</th>
+            <th colSpan="2">
+              <SortColumn id="username" data={data} >
+                Username
+              </SortColumn>
+            </th>
             <th>
-              <SortColumn
-                handleSort={this.handleSort.bind(this)}
-                desc={desc}
-              >
+              <SortColumn id="recent" data={data} >
                 Recent points
               </SortColumn>
             </th>
-            <th>Alltime points</th>
+            <th>
+              <SortColumn id="alltime" data={data} >
+                Alltime points
+              </SortColumn>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -79,15 +108,16 @@ function Row(props) {
 }
 
 function SortColumn(props) {
-  const { handleSort, desc, children } = props;
+  const { data: { handleSort, desc, sortColumn }, id, children } = props;
   const icon = desc ? "fa fa-caret-down" : "fa fa-caret-up";
   return (
-    <div
-      className="sort"
-      onClick={handleSort}
-    >
+    <div id={id} className="sort" onClick={handleSort} >
       {children}
-      <i className={icon} aria-hidden="true"></i>
+      {(sortColumn === id ? <Caret icon={icon} /> : '')}
     </div>
   );
 }
+
+const Caret = (props) => (
+  <i className={props.icon} aria-hidden="true"></i>
+);
