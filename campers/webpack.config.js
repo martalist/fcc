@@ -18,7 +18,7 @@ module.exports = validate({
   module: {
     loaders: [
       {
-        test: /\.js$/,
+        test: [/\.js$/, /\.jsx$/],
         exclude: /node_modules/,
         loader: 'babel',
         query: {
