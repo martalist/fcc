@@ -17,8 +17,26 @@ export default class Table extends Component {
     this.handleSort = this.handleSort.bind(this);
   }
   componentDidMount() {
-    let serverRequest = $.getJSON(TOP_30_DAYS_URL, (json) => {
-      this.setState({campers: json});
+    // Fetch top 100 contributors in the last 30 days, and setState
+    this.serverRequest = $.getJSON(TOP_30_DAYS_URL, (json) => {
+      let campersList = Array.prototype.slice.call(json);
+      this.setState({campers: campersList});
+
+      // add usernames to a set
+      let usernames = new Set();
+      campersList.forEach((c) => usernames.add(c.username));
+
+      // Fetch top 100 contributors in all time
+      this.serverRequest2 = $.getJSON(TOP_ALLTIME_URL, (json) => {
+        // Iterate over results, and add to setState({campers}) those that don't exist
+        let topAllTime = Array.prototype.slice.call(json);
+        topAllTime.forEach((c) => {
+          if (!(usernames.has(c.username))) {
+            campersList.push(c);
+          }
+        });
+        this.setState({campers: campersList});
+      });
     });
   }
   componentWillUnmount() {
@@ -82,7 +100,13 @@ export default class Table extends Component {
           </div>
         </header>
         <div className="table-body">
-          {rows}
+          {
+            rows.length > 0 ?
+            rows :
+            <div className="spinner">
+              <Icon icon="fa fa-spinner fa-pulse fa-3x fa-fw" />
+            </div>
+          }
         </div>
       </section>
     );
@@ -115,11 +139,11 @@ function SortColumn(props) {
   return (
     <h3 id={id} className="sort" onClick={handleSort} >
       {children}
-      {(sortColumn === id ? <Caret icon={icon} /> : '')}
+      {(sortColumn === id ? <Icon icon={icon} /> : '')}
     </h3>
   );
 }
 
-const Caret = (props) => (
-  <i className={props.icon} aria-hidden="true"></i>
+const Icon = (props) => (
+  <i className={props.icon} aria-hidden="true" />
 );

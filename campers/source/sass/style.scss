@@ -54,6 +54,7 @@ main {
 .container {
   width: 100%;
   max-width: 620px;
+  min-height: 100vh;
   padding: 30px 0 20px;
   margin: 0 auto;
   background-color: $color-row1;
@@ -121,4 +122,14 @@ main {
     opacity: 1;
     transform: scale(1.1, 1.1);
   }
+}
+
+.spinner {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.fa.fa-spinner.fa-pulse.fa-3x.fa-fw {
+  color: $color-link;
 }
