@@ -20,10 +20,18 @@ This is a set of projects I'm working on as part of [Free Code Camp](http://www.
 
   - [x] Build a JavaScript Calculator | [Requirements](http://www.freecodecamp.com/challenges/build-a-javascript-calculator) | [Demo](http://martalist.github.io/fcc/calculator/)
   - [x] Build a Pomodoro Clock | [Requirements](http://www.freecodecamp.com/challenges/build-a-pomodoro-clock) | [Demo](http://martalist.github.io/fcc/pomodoro/)
-  - [ ] Build a Tic Tac Toe Game | [Requirements](http://www.freecodecamp.com/challenges/build-a-tic-tac-toe-game) | Demo
-  - [ ] Build a Simon Game | [Requirements](http://www.freecodecamp.com/challenges/build-a-simon-game) | Demo
+  - [x] Build a Tic Tac Toe Game | [Requirements](http://www.freecodecamp.com/challenges/build-a-tic-tac-toe-game) | [Demo](http://martalist.github.io/fcc/tic-tac-toe)
+  - [x] Build a Simon Game | [Requirements](http://www.freecodecamp.com/challenges/build-a-simon-game) | [Demo](http://martalist.github.io/fcc/simon-game)
 
 ## Data Visualization Certification
+
+### React Projects
+- [x] Build a Markdown Previewer | [Requirements](https://www.freecodecamp.com/challenges/build-a-markdown-previewer) | [Demo](http://martalist.github.io/fcc/markdown)
+- [x] Build a Camper Leaderboard | [Requirements](https://www.freecodecamp.com/challenges/build-a-camper-leaderboard) | [Demo](http://martalist.github.io/fcc/campers)
+- [ ] Build a Recipe Box | [Requirements](https://www.freecodecamp.com/challenges/build-a-recipe-box) | Demo
+- [ ] Build the Game of Life | [Requirements](https://www.freecodecamp.com/challenges/build-the-game-of-life) | Demo
+- [ ] Build a Roguelike Dungeon Crawler Game | [Requirements](https://www.freecodecamp.com/challenges/build-a-roguelike-dungeon-crawler-game) | Demo
+
 
 ### Data Visualization Projects
 
