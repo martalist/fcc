@@ -1,6 +1,6 @@
 'use strict';
 import React from 'react';
-import List from './List.jsx';
+import EditList from './EditList.jsx';
 import { titleToUrl } from '../utils/recipes.js';
 
 class EditRecipe extends React.Component {
@@ -17,10 +17,10 @@ class EditRecipe extends React.Component {
           <h1>{"Edit " + currentRecipe.name}</h1>
         </header>
 
-        <div className="col-sm-12">
-          <List heading="Ingredients" items={currentRecipe.ingredients} />
-          <List heading="Method" items={currentRecipe.method} ordered />
-        </div>
+        <form className="col-sm-12">
+          <EditList heading="Ingredients" items={currentRecipe.ingredients} />
+          <EditList heading="Method" items={currentRecipe.method} ordered />
+        </form>
       </div>
     );
   }

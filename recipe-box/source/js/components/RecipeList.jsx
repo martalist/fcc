@@ -23,7 +23,8 @@ const RecipeLink = ({recipe}) => {
   return (
     <Link
       to={url}
-      className="list-group-item">
+      className="list-group-item"
+      activeClassName="active" >
         {recipe.name}
     </Link>
   );

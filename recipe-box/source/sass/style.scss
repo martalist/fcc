@@ -1,18 +1,33 @@
 // @import "variables";
 // @import "bootswatch";
 
+@mixin respond-to($query, $value) {
+  @media ($query: $value) {
+    @content;
+  }
+}
+
 .header {
   padding: 0;
 }
 
 %main-box {
-  padding: 30px 10px 50px;
+  padding: 30px 0 50px;
+  @include respond-to(min-width, 750px) {
+    padding: 30px 10px 50px;
+  };
 }
 
 .recipe-box {
   @extend %main-box;
   border-top: none;
   border-radius: 0 0 4px 4px;
+  .container-fluid {
+    padding: 0;
+    @include respond-to(min-width, 500px) {
+      padding: 0 15px;
+    };
+  }
 }
 
 .home {
@@ -24,4 +39,21 @@
 
 .home-container {
   margin-top: 45px;
+}
+
+form.col-sm-12 {
+  padding: 0;
+  @include respond-to(min-width, 750px) {
+    padding: 0 15px;
+  };
+}
+
+.nav-tabs > li > a.active,
+.nav-tabs > li > a:hover.active,
+.nav-tabs > li > a:focus.active {
+  color: #555;
+  cursor: default;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-bottom-color: transparent;
 }
