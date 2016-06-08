@@ -1,0 +1,27 @@
+// @import "variables";
+// @import "bootswatch";
+
+.header {
+  padding: 0;
+}
+
+%main-box {
+  padding: 30px 10px 50px;
+}
+
+.recipe-box {
+  @extend %main-box;
+  border-top: none;
+  border-radius: 0 0 4px 4px;
+}
+
+.home {
+  @extend %main-box;
+  h1 {
+    margin-bottom: 30px;
+  }
+}
+
+.home-container {
+  margin-top: 45px;
+}
