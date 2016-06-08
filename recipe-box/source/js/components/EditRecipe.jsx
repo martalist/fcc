@@ -1,25 +1,33 @@
 'use strict';
 import React from 'react';
+import EditItem from './EditItem.jsx';
 import EditList from './EditList.jsx';
-import { titleToUrl } from '../utils/recipes.js';
 
 class EditRecipe extends React.Component {
-
   render() {
-    const urlRecipe = this.props.params.recipeName;
-    const currentRecipe = this.props.recipes.reduce(
-      (a,b) => titleToUrl(b.name) === urlRecipe ? b : a,
-      null
-    );
+    const{ currentRecipe, recipeIndex } = this.props;
     return (
       <div className="container-fluid">
-        <header className="text-center">
-          <h1>{"Edit " + currentRecipe.name}</h1>
-        </header>
 
         <form className="col-sm-12">
+          <div className="col-sm-12">
+            <h3 className="text-center">Title</h3>
+            <EditItem text={currentRecipe.name} i="Title" />
+          </div>
+
           <EditList heading="Ingredients" items={currentRecipe.ingredients} />
           <EditList heading="Method" items={currentRecipe.method} ordered />
+
+          <div class="form-group">
+            <div class="col-sm-6 col-sm-offset-3">
+              <button className="btn btn-primary" type="submit" name="Save">
+                Save
+              </button>
+              <button className="btn btn-default" type="button" name="Cancel">
+                Cancel
+              </button>
+            </div>
+          </div>
         </form>
       </div>
     );

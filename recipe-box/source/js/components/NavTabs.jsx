@@ -31,14 +31,6 @@ class NavTabs extends React.Component {
             <i className="fa fa-pencil-square-o" aria-hidden="true"> </i>
             Edit
         </Tab>
-        {/*<li>
-          <Link
-            to={"/recipes/" + recipeName + "/edit"}
-            activeClassName="active" >
-              <i className="fa fa-pencil-square-o" aria-hidden="true"> </i>
-              Edit
-          </Link>
-        </li>*/}
       </ul>
     );
   }

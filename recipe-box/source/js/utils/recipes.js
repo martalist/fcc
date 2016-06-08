@@ -60,12 +60,4 @@ const recipes = [
   }
 ];
 
-export const titleToUrl = (title) => encodeURI(
-  ( title.toLowerCase().split(' ') ).join('-')
-);
-
-export const urlToTitle = (url) => decodeURI(url).split('-').map(
-  word => word[0].toUpperCase() + word.slice(1)
-).join(' ');
-
 export default recipes;

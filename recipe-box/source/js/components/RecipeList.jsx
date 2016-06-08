@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 
-import { titleToUrl } from '../utils/recipes.js';
+import { titleToUrl } from '../utils/helpers.js';
 
 class RecipeList extends Component {
   render() {

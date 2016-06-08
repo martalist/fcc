@@ -1,16 +1,11 @@
 'use strict';
 import React from 'react';
 import List from './List.jsx';
-import { titleToUrl } from '../utils/recipes.js';
 
 class Recipe extends React.Component {
 
   render() {
-    const urlRecipe = this.props.params.recipeName;
-    const currentRecipe = this.props.recipes.reduce(
-      (a,b) => titleToUrl(b.name) === urlRecipe ? b : a,
-      null
-    );
+    const{ currentRecipe, recipeIndex } = this.props;
     return (
       <div className="container-fluid">
         <header className="text-center">

@@ -6,7 +6,7 @@ class EditList extends React.Component {
   render() {
     const { ordered, items, heading } = this.props;
     const itemList = items.map(
-      (item, index) => <EditItem key={index} text={item} i={index} />
+      (item, index) => <EditItem key={index} text={item} i={index + 1} deletable />
     );
     return (
       <div className="col-sm-12">
