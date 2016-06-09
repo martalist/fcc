@@ -11,6 +11,7 @@ module.exports = validate({
     publicPath: '/public/',
     filename: 'main.js'
   },
+  devtool: 'eval-source-map',
   devServer: {
     inline: true,
     port: 8000
