@@ -15,22 +15,34 @@ class EditRecipe extends React.Component {
       method: method.slice()
     };
     this.handleInput = this.handleInput.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
   }
   handleInput(e) {
-    let input = e.nativeEvent.target.value,
-        [ inputGroup, index ] = e.nativeEvent.target.name.split('-'),
-        toUpdate = this.state[inputGroup];
+    let input = e.currentTarget.value,
+        [ inputGroup, index ] = e.currentTarget.name.split('-'),
+        toUpdate = this.state[inputGroup].slice();
     if (Array.isArray(toUpdate)) {
       toUpdate[--index] = input;
     }
     else {
       toUpdate = input;
     }
-    let newState = {};
-    newState[inputGroup] = toUpdate;
-    this.setState(newState);
+    this.setState( this.newStateObject(inputGroup, toUpdate) );
+  }
+  handleDelete(e) {
+    const [ inputGroup, index ] = e.currentTarget.name.split('-'),
+          toUpdate = this.state[inputGroup].slice();
+    toUpdate.splice(index - 1, 1);
+    this.setState( this.newStateObject(inputGroup, toUpdate) );
+  }
+  handleAdd(e) {
+    const inputGroup = e.currentTarget.name.split('-')[1],
+          toUpdate = this.state[inputGroup].slice();
+    toUpdate.push("");
+    this.setState( this.newStateObject(inputGroup, toUpdate) );
   }
   handleSave(e) {
     e.preventDefault();
@@ -53,10 +65,17 @@ class EditRecipe extends React.Component {
     // Redirect to the recipe view
     hashHistory.push('/recipes/' + this.props.params.recipeName);
   }
+  newStateObject(property, value) {
+    const obj = {};
+    obj[property] = value;
+    return obj;
+  }
   render() {
     const props = {
       currentRecipe: this.state,
-      handleInput: this.handleInput
+      handleInput: this.handleInput,
+      handleDelete: this.handleDelete,
+      handleAdd: this.handleAdd
     };
     return (
       <div className="container-fluid">
