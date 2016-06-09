@@ -4,13 +4,14 @@ import EditItem from './EditItem.jsx';
 
 class EditList extends React.Component {
   render() {
-    const { ordered, items, heading, refHandler, name } = this.props;
-    const itemList = items.map(
+    const { ordered, currentRecipe, heading, inputGroup, handleInput } = this.props,
+          itemList = currentRecipe[inputGroup].map(
       (item, index) => <EditItem
                           key={index}
                           text={item}
-                          i={index + 1}
-                          name={name}
+                          index={index + 1}
+                          inputGroup={inputGroup}
+                          handleInput={handleInput}
                           deletable />
     );
     return (

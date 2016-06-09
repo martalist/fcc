@@ -8,50 +8,67 @@ import { titleToUrl } from '../utils/helpers.js';
 class EditRecipe extends React.Component {
   constructor(props) {
     super(props);
+    const { name, ingredients, method } = this.props.currentRecipe;
+    this.state = {
+      name,
+      ingredients: ingredients.slice(),
+      method: method.slice()
+    };
+    this.handleInput = this.handleInput.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
   }
+  handleInput(e) {
+    let input = e.nativeEvent.target.value,
+        [ inputGroup, index ] = e.nativeEvent.target.name.split('-'),
+        toUpdate = this.state[inputGroup];
+    if (Array.isArray(toUpdate)) {
+      toUpdate[--index] = input;
+    }
+    else {
+      toUpdate = input;
+    }
+    let newState = {};
+    newState[inputGroup] = toUpdate;
+    this.setState(newState);
+  }
   handleSave(e) {
     e.preventDefault();
-    // Fetch form element, and turn it into a recipe object
-    const form = Array.prototype.slice.call(e.nativeEvent.srcElement);
-    const updatedRecipe = form.reduce(
-      (a,b) => {
-        if (b.tagName === 'INPUT') {
-          // Determine if the input is a Name, Ingredient or Method
-          const inputGroup = b.name.split('-')[0];
-          inputGroup === 'header' ? a.name = b.value : a[inputGroup].push(b.value);
-        }
-        return a;
-      }, {ingredients: [], method: []}
-    );
-    // Redirect to the recipe view, and allow for changes to the recipe name
-    hashHistory.push( '/recipes/' + titleToUrl(updatedRecipe.name) );
 
     // Update App state with the updated recipe
-    const { handleEdit, recipeIndex } = this.props;
-    handleEdit(updatedRecipe, recipeIndex);
+    const { name, ingredients, method } = this.state;
+    const { updateRecipeList, recipeIndex } = this.props;
+    updateRecipeList({name, ingredients, method}, recipeIndex);
+
+    // Redirect to the recipe view, and allow for changes to the recipe name
+    hashHistory.push( '/recipes/' + titleToUrl(name) );
   }
   handleCancel(e) {
+    const { name, ingredients, method } = this.props.currentRecipe;
+    this.setState({
+      name,
+      ingredients: ingredients.slice(),
+      method: method.slice()
+    });
     // Redirect to the recipe view
     hashHistory.push('/recipes/' + this.props.params.recipeName);
   }
   render() {
-    const{ currentRecipe, recipeIndex } = this.props,
-          refs = {
-            ingredients: 1
-          };
+    const props = {
+      currentRecipe: this.state,
+      handleInput: this.handleInput
+    };
     return (
       <div className="container-fluid">
 
         <form className="col-sm-12" onSubmit={this.handleSave}>
           <div className="col-sm-12">
             <h3 className="text-center">Title</h3>
-            <EditItem text={currentRecipe.name} i="Title" name="header"/>
+            <EditItem text={props.currentRecipe.name} {...props} index="Title" inputGroup="name"/>
           </div>
 
-          <EditList heading="Ingredients" items={currentRecipe.ingredients} name="ingredients" />
-          <EditList heading="Method" items={currentRecipe.method} name="method" ordered />
+          <EditList heading="Ingredients" {...props} inputGroup="ingredients" />
+          <EditList heading="Method" {...props} inputGroup="method" ordered />
 
           <div class="form-group">
             <div class="col-sm-6 col-sm-offset-3">

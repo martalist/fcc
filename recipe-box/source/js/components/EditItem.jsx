@@ -10,28 +10,19 @@ const deleteButton = (
 );
 
 class EditItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: this.props.text
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-  }
-  handleInputChange(e) {
-    this.setState({text: e.target.value});
-  }
   render() {
+    const { index, inputGroup, text, handleInput, deletable } = this.props;
     return (
       <div className="form-group">
         <div className="input-group">
-          <span className="input-group-addon">{this.props.i}</span>
+          <span className="input-group-addon">{index}</span>
           <input
             type="text"
-            name={this.props.name + '-' + this.props.i}
+            name={inputGroup + '-' + index}
             className="form-control"
-            value={this.state.text}
-            onChange={this.handleInputChange}/>
-          {this.props.deletable ? deleteButton : null}
+            value={text}
+            onChange={handleInput}/>
+          {deletable ? deleteButton : null}
         </div>
       </div>
     );

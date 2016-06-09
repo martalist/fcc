@@ -6,7 +6,7 @@ import { findRecipe } from '../utils/helpers.js';
 class RecipeContainer extends React.Component {
 
   render() {
-    const { recipes, handleEdit, params: { recipeName } } = this.props,
+    const { recipes, updateRecipeList, params: { recipeName } } = this.props,
           currentRecipe = findRecipe(recipes, recipeName),
           recipeIndex = recipes.indexOf(currentRecipe);
 
@@ -14,7 +14,7 @@ class RecipeContainer extends React.Component {
       <main className="col-sm-8">
         <NavTabs recipeName={recipeName} />
         <div className="recipe-box panel panel-default">
-          {React.cloneElement(this.props.children, { currentRecipe, recipeIndex, handleEdit})}
+          {React.cloneElement(this.props.children, { currentRecipe, recipeIndex, updateRecipeList})}
         </div>
       </main>
     );

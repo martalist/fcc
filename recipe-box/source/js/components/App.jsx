@@ -9,9 +9,9 @@ class App extends Component {
     this.state = {
       recipes,
     };
-    this.handleEdit = this.handleEdit.bind(this);
+    this.updateRecipeList = this.updateRecipeList.bind(this);
   }
-  handleEdit(updatedRecipe, index) {
+  updateRecipeList(updatedRecipe, index) {
     const recipes = this.state.recipes.slice();
     recipes[index] = updatedRecipe;
     this.setState({recipes: recipes});
@@ -22,7 +22,7 @@ class App extends Component {
         <Header />
         <div className="container">
           <RecipeListContainer recipes={this.state.recipes} />
-          {React.cloneElement(this.props.children, { recipes: this.state.recipes, handleEdit: this.handleEdit })}
+          {React.cloneElement(this.props.children, { recipes: this.state.recipes, updateRecipeList: this.updateRecipeList })}
         </div>
       </div>
     );
