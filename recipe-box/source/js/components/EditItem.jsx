@@ -27,6 +27,7 @@ class EditItem extends React.Component {
           <span className="input-group-addon">{this.props.i}</span>
           <input
             type="text"
+            name={this.props.name + '-' + this.props.i}
             className="form-control"
             value={this.state.text}
             onChange={this.handleInputChange}/>

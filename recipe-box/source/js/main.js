@@ -3,11 +3,12 @@ import { render } from 'react-dom';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
 // Components
+import AddRecipe from './components/AddRecipe.jsx';
 import App from './components/App.jsx';
-import Home from './components/Home.jsx';
-import RecipeContainer from './components/RecipeContainer.jsx';
-import Recipe from './components/Recipe.jsx';
 import EditRecipe from './components/EditRecipe.jsx';
+import Home from './components/Home.jsx';
+import Recipe from './components/Recipe.jsx';
+import RecipeContainer from './components/RecipeContainer.jsx';
 
 // Stylesheets
 require("../sass/style.scss");
@@ -22,6 +23,7 @@ render((
       <Route path="/recipes/:recipeName" component={RecipeContainer}>
         <IndexRoute component={Recipe} />
         <Route path="/recipes/:recipeName/edit" component={EditRecipe}></Route>
+        {/*<Route path="/recipes/add" component={AddRecipe}></Route>*/}
       </Route>
     </Route>
   </Router>

@@ -6,15 +6,15 @@ import { findRecipe } from '../utils/helpers.js';
 class RecipeContainer extends React.Component {
 
   render() {
-    const { recipes, params: { recipeName } } = this.props;
-    const currentRecipe = findRecipe(recipes, recipeName);
-    const recipeIndex = recipes.indexOf(currentRecipe);
+    const { recipes, handleEdit, params: { recipeName } } = this.props,
+          currentRecipe = findRecipe(recipes, recipeName),
+          recipeIndex = recipes.indexOf(currentRecipe);
 
     return (
       <main className="col-sm-8">
         <NavTabs recipeName={recipeName} />
         <div className="recipe-box panel panel-default">
-          {React.cloneElement(this.props.children, { currentRecipe, recipeIndex })}
+          {React.cloneElement(this.props.children, { currentRecipe, recipeIndex, handleEdit})}
         </div>
       </main>
     );

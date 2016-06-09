@@ -4,9 +4,14 @@ import EditItem from './EditItem.jsx';
 
 class EditList extends React.Component {
   render() {
-    const { ordered, items, heading } = this.props;
+    const { ordered, items, heading, refHandler, name } = this.props;
     const itemList = items.map(
-      (item, index) => <EditItem key={index} text={item} i={index + 1} deletable />
+      (item, index) => <EditItem
+                          key={index}
+                          text={item}
+                          i={index + 1}
+                          name={name}
+                          deletable />
     );
     return (
       <div className="col-sm-12">
@@ -15,7 +20,6 @@ class EditList extends React.Component {
       </div>
     );
   }
-
 }
 
 export default EditList;
