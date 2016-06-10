@@ -43,8 +43,11 @@ class EditRecipe extends React.Component {
     e.preventDefault();
 
     // Update App state with the updated recipe
-    const { name, ingredients, method } = this.state;
-    const { updateRecipeList, recipeIndex } = this.props;
+    const { updateRecipeList, recipeIndex } = this.props,
+          name = this.state.name.trim() || "Unknown-" + recipeIndex,
+          // fetch ingredients and method, minus empty fields
+          ingredients = this.state.ingredients.filter((v) => !!v),
+          method = this.state.method.filter((v) => !!v);
     updateRecipeList({name, ingredients, method}, recipeIndex);
 
     // Redirect to the recipe view, and allow for changes to the recipe name
@@ -78,7 +81,7 @@ class EditRecipe extends React.Component {
         <form className="col-sm-12" onSubmit={this.handleSave}>
           <div className="col-sm-12">
             <h3 className="text-center">Title</h3>
-            <EditItem text={props.currentRecipe.name} {...props} index="Title" inputGroup="name"/>
+            <EditItem text={props.currentRecipe.name} {...props} index="Name" inputGroup="name"/>
           </div>
 
           <EditList heading="Ingredients" {...props} inputGroup="ingredients" />

@@ -17,12 +17,16 @@ class App extends Component {
     this.setState({recipes: recipes});
   }
   render() {
+    const props = {
+      recipes: this.state.recipes,
+      updateRecipeList: this.updateRecipeList
+    };
     return (
       <div>
         <Header />
         <div className="container">
           <RecipeListContainer recipes={this.state.recipes} />
-          {React.cloneElement(this.props.children, { recipes: this.state.recipes, updateRecipeList: this.updateRecipeList })}
+          {React.cloneElement(this.props.children, props)}
         </div>
       </div>
     );

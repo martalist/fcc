@@ -24,6 +24,11 @@ class EditItem extends React.Component {
             type="text"
             name={inputGroup + '-' + index}
             className="form-control"
+            placeholder={"Enter a" + (
+              inputGroup === 'ingredients' ?
+              "n " + inputGroup.slice(0, -1) :
+              " " + inputGroup
+            )}
             value={text}
             onChange={handleInput}/>
           {deletable ? deleteButton : null}
