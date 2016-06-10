@@ -23,13 +23,13 @@ class NavTabs extends React.Component {
         <Tab
           recipeName={recipeName} >
             <i className="fa fa-file-text-o" aria-hidden="true"> </i>
-            View
+            <span>View</span>
         </Tab>
         <Tab
           recipeName={recipeName}
           edit >
             <i className="fa fa-pencil-square-o" aria-hidden="true"> </i>
-            Edit
+            <span>Edit</span>
         </Tab>
       </ul>
     );

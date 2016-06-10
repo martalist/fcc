@@ -21,12 +21,12 @@ class EditList extends React.Component {
         <h3 className="text-center">{heading}</h3>
         {itemList}
         <button
-          className="btn btn-secondary"
+          className="btn btn-default btn-sm"
           type="button"
           name={"add-" + inputGroup}
           onClick={handleAdd} >
             <i className="fa fa-plus" aria-hidden="true"></i>
-            Add
+            <span>Add</span>
         </button>
       </div>
     );

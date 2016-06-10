@@ -14,7 +14,7 @@ const HeaderRight = ({link}) => (
       <li>
       <Link to='/add' >
         <i className="fa fa-plus-circle" aria-hidden="true"></i>
-        {link}
+        <span>{link}</span>
       </Link>
       </li>
     </ul>

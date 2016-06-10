@@ -57,3 +57,25 @@ form.col-sm-12 {
   border: 1px solid #ddd;
   border-bottom-color: transparent;
 }
+
+.save-recipe {
+  div {
+    width: 100%;
+    padding-top: 40px;
+    display: flex;
+    justify-content: space-between;
+  }
+  button {
+    width: 30%;
+  }
+}
+
+
+i {
+  &:first-child::before {
+    margin-right: 5px;
+  }
+  &:only-child::before {
+    margin: 0;
+  }
+}
