@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 // Components
 import App from './components/App.jsx';
@@ -16,7 +16,7 @@ const app = document.getElementById("app");
 
 // Render the application
 render((
-  <Router history={hashHistory}>
+  <Router history={browserHistory}>
     <Route path="/" component={App}>
       <IndexRoute component={Home} />
       <Route path="/recipes/:recipeName" component={RecipeContainer}>

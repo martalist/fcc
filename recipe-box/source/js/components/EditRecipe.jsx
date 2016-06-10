@@ -1,6 +1,6 @@
 'use strict';
 import React from 'react';
-import { hashHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import EditItem from './EditItem.jsx';
 import EditList from './EditList.jsx';
 import { titleToUrl } from '../utils/helpers.js';
@@ -60,7 +60,7 @@ class EditRecipe extends React.Component {
     updateRecipeList({name, ingredients, method}, recipeIndex);
 
     // Redirect to the recipe view, and allow for changes to the recipe name
-    hashHistory.push( '/recipes/' + titleToUrl(name) );
+    browserHistory.push( '/recipes/' + titleToUrl(name) );
   }
   handleCancel(e) {
     // check if we're editing
@@ -68,13 +68,13 @@ class EditRecipe extends React.Component {
                 '/recipes/' + this.props.params.recipeName :
                 '/';
     // Redirect to the recipe view
-    hashHistory.push(url);
+    browserHistory.push(url);
   }
   handleDelete(e) {
     // check if we're editing
     this.props.deleteRecipe(this.props.recipeIndex);
     // Redirect to home
-    hashHistory.push('/');
+    browserHistory.push('/');
   }
   newStateObject(property, value) {
     const obj = {};
