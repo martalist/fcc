@@ -1,6 +1,3 @@
-// @import "variables";
-// @import "bootswatch";
-
 @mixin respond-to($query, $value) {
   @media ($query: $value) {
     @content;
