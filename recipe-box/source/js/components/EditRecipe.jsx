@@ -23,6 +23,7 @@ class EditRecipe extends React.Component {
     this.handleAdd = this.handleAdd.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
   handleInput(e) {
     let input = e.currentTarget.value,
@@ -69,6 +70,12 @@ class EditRecipe extends React.Component {
     // Redirect to the recipe view
     hashHistory.push(url);
   }
+  handleDelete(e) {
+    // check if we're editing
+    this.props.deleteRecipe(this.props.recipeIndex);
+    // Redirect to home
+    hashHistory.push('/');
+  }
   newStateObject(property, value) {
     const obj = {};
     obj[property] = value;
@@ -93,14 +100,22 @@ class EditRecipe extends React.Component {
           <EditList heading="Ingredients" {...props} inputGroup="ingredients" />
           <EditList heading="Method" {...props} inputGroup="method" ordered />
 
-          <div class="form-group">
-            <div class="col-sm-6 col-sm-offset-3">
+          <div className="save-recipe form-group container-fluid">
+            <div>
               <button className="btn btn-primary" type="submit" name="Save">
-                Save
+                <i className="fa fa-floppy-o" aria-hidden="true"></i>
+                <span>Save</span>
               </button>
-              <button className="btn btn-default" type="button" name="Cancel" onClick={this.handleCancel} >
-                Cancel
+              <button className="btn btn-secondary" type="button" name="Cancel" onClick={this.handleCancel} >
+                <i className="fa fa-undo" aria-hidden="true"></i>
+                <span>Cancel</span>
               </button>
+              {this.props.recipeIndex >=0 ?
+                <button className="btn btn-danger" type="button" name="Danger" onClick={this.handleDelete} >
+                  <i className="fa fa-trash" aria-hidden="true"></i>
+                  <span>Delete</span>
+                </button> :
+                null}
             </div>
           </div>
         </form>

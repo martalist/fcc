@@ -10,6 +10,7 @@ class App extends Component {
       recipes,
     };
     this.updateRecipeList = this.updateRecipeList.bind(this);
+    this.deleteRecipe = this.deleteRecipe.bind(this);
   }
   updateRecipeList(updatedRecipe, index) {
     const recipes = this.state.recipes.slice();
@@ -17,10 +18,16 @@ class App extends Component {
     recipes[index] = updatedRecipe;
     this.setState({recipes: recipes});
   }
+  deleteRecipe(index) {
+    const recipes = this.state.recipes.slice();
+    recipes.splice(index, 1);
+    this.setState({recipes: recipes});
+  }
   render() {
     const props = {
       recipes: this.state.recipes,
-      updateRecipeList: this.updateRecipeList
+      updateRecipeList: this.updateRecipeList,
+      deleteRecipe: this.deleteRecipe
     };
     return (
       <div>
