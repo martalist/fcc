@@ -24,12 +24,7 @@ class EditRecipe extends React.Component {
     let input = e.currentTarget.value,
         [ inputGroup, index ] = e.currentTarget.name.split('-'),
         toUpdate = this.state[inputGroup].slice();
-    if (Array.isArray(toUpdate)) {
-      toUpdate[--index] = input;
-    }
-    else {
-      toUpdate = input;
-    }
+    Array.isArray(toUpdate) ? toUpdate[--index] = input : toUpdate = input;
     this.setState( this.newStateObject(inputGroup, toUpdate) );
   }
   handleDelete(e) {
