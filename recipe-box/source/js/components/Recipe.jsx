@@ -5,16 +5,17 @@ import List from './List.jsx';
 class Recipe extends React.Component {
 
   render() {
-    const{ currentRecipe, recipeIndex } = this.props;
+    const currentRecipe = this.props.currentRecipe || {};
+    const { recipeIndex } = this.props;
     return (
       <div className="container-fluid">
         <header className="text-center">
-          <h1>{currentRecipe.name}</h1>
+          <h1>{currentRecipe.name || "Not found"}</h1>
         </header>
 
         <div className="col-sm-12">
-          <List heading="Ingredients" items={currentRecipe.ingredients} />
-          <List heading="Method" items={currentRecipe.method} ordered />
+          <List heading="Ingredients" items={currentRecipe.ingredients || []} />
+          <List heading="Method" items={currentRecipe.method || []} ordered />
         </div>
       </div>
     );

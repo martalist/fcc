@@ -12,8 +12,8 @@ class RecipeContainer extends React.Component {
 
     return (
       <main className="col-sm-8">
-        <NavTabs recipeName={recipeName} />
-        <div className="recipe-box panel panel-default">
+        {!!currentRecipe ? <NavTabs recipeName={recipeName} /> : null}
+        <div className={"panel panel-default " + (!!currentRecipe ? "recipe-box" : "home")}>
           {React.cloneElement(this.props.children, { currentRecipe, recipeIndex, updateRecipeList})}
         </div>
       </main>

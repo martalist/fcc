@@ -13,6 +13,7 @@ class App extends Component {
   }
   updateRecipeList(updatedRecipe, index) {
     const recipes = this.state.recipes.slice();
+    index = index < 0 ? recipes.length : index;
     recipes[index] = updatedRecipe;
     this.setState({recipes: recipes});
   }

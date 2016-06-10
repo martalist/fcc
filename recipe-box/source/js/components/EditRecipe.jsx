@@ -8,7 +8,11 @@ import { titleToUrl } from '../utils/helpers.js';
 class EditRecipe extends React.Component {
   constructor(props) {
     super(props);
-    const { name, ingredients, method } = this.props.currentRecipe;
+    const { name, ingredients, method } = this.props.currentRecipe || {
+      name: "",
+      ingredients: [""],
+      method: [""]
+    };
     this.state = {
       name,
       ingredients: ingredients.slice(),
@@ -44,7 +48,11 @@ class EditRecipe extends React.Component {
 
     // Update App state with the updated recipe
     const { updateRecipeList, recipeIndex } = this.props,
-          name = this.state.name.trim() || "Unknown-" + recipeIndex,
+          name = this.state.name.trim() || "Unknown-" + (
+            recipeIndex < 0 ?
+            Math.random().toString(36).substr(2, 5) :
+            recipeIndex
+          ),
           // fetch ingredients and method, minus empty fields
           ingredients = this.state.ingredients.filter((v) => !!v),
           method = this.state.method.filter((v) => !!v);
@@ -54,14 +62,12 @@ class EditRecipe extends React.Component {
     hashHistory.push( '/recipes/' + titleToUrl(name) );
   }
   handleCancel(e) {
-    const { name, ingredients, method } = this.props.currentRecipe;
-    this.setState({
-      name,
-      ingredients: ingredients.slice(),
-      method: method.slice()
-    });
+    // check if we're editing
+    const url = this.props.recipeIndex >=0 ?
+                '/recipes/' + this.props.params.recipeName :
+                '/';
     // Redirect to the recipe view
-    hashHistory.push('/recipes/' + this.props.params.recipeName);
+    hashHistory.push(url);
   }
   newStateObject(property, value) {
     const obj = {};

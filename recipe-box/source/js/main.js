@@ -3,7 +3,6 @@ import { render } from 'react-dom';
 import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
 // Components
-import AddRecipe from './components/AddRecipe.jsx';
 import App from './components/App.jsx';
 import EditRecipe from './components/EditRecipe.jsx';
 import Home from './components/Home.jsx';
@@ -23,7 +22,7 @@ render((
       <Route path="/recipes/:recipeName" component={RecipeContainer}>
         <IndexRoute component={Recipe} />
         <Route path="/recipes/:recipeName/edit" component={EditRecipe}></Route>
-        {/*<Route path="/recipes/add" component={AddRecipe}></Route>*/}
+        <Route path="/add" component={EditRecipe} ></Route>
       </Route>
     </Route>
   </Router>
