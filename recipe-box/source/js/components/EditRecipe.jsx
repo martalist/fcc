@@ -19,7 +19,7 @@ class EditRecipe extends React.Component {
       method: method.slice()
     };
     this.handleInput = this.handleInput.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
+    this.handleDeleteItem = this.handleDeleteItem.bind(this);
     this.handleAdd = this.handleAdd.bind(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
@@ -32,7 +32,7 @@ class EditRecipe extends React.Component {
     Array.isArray(toUpdate) ? toUpdate[--index] = input : toUpdate = input;
     this.setState( this.newStateObject(inputGroup, toUpdate) );
   }
-  handleDelete(e) {
+  handleDeleteItem(e) {
     const [ inputGroup, index ] = e.currentTarget.name.split('-'),
           toUpdate = this.state[inputGroup].slice();
     toUpdate.splice(index - 1, 1);
@@ -85,7 +85,7 @@ class EditRecipe extends React.Component {
     const props = {
       currentRecipe: this.state,
       handleInput: this.handleInput,
-      handleDelete: this.handleDelete,
+      handleDeleteItem: this.handleDeleteItem,
       handleAdd: this.handleAdd
     };
     return (

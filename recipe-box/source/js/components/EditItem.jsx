@@ -4,13 +4,13 @@ import React from 'react';
 
 class EditItem extends React.Component {
   render() {
-    const { index, inputGroup, text, handleInput, handleDelete, deletable } = this.props;
+    const { index, inputGroup, text, handleInput, handleDeleteItem, deletable } = this.props;
     const deleteButton = (
       <span className="input-group-btn" >
         <button
           className="btn btn-danger"
           type="button"
-          onClick={handleDelete}
+          onClick={handleDeleteItem}
           name={inputGroup + '-' + index} >
             <i className="fa fa-trash" aria-hidden="true"></i>
         </button>
