@@ -1,0 +1,3 @@
+[submodule "timestamp-microservice"]
+	path = timestamp-microservice
+	url = https://github.com/martalist/fcc-timestamp-ms.git
