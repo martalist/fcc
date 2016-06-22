@@ -1,3 +1,6 @@
 [submodule "timestamp-microservice"]
 	path = timestamp-microservice
 	url = https://github.com/martalist/fcc-timestamp-ms.git
+[submodule "header-parser"]
+	path = header-parser
+	url = https://github.com/martalist/fcc-header-parser.git
