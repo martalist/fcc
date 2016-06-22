@@ -46,7 +46,7 @@ This is a set of projects I'm working on as part of [Free Code Camp](http://www.
 ### API Projects
 
   - [x] Timestamp Microservice | [Requirements](http://www.freecodecamp.com/challenges/timestamp-microservice) | [Demo](https://fcc-timest.herokuapp.com/)
-  - [ ] Request Header Parser Microservice | [Requirements](http://www.freecodecamp.com/challenges/timestamp-microservice) | Demo
+  - [x] Request Header Parser Microservice | [Requirements](http://www.freecodecamp.com/challenges/timestamp-microservice) | [Demo](https://fcc-hdr-parser.herokuapp.com/)
   - [ ] URL Shortener Microservice | [Requirements](http://www.freecodecamp.com/challenges/url-shortener-microservice) | Demo
   - [ ] Image Search Abstraction Layer | [Requirements](http://www.freecodecamp.com/challenges/image-search-abstraction-layer) | Demo
   - [ ] File Metadata Microservice | [Requirements](http://www.freecodecamp.com/challenges/file-metadata-microservice) | Demo
