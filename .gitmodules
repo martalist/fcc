@@ -4,3 +4,6 @@
 [submodule "header-parser"]
 	path = header-parser
 	url = https://github.com/martalist/fcc-header-parser.git
+[submodule "url-shortener"]
+	path = url-shortener
+	url = https://github.com/martalist/fcc-url-shortener
