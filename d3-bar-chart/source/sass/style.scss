@@ -1,0 +1,14 @@
+rect {
+  fill: steelblue;
+  transform-origin: left center;
+  transition: all .2s ease;
+  &:hover {
+    fill: brown;
+  }
+}
+
+.domain {
+  fill: none;
+  stroke: black;
+  stroke-width: 1px;
+}
