@@ -3,34 +3,39 @@ import d3 from 'd3';
 // Stylesheets
 require("../sass/style.scss");
 
-const data = [5, 15, 30, 40, 60]
-    , margin = { top: 20, bottom: 40, left: 20, right: 20 }
-    , width = 960
-    , barHeight = 40
-    , height = barHeight * data.length + margin.top + margin.bottom;
+const URL = "https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json";
 
-const x = d3.scale.linear()
-    .domain([0, d3.max(data)])
-    .range([0, width]);
+const margin = { top: 20, bottom: 40, left: 40, right: 20 }
+    , width = 960 - margin.left - margin.right
+    , height = 500 - margin.top - margin.bottom
 
-const xAxis = d3.svg.axis()
-    .scale(x)
-    .ticks(5)
+const x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .1);
 
-const canvas = d3.select('#app').append('svg')
-    .attr('width', width)
-    .attr('height', height)
-  .append('g')
-    .attr('transform', `translate(${margin.left}, ${margin.top})`);
+const y = d3.scale.linear()
+    .range([height, 0])
 
-canvas.selectAll('rect')
-    .data(data)
-  .enter().append('rect')
-    .attr('x', margin.left)
-    .attr('y', (d, i) => i * barHeight)
-    .attr('width', (d) => x(d))
-    .attr('height', barHeight - 1);
+// fetch data
+d3.json(URL, (err, json) => {
+  if (err) console.error(err);
 
-canvas.append('g')
-    .attr('transform', `translate(${margin.left}, ${height - margin.bottom})`)
-    .call(xAxis);
+  const data = json.data.map((d) => [ new Date(d[0]), +d[1] ]);
+
+  x.domain(data.map( (d) => d[0] ))
+  y.domain([d3.max(data, (d) => d[1] ), 0])
+
+  const canvas = d3.select('#app').append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+    .append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`);
+
+  canvas.selectAll('.bar')
+      .data(data)
+    .enter().append('rect')
+      .attr('class', 'bar')
+      .attr('y', (d) => height - margin.top - y(d[1]))
+      .attr('x', (d) => x(d[0]))
+      .attr('height', (d) => y(d[1]))
+      .attr('width', (width / data.length) - 1);
+});
