@@ -1,7 +1,59 @@
-rect {
-  fill: steelblue;
+@import url(https://fonts.googleapis.com/css?family=Special+Elite);
+@import url(https://fonts.googleapis.com/css?family=Iceland);
+@import url(https://fonts.googleapis.com/css?family=Supermercado+One);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+$h1: normal 2.2em/1 'Special Elite', cursive;
+$h4: normal 1.2em/1 'Supermercado One', cursive;
+$p: normal .8em/1 'Open Sans', sans-serif;
+
+$color-bar: #4682b4;
+$color-bar-hover: lighten(#c0625e, 10%);
+$color-paper: lighten($color-bar, 40%);
+
+* {
+  box-sizing: border-box;
+}
+
+%full-height {
+  margin: 0;
+  height: 100%;
+}
+
+html {
+  @extend %full-height;
+}
+
+body {
+  @extend %full-height;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  background-image:
+  linear-gradient(90deg, transparent 79px, $color-paper 79px, $color-paper 81px, transparent 81px),
+  linear-gradient(#eee .1em, transparent .1em);
+  background-size: 100% 1.2em;
+}
+
+main {
+  width: 1000px;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 6px;
+  box-shadow: 0 0 10px 0 #555;
+}
+
+h1 {
+  font: $h1;
+  text-align: center;
+  color: $color-bar;
+}
+
+.bar {
+  fill: $color-bar;
   &:hover {
-    fill: brown;
+    fill: $color-bar-hover;
   }
 }
 
@@ -9,4 +61,69 @@ rect {
   fill: none;
   stroke: black;
   stroke-width: 1px;
+}
+
+.axis {
+  text {
+    font: 10px sans-serif;
+  }
+  path,
+  line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+}
+
+.d3-tip {
+  line-height: 1;
+  text-align: center;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  border-radius: 5px;
+  h4 {
+    font: $h4;
+    margin: 5px 0 10px;
+    padding: 0;
+  }
+  p {
+    font: $p;
+    margin: 2px 0;
+    padding: 0;
+  }
+}
+
+/* Creates a small triangle extender for the tooltip */
+.d3-tip:after {
+  box-sizing: border-box;
+  display: inline;
+  font-size: 10px;
+  width: 100%;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+
+/* Style northward tooltips differently */
+.n .d3-tip:after {
+  margin: -1px 0 0 0;
+  top: 100%;
+  left: 0;
+}
+
+.axis {
+  text {
+    text-anchor: end;
+    font-size: .8em;
+  }
+}
+
+.notes {
+  font: $p;
+  color: $color-bar-hover;
+  text-align: center;
+  margin: 0 40px;
 }

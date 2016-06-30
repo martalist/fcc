@@ -7,7 +7,7 @@ require("../sass/style.scss");
 const URL = "https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json";
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-const margin = { top: 20, bottom: 20, left: 40, right: 20 }
+const margin = { top: 10, bottom: 12, left: 40, right: 20 }
     , width = 960 - margin.left - margin.right
     , height = 500 - margin.top - margin.bottom
 
@@ -17,20 +17,6 @@ const x = d3.time.scale()
 const y = d3.scale.linear()
     .range([height - margin.bottom, 0])
 
-const canvas = d3.select('#app').append('svg')
-    .attr('width', width + margin.left + margin.right)
-    .attr('height', height + margin.top + margin.bottom)
-  .append('g')
-    .attr('transform', `translate(${margin.left}, ${margin.top})`);
-
-// tooltip
-const tip = tooltip().html((d) => (
-  `<div class="d3-tip">
-    <h4>$${d[1]} billion</h4>
-    <p>${d[0].getFullYear()} - ${MONTHS[d[0].getMonth()]}</p>
-  </div>`
-))
-canvas.call(tip)
 
 // fetch data
 d3.json(URL, (err, json) => {
@@ -39,6 +25,21 @@ d3.json(URL, (err, json) => {
   // parse data
   const data = json.data.map((d) => [ new Date(d[0]), +d[1] ]);
   const { from_date, to_date } = json;
+
+  const canvas = d3.select('#app').append('svg')
+      .attr('width', width + margin.left + margin.right)
+      .attr('height', height + margin.top + margin.bottom)
+    .append('g')
+      .attr('transform', `translate(${margin.left}, ${margin.top})`);
+
+  // tooltip
+  const tip = tooltip().html((d) => (
+    `<div class="d3-tip">
+      <h4>$${numberWithCommas(d[1])} billion</h4>
+      <p>${d[0].getFullYear()} - ${MONTHS[d[0].getMonth()]}</p>
+    </div>`
+  ))
+  canvas.call(tip)
 
   x.domain( [from_date, to_date].map( (d) => new Date(d) ))
   y.domain([0, d3.max(data, (d) => d[1] )])
@@ -60,7 +61,7 @@ d3.json(URL, (err, json) => {
       .attr('class', 'bar')
       .attr('y', (d) => y(d[1]))
       .attr('x', (d) => x(d[0]))
-      .attr('height', (d) => height - margin.top - y(d[1]))
+      .attr('height', (d) => height - margin.bottom - y(d[1]))
       .attr('width', (width / data.length))
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide)
@@ -76,4 +77,19 @@ d3.json(URL, (err, json) => {
       .attr('class', 'y axis')
       .attr('transform', `translate(${margin.left}, 0)`)
       .call(yAxis)
+    .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('y', 12)
+      .attr('dy', '.71em')
+      .text(json.name)
+
+  // Additional notes
+  d3.select('#app').append('div')
+      .attr('class', 'notes')
+    .append('p')
+      .text(json.description)
 });
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
