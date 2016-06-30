@@ -5,15 +5,13 @@ import tooltip from 'd3-tip';
 require("../sass/style.scss");
 
 const URL = "https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/GDP-data.json";
+const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 const margin = { top: 20, bottom: 20, left: 40, right: 20 }
     , width = 960 - margin.left - margin.right
     , height = 500 - margin.top - margin.bottom
 
-const x = d3.scale.ordinal()
-    .rangeRoundBands([0, width], .1);
-
-const simpleX = d3.time.scale()
+const x = d3.time.scale()
     .range([margin.left, width - margin.right])
 
 const y = d3.scale.linear()
@@ -26,7 +24,12 @@ const canvas = d3.select('#app').append('svg')
     .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
 // tooltip
-const tip = tooltip().html((d) => `${d[0].getFullYear()}, $${d[1]} billion`)
+const tip = tooltip().html((d) => (
+  `<div class="d3-tip">
+    <h4>$${d[1]} billion</h4>
+    <p>${d[0].getFullYear()} - ${MONTHS[d[0].getMonth()]}</p>
+  </div>`
+))
 canvas.call(tip)
 
 // fetch data
@@ -35,38 +38,40 @@ d3.json(URL, (err, json) => {
 
   // parse data
   const data = json.data.map((d) => [ new Date(d[0]), +d[1] ]);
+  const { from_date, to_date } = json;
 
-  x.domain(data.map( (d) => d[0] ))
-  y.domain([d3.max(data, (d) => d[1] ), 0])
-  simpleX.domain([data[0][0], data[data.length - 1][0] ])
+  x.domain( [from_date, to_date].map( (d) => new Date(d) ))
+  y.domain([0, d3.max(data, (d) => d[1] )])
 
   const xAxis = d3.svg.axis()
-      .scale(simpleX)
+      .scale(x)
       .orient('bottom')
       .tickFormat(d3.time.format("%Y"))
-      .ticks(10)
+      .ticks(15)
 
   const yAxis = d3.svg.axis()
       .scale(y)
       .orient('left')
-      .ticks(6)
+      .ticks(10)
 
   canvas.selectAll('.bar')
       .data(data)
     .enter().append('rect')
       .attr('class', 'bar')
-      .attr('y', (d) => height - margin.top - y(d[1]))
+      .attr('y', (d) => y(d[1]))
       .attr('x', (d) => x(d[0]))
-      .attr('height', (d) => y(d[1]))
-      .attr('width', (width / data.length) - 1)
+      .attr('height', (d) => height - margin.top - y(d[1]))
+      .attr('width', (width / data.length))
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide)
 
+  // x axis
   canvas.append('g')
       .attr('class', 'x axis')
       .attr('transform', `translate(0, ${height - margin.bottom})`)
       .call(xAxis)
 
+  // y axis
   canvas.append('g')
       .attr('class', 'y axis')
       .attr('transform', `translate(${margin.left}, 0)`)
