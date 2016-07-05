@@ -1,18 +1,49 @@
-body {
-  font: 10px sans-serif;
+$tooltip-padding: 0 10px 10px;
+$color-tooltip: steelblue;
+
+* {
+  box-sizing: border-box;
 }
 
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
+body {
+  font: 10px sans-serif;
+  position: relative;
 }
 
 .dot {
-  stroke: #000;
+  stroke-width: 0;
+  stroke: black;
+  cursor: pointer;
+  transition: all .1s ease;
+  &:hover {
+    stroke-width: 1px;
+    r: 7.5;
+  }
 }
 
 .label {
-  fill: #000;
+  fill: black;
+}
+
+.tooltip {
+  min-width: 260px;
+  padding: $tooltip-padding;
+  background-color: $color-tooltip;
+  border-radius: 0 10px 10px;
+  position: absolute;
+  display: block;
+  opacity: 0;
+  z-index: 11;
+  transition: all .4s ease;
+  &::before {
+    content: "";
+    position: relative;
+    top: -22px;
+    left: -10px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 10px solid $color-tooltip;
+  }
 }

@@ -8,7 +8,7 @@ const URL = "https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData
 
 const margin = {top: 20, right: 90, bottom: 30, left: 40}
     , width = 960 - margin.left - margin.right
-    , height = 500 - margin.top - margin.bottom;
+    , height = 550 - margin.top - margin.bottom;
 
 const x = d3.scaleLinear()
     .range([0, width]);
@@ -23,6 +23,11 @@ const svg = d3.select("main").append("svg")
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+const tooltip = d3.select('main').append('div')
+    .attr('class', 'tooltip');
+
+let tipFade = null;
 
 d3.json(URL, (err, data) => {
   if (err) throw err;
@@ -64,10 +69,27 @@ d3.json(URL, (err, data) => {
       .data(data)
     .enter().append("circle")
       .attr("class", "dot")
-      .attr("r", 3.5)
+      .attr("r", 5)
       .attr("cx", d => x(d.Seconds))
       .attr("cy", d => y(d.Place))
-      .style("fill", d => color(d.doped));
+      .style("fill", d => color(d.doped))
+      .on('mouseover', (dot) => {
+        if (tipFade) clearTimeout(tipFade);
+        tooltip.html(`
+          <p><span class="h4">${dot.Name}</span> | ${dot.Nationality}</p>
+          <p>${dot.Doping}</p>
+          <p><strong>Time:</strong> ${dot.Time}</p>
+          <p>${dot.Year} | <a href="${dot.URL}" target="_blank" >more info</a></p>
+        `)
+          .style('opacity', '1')
+          .style('left', d3.event.pageX - 12 + 'px')
+          .style('top', d3.event.pageY + 8 + 'px');
+      })
+      .on('mouseout', (dot) => {
+        tipFade = setTimeout(() => {
+          tooltip.style('opacity', '0');
+        }, 1000);
+      });
 
   svg.selectAll(".dot-text")
       .data(data)
