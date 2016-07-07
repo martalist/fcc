@@ -35,8 +35,8 @@ This is a set of projects I'm working on as part of [Free Code Camp](http://www.
 
 ### Data Visualization Projects
 
-  - [ ] Visualize Data with a Bar Chart | [Requirements](http://www.freecodecamp.com/challenges/visualize-data-with-a-bar-chart) | Demo
-  - [ ] Visualize Data with a Scatterplot Graph | [Requirements](http://www.freecodecamp.com/challenges/visualize-data-with-a-scatterplot-graph) | Demo
+  - [x] Visualize Data with a Bar Chart | [Requirements](http://www.freecodecamp.com/challenges/visualize-data-with-a-bar-chart) | [Demo](http://martalist.github.io/fcc/d3-bar-chart/)
+  - [x] Visualize Data with a Scatterplot Graph | [Requirements](http://www.freecodecamp.com/challenges/visualize-data-with-a-scatterplot-graph) | [Demo](http://martalist.github.io/fcc/d3-scatterplot/)
   - [ ] Visualize Data with a Heat Map | [Requirements](http://www.freecodecamp.com/challenges/visualize-data-with-a-heat-map) | Demo
   - [ ] Show Relationships with a Force Directed Graph | [Requirements](http://www.freecodecamp.com/challenges/show-relationships-with-a-force-directed-graph) | Demo
   - [ ] Map Data Across the Globe | [Requirements](http://www.freecodecamp.com/challenges/map-data-across-the-globe) | Demo
