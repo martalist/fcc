@@ -83,17 +83,20 @@ d3.json(URL, (err, data) => {
       .attr("cx", d => x(d.time))
       .attr("cy", d => y(d.Place))
       .style("fill", d => color(d.doped))
-      .on('mouseover', (dot) => {
+      .on('mouseover', function (dot) {
         if (tipFade) clearTimeout(tipFade);
+        var matrix = this.getScreenCTM()
+            .translate(+this.getAttribute("cx"), +this.getAttribute("cy"));
+
         tooltip.html(`
-          <p><span class="h4">${dot.Name}</span> | ${dot.Nationality}</p>
+          <p><span class="h4">${dot.Name}</span>  >  ${dot.Nationality}  >  ${dot.Year}</p>
           <p>${dot.Doping}</p>
           <p><strong>Time:</strong> ${dot.Time}</p>
-          <p>${dot.Year} | <a href="${dot.URL}" target="_blank" >more info</a></p>
+          <p><a href="${dot.URL}" target="_blank" >more info</a>...</p>
         `)
           .style('opacity', '1')
-          .style('left', d3.event.pageX - 12 + 'px')
-          .style('top', d3.event.pageY + 8 + 'px');
+          .style('left', matrix.e + 18 + 'px')
+          .style('top', matrix.f -100 + 'px');
       })
       .on('mouseout', (dot) => {
         tipFade = setTimeout(() => {

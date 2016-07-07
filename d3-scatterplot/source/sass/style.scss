@@ -1,13 +1,75 @@
-$tooltip-padding: 0 10px 10px;
-$color-tooltip: steelblue;
+@import url(https://fonts.googleapis.com/css?family=Dosis:300,500,700);
 
-* {
-  box-sizing: border-box;
+$font: 10px/1 sans-serif;
+$h4: bold 16px/1.2 'Dosis', sans-serif;
+
+$tooltip-padding: 0 10px 10px;
+$bg-image-height: 260px;
+$main-height-offset: 220px;
+
+$color-tooltip: steelblue;
+$color-background: #fafafa;
+$color-orange: #ff7f0e;
+$color-blue: #1f77b4;
+
+* { box-sizing: border-box; }
+
+%base {
+  margin: 0px;
+  padding: 0;
+  height: 100%;
+}
+
+html {
+  @extend %base;
 }
 
 body {
-  font: 10px sans-serif;
+  @extend %base;
+  font: $font;
   position: relative;
+  // background-color: gray;
+}
+
+.bg {
+  width: 100%;
+  position: fixed;
+  z-index: -10;
+  &.bg-img {
+    top: 0;
+    height: $bg-image-height;
+    background-image: url('/public/tdf.jpg');
+    background-position: center center;
+    // opacity: .9;
+    &::after {
+      content: "";
+      top: 0;
+      position: fixed;
+      width: 100%;
+      height: $bg-image-height;
+      z-index: -9;
+      background-color: $color-blue;
+      opacity: .6;
+    }
+  }
+  &.bg-lower {
+    top: $bg-image-height;
+    height: 100%;
+    background-color: $color-background;
+  }
+}
+
+main {
+  max-width: 1000px;
+  margin: calc(#{$bg-image-height - $main-height-offset}) auto 0;
+  padding-top: 15px;
+  padding-bottom: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: flex-start;
+  background-color: white;
+  border: 1px solid #aaa;
 }
 
 .dot {
@@ -25,25 +87,25 @@ body {
   fill: black;
 }
 
+.h4 {
+  font: $h4;
+}
+
 .tooltip {
-  min-width: 260px;
+  font-size: 12px;
+  width: 260px;
   padding: $tooltip-padding;
-  background-color: $color-tooltip;
-  border-radius: 0 10px 10px;
+  background-color: $color-background;
+  border: 3px solid $color-orange;
+  border-radius: 5px;
   position: absolute;
   display: block;
   opacity: 0;
   z-index: 11;
   transition: all .4s ease;
-  &::before {
-    content: "";
-    position: relative;
-    top: -22px;
-    left: -10px;
-    width: 0;
-    height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 10px solid $color-tooltip;
+  p{
+    a {
+      text-decoration: none;
+    }
   }
 }
