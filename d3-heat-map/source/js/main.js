@@ -37,8 +37,8 @@ d3.json(URL, (err, data) => {
   const { monthlyVariance } = data
       , firstYear = d3.min(data.monthlyVariance, d => d.year)
       , lastYear = d3.max(data.monthlyVariance, d => d.year)
-      , cellHeight = Math.round(height / 12)
-      , cellWidth = Math.round(width / (lastYear - firstYear));
+      , cellHeight = height / 12
+      , cellWidth = width / (lastYear - firstYear);
 
   x.domain([firstYear, lastYear]);
   y.domain([13, 1]);
@@ -71,7 +71,7 @@ d3.json(URL, (err, data) => {
 
 
   // plot cells
-  svg.selectAll(".dot")
+  svg.selectAll(".cell")
       .data(monthlyVariance)
     .enter().append("rect")
       .attr("class", "cell")
@@ -80,26 +80,20 @@ d3.json(URL, (err, data) => {
       .attr('width', cellWidth)
       .attr('height', cellHeight)
       .style("fill", d => color(d.variance))
-      // .on('mouseover', function (dot) {
-      //   if (tipFade) clearTimeout(tipFade);
-      //   var matrix = this.getScreenCTM()
-      //       .translate(+this.getAttribute("cx"), +this.getAttribute("cy"));
-      //
-      //   tooltip.html(`
-      //     <p><span class="h4">${dot.Name}</span>  >  ${dot.Nationality}  >  ${dot.Year}</p>
-      //     <p>${dot.Doping}</p>
-      //     <p><strong>Time:</strong> ${dot.Time}</p>
-      //     <p><a href="${dot.URL}" target="_blank" >more info</a>...</p>
-      //   `)
-      //     .style('opacity', '1')
-      //     .style('left', matrix.e + 18 + 'px')
-      //     .style('top', matrix.f -100 + 'px');
-      // })
-      // .on('mouseout', (dot) => {
-      //   tipFade = setTimeout(() => {
-      //     tooltip.style('opacity', '0');
-      //   }, 1000);
-      // });
+      .on('mouseover', function (cell) {
+        const e = d3.event;
+        tooltip.html(`
+          <p><span class="h4">${(cell.variance + data.baseTemperature).toPrecision(4)}℃</span></p>
+          <p>${MONTHS[cell.month - 1]}, ${cell.year}</p>
+          <p>Variance: ${cell.variance}℃</p>
+        `)
+          .style('opacity', '1')
+          .style('left', e.pageX - 80 + 'px')
+          .style('top', e.pageY - 100 + 'px');
+      })
+      .on('mouseout', (cell) => {
+        tooltip.style('opacity', '0');
+      });
 
   // legend
   const legend = svg.selectAll(".legend")
