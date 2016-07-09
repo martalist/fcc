@@ -6,7 +6,7 @@ require("../sass/style.scss");
 const URL = "https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/master/global-temperature.json";
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-const margin = {top: 20, right: 20, bottom: 30, left: 60}
+const margin = {top: 20, right: 20, bottom: 80, left: 60}
     , width = 1200 - margin.left - margin.right
     , height = 550 - margin.top - margin.bottom;
 
@@ -17,6 +17,7 @@ const y = d3.scaleLinear()
     .range([height, 0]);
 
 const xAxis = d3.axisBottom(x)
+    .ticks(20)
     .tickFormat(d3.format('d'));
 
 const color = d3.scaleLinear()
@@ -35,8 +36,9 @@ d3.json(URL, (err, data) => {
   if (err) throw err;
 
   const { monthlyVariance } = data
-      , firstYear = d3.min(data.monthlyVariance, d => d.year)
-      , lastYear = d3.max(data.monthlyVariance, d => d.year)
+      , [ firstYear, lastYear ] = d3.extent(monthlyVariance, d => d.year)
+      , variance = d3.extent(monthlyVariance, d => d.variance)
+      , legendDomain = domainFromExtent(variance, 10)
       , cellHeight = height / 12
       , cellWidth = width / (lastYear - firstYear);
 
@@ -97,22 +99,83 @@ d3.json(URL, (err, data) => {
 
   // legend
   const legend = svg.selectAll(".legend")
-      .data(color.domain())
+      .data(legendDomain)
     .enter().append("g")
       .attr("class", "legend")
-      .attr("transform", (d, i) => `translate(0, ${(height - margin.top) / 2 - i * 20})`);
+      .attr("transform", (d, i) => `translate(${i * 35 - width/3.4}, ${height + margin.top + 20})`);
 
   legend.append("rect")
       .attr("x", width - 18)
-      .attr("width", 18)
+      .attr("width", 35)
       .attr("height", 18)
       .style("fill", color);
 
   legend.append("text")
-      .attr("x", width - 24)
-      .attr("y", 9)
+      .attr("x", width)
+      .attr("y", 29)
       .attr("dy", ".35em")
-      .style("text-anchor", "end")
+      .style("text-anchor", "middle")
       .text(d => d);
 
 });
+
+(function() {
+  /**
+   * Decimal adjustment of a number.
+   *
+   * @param {String}  type  The type of adjustment.
+   * @param {Number}  value The number.
+   * @param {Integer} exp   The exponent (the 10 logarithm of the adjustment base).
+   * @returns {Number} The adjusted value.
+   */
+  function decimalAdjust(type, value, exp) {
+    // If the exp is undefined or zero...
+    if (typeof exp === 'undefined' || +exp === 0) {
+      return Math[type](value);
+    }
+    value = +value;
+    exp = +exp;
+    // If the value is not a number or the exp is not an integer...
+    if (isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
+      return NaN;
+    }
+    // Shift
+    value = value.toString().split('e');
+    value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
+    // Shift back
+    value = value.toString().split('e');
+    return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
+  }
+
+  // Decimal round
+  if (!Math.round10) {
+    Math.round10 = function(value, exp) {
+      return decimalAdjust('round', value, exp);
+    };
+  }
+  // Decimal floor
+  if (!Math.floor10) {
+    Math.floor10 = function(value, exp) {
+      return decimalAdjust('floor', value, exp);
+    };
+  }
+  // Decimal ceil
+  if (!Math.ceil10) {
+    Math.ceil10 = function(value, exp) {
+      return decimalAdjust('ceil', value, exp);
+    };
+  }
+})();
+
+function domainFromExtent(variance, outputLength) {
+  const [ start, end ] = variance
+      , domain = end - start
+      , increment = domain / outputLength
+      , mid = domain / 2;
+  let result = [];
+  for (var i = 0; i < outputLength; i++) {
+    let value = Math.round10(increment * i - mid, -2);
+    result.push(value);
+  }
+  return result;
+}
