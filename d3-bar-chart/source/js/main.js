@@ -17,6 +17,22 @@ const x = d3.time.scale()
 const y = d3.scale.linear()
     .range([height - margin.bottom, 0]);
 
+const canvas = d3.select('#app').append('svg')
+    .attr('width', width + margin.left + margin.right)
+    .attr('height', height + margin.top + margin.bottom)
+  .append('g')
+    .attr('transform', `translate(${margin.left}, ${margin.top})`);
+
+const xAxis = d3.svg.axis()
+    .scale(x)
+    .orient('bottom')
+    .tickFormat(d3.time.format("%Y"))
+    .ticks(15);
+
+const yAxis = d3.svg.axis()
+    .scale(y)
+    .orient('left')
+    .ticks(10);
 
 // fetch data
 d3.json(URL, (err, json) => {
@@ -25,12 +41,6 @@ d3.json(URL, (err, json) => {
   // parse data
   const data = json.data.map((d) => [ new Date(d[0]), +d[1] ]);
   const { from_date, to_date } = json;
-
-  const canvas = d3.select('#app').append('svg')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-    .append('g')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`);
 
   // tooltip
   const tip = tooltip().html((d) => (
@@ -44,27 +54,24 @@ d3.json(URL, (err, json) => {
   x.domain( [from_date, to_date].map( (d) => new Date(d) ));
   y.domain([0, d3.max(data, (d) => d[1] )]);
 
-  const xAxis = d3.svg.axis()
-      .scale(x)
-      .orient('bottom')
-      .tickFormat(d3.time.format("%Y"))
-      .ticks(15);
-
-  const yAxis = d3.svg.axis()
-      .scale(y)
-      .orient('left')
-      .ticks(10);
-
-  canvas.selectAll('.bar')
+  // data
+  let bars = canvas.selectAll('.bar')
       .data(data)
     .enter().append('rect')
       .attr('class', 'bar')
-      .attr('y', (d) => y(d[1]))
+      .attr('y', height + margin.top)
       .attr('x', (d) => x(d[0]))
-      .attr('height', (d) => height - margin.bottom - y(d[1]))
+      .attr('height', 0)
       .attr('width', (width / data.length))
       .on('mouseover', tip.show)
       .on('mouseout', tip.hide);
+
+  bars.transition()
+      .delay((d, i) => i * 4)
+      .duration(1000)
+      .ease('bounce')
+      .attr('y', (d) => y(d[1]))
+      .attr('height', (d) => height - margin.bottom - y(d[1]));
 
   // x axis
   canvas.append('g')
