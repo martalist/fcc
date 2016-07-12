@@ -59,7 +59,7 @@ d3.json(URL, (err, json) => {
       .data(data)
     .enter().append('rect')
       .attr('class', 'bar')
-      .attr('y', height + margin.top)
+      .attr('y', height - margin.top)
       .attr('x', (d) => x(d[0]))
       .attr('height', 0)
       .attr('width', (width / data.length))
@@ -67,8 +67,8 @@ d3.json(URL, (err, json) => {
       .on('mouseout', tip.hide);
 
   bars.transition()
-      .delay((d, i) => i * 4)
-      .duration(1000)
+      .delay((d, i) => i * 2)
+      .duration(2500)
       .ease('bounce')
       .attr('y', (d) => y(d[1]))
       .attr('height', (d) => height - margin.bottom - y(d[1]));
