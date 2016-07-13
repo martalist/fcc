@@ -1,0 +1,37 @@
+@import url(https://fonts.googleapis.com/css?family=Cabin+Sketch:400,700);
+
+$font: 12px/1 sans-serif;
+$h4: normal 24px/1 'Cabin Sketch', sans-serif;
+$h1: normal 3em/1.5 'Vidaloka', serif;
+$h2: bold 2em/1.5 sans-serif;
+
+$color-shadow: gray;
+$color-background: #f0f0f0;
+$color-links: #3e3e3e;
+
+* { box-sizing: border-box; }
+
+%base { margin: 0px; padding: 0; }
+
+html {
+  @extend %base;
+}
+
+body {
+  @extend %base;
+  font: $font;
+  padding-top: 40px;
+  background-color: $color-background;
+}
+
+.links {
+  line {
+    stroke: $color-links;
+  }
+}
+
+.nodes {
+  .country {
+    cursor: move; 
+  }
+}
