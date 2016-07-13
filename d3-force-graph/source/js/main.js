@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import spritePositions from './countrySpritePositions';
 
 // Stylesheets
 require("../sass/style.scss");
@@ -7,7 +8,8 @@ const URL = "https://raw.githubusercontent.com/DealPete/forceDirected/master/cou
 
 const width = 960
     , height = 600
-    , diameter = 10;
+    , flagWidth = 16
+    , flagHeight = 11;
 
 const svg = d3.select("#app").append("svg")
     .attr("width", width)
@@ -29,6 +31,19 @@ d3.json(URL, (err, data) => {
     source: nodes[v.source].code
   }));
 
+  const symbol = svg.append('defs')
+    .selectAll('symbol')
+      .data(nodes)
+    .enter().append('symbol')
+      .attr('id', d => d.code)
+      .attr('viewBox', d => `${spritePositions[d.code]} 16 11`)
+    .append('image')
+      .attr('xlink:href', '/public/flags.png')
+      .attr('width', '256px')
+      .attr('height', '176px')
+      .attr('x', 0)
+      .attr('y', 0);
+
   const link = svg.append('g')
       .attr('class', 'links')
     .selectAll('line')
@@ -39,9 +54,11 @@ d3.json(URL, (err, data) => {
       .attr('class', 'nodes')
     .selectAll(".country")
       .data(nodes)
-    .enter().append("circle")
-      .attr('r', diameter / 2)
-      .classed('country', true)
+    .enter().append("use")
+      .attr('class', 'country')
+      .attr('xlink:href', d => `#${d.code}`)
+      .attr('width', flagWidth)
+      .attr('height', flagHeight)
       .call(d3.drag()
         .on("start", d => {
             if (!d3.event.active) simulation.alphaTarget(0.3).restart();
@@ -65,14 +82,14 @@ d3.json(URL, (err, data) => {
   simulation.nodes(nodes)
       .on('tick', d => {
         link
-          .attr('x1', d => d.source.x)
-          .attr('y1', d => d.source.y)
-          .attr('x2', d => d.target.x)
-          .attr('y2', d => d.target.y);
+          .attr('x1', d => d.source.x + flagWidth / 2)
+          .attr('y1', d => d.source.y + flagHeight / 2)
+          .attr('x2', d => d.target.x + flagWidth / 2)
+          .attr('y2', d => d.target.y + flagHeight / 2);
 
         node
-          .attr('cx', d => d.x)
-          .attr('cy', d => d.y);
+          .attr('x', d => d.x)
+          .attr('y', d => d.y);
       });
 
   simulation.force('link').links(links).distance(30).strength(1);
