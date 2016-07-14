@@ -41,7 +41,7 @@ d3.json(URL, (err, data) => {
       .attr('id', d => d.code)
       .attr('viewBox', d => `${spritePositions[d.code]} 16 11`)
     .append('image')
-      .attr('xlink:href', '/public/flags.png')
+      .attr('xlink:href', 'http://martalist.github.io/fcc/d3-force-graph/public/flags.png')
       .attr('width', '256px')
       .attr('height', '176px')
       .attr('x', 0)
