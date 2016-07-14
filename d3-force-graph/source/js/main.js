@@ -15,6 +15,9 @@ const svg = d3.select("#app").append("svg")
     .attr("width", width)
     .attr("height", height);
 
+const tooltip = d3.select('#app').append('div')
+    .attr('class', 'tooltip');
+
 const simulation = d3.forceSimulation()
     .force("link", d3.forceLink().id(function(d) { return d.code; }))
     .force("charge", d3.forceManyBody().strength(-100))
@@ -76,8 +79,22 @@ d3.json(URL, (err, data) => {
         })
       );
 
-  node.append('title')
-      .text((d) => d.country + ', ' + d.code);
+  // tooltip
+  node
+    .on('mouseover', d => {
+      const e = d3.event
+          , body = d3.select('body').node()
+          , x = e.pageX - body.scrollLeft - 75
+          , y = e.pageY - body.scrollTop - 40;
+      tooltip
+        .html(`<h4>${d.country}</h4>`)
+        .style("opacity", 0.9)
+        .style("left", x + 'px')
+        .style("top", y + 'px');
+    })
+    .on('mouseout', d => {
+      tooltip.style("opacity", 0);
+    });
 
   simulation.nodes(nodes)
       .on('tick', d => {

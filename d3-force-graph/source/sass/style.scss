@@ -1,11 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=Cabin+Sketch:400,700);
 
 $font: 12px/1 sans-serif;
-$h4: normal 24px/1 'Cabin Sketch', sans-serif;
+$h4: normal 1.35em/1 'Cabin Sketch', sans-serif;
 $h1: normal 3em/1.5 'Vidaloka', serif;
 $h2: bold 2em/1.5 sans-serif;
 
 $color-shadow: gray;
+$color-tooltip: #333;
 $color-background: #f0f0f0;
 $color-links: #3e3e3e;
 
@@ -20,7 +21,7 @@ html {
 body {
   @extend %base;
   font: $font;
-  padding-top: 40px;
+  padding-top: 20px;
   background-color: $color-background;
 }
 
@@ -33,5 +34,27 @@ body {
 .nodes {
   .country {
     cursor: move;
+  }
+}
+
+.tooltip {
+  width: 150px;
+  min-height: 30px;
+  padding: 2px 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  background-color: $color-tooltip;
+  border-radius: 3px;
+  box-shadow: 0 0 6px 0 $color-shadow;
+  opacity: 0;
+  position: fixed;
+  pointer-events: none;
+  transition: opacity .3s ease;
+  h4 {
+    margin: 0;
+    font: $h4;
   }
 }
