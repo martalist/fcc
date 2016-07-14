@@ -6,7 +6,7 @@ require("../sass/style.scss");
 
 const URL = "https://raw.githubusercontent.com/DealPete/forceDirected/master/countries.json";
 
-const width = 960
+const width = 880
     , height = 600
     , flagWidth = 16
     , flagHeight = 11;
