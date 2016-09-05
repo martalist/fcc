@@ -1,4 +1,4 @@
-var oKey = "44db6a862fba0b067b1930da0d769e98";
+var oKey = "7a791c81567505e17f2f6186800bef2e";
 var skyconList = [
       undefined, undefined, "rain", "sleet", undefined, "rain", "snow",
       "fog", "clear-day", "cloudy", "clear-day", "wind",
