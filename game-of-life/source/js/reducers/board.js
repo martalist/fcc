@@ -51,7 +51,7 @@ export const regenerateCell = (age, neighbours) => {
   return new Cell();
 };
 
-const board = (state, action) => {
+const board = (state=[], action) => {
   switch (action.type) {
     case 'REPRODUCE':
       const height = state.length
@@ -68,7 +68,7 @@ const board = (state, action) => {
     case 'NEW_GAME':
       return range(action.height).map(
         row => range(action.width).map(
-          c => new Cell(Math.floor(Math.random() * 3))
+          c => new Cell(Math.floor(Math.random() * 2))
         )
       );
     default:

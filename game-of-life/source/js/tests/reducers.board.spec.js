@@ -60,12 +60,19 @@ describe('A cell, on REPRODUCE', () => {
 
 describe('The board', () => {
 
-  const WIDTH = 30
-      , HEIGHT = 30
+  const WIDTH = 5
+      , HEIGHT = 5
       , initBoard = board([], newGame(WIDTH,HEIGHT));
   deepfreeze(initBoard);
 
-  it('should handle initial state')
+  it('should handle initial state', function() {
+    const fromUndefined = board(undefined, newGame(WIDTH, HEIGHT));
+    
+    expect(fromUndefined.length).toEqual(WIDTH);
+    expect(fromUndefined[0].length).toEqual(HEIGHT);
+    expect(fromUndefined[0][0]).toBeA(Cell);
+  });
+
   it('NEW_GAME should generate a new board', () => {
 
     expect(initBoard.length).toEqual(WIDTH);
@@ -122,3 +129,22 @@ describe('neighbours function', () => {
 
   });
 });
+
+/* const b1 = board(undefined, newGame(5, 5));
+console.log(boardToString(b1), '\n')
+const b2 = board(b1, reproduce());
+console.log(boardToString(b2), '\n');
+const b3 = board(b2, reproduce());
+console.log(boardToString(b3), '\n');
+const b4 = board(b3, reproduce());
+console.log(boardToString(b4), '\n'); */
+
+function boardToString(board) {
+  return board.reduce(
+    (output, row) => output + row.reduce(
+      (line, cell) => line + ` ${(!!cell.age ? (cell.age > 1 ? '@' : 'O') : '.')} `
+      , ""
+    ) + '\n'
+    , ""
+  );
+}
