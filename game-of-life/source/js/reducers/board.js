@@ -17,29 +17,19 @@ export class Cell {
 
 // Calc # of neighbours in the cells hood
 export const neighbours = (row, col, width, height, board) => {
-
-  return range(row-1, row+2).reduce((total, r) => {
-    
-    return total + range(col-1, col+2).reduce((count, c) => {
-
-      // Skip current cell
-      if (r === row && c === col) {
-        return count;
-      }
-
-      // count all live neighbours
-      return !!board[(r + height) % height][(c + width) % width].age ? 
-        count + 1 : 
-        count
-
-    }, 0);
-  }, 0);
+  let count = 0;
+  for (let r = row-1; r < row + 2; r++) {
+    for (let c = col-1; c < col + 2; (r === row ? c += 2 : c++)) {
+      count = !!board[(r + height) % height][(c + width) % width].age ? count + 1 : count;
+    }
+  }
+  return count;
 };
 
 export const regenerateCell = (age, neighbours) => {
   // returns a new Cell, alive or dead based on it's age (int) and
   // number of neighbours (int) in its immediate vicinity
-  if (age === 0 && neighbours === 3) {
+  if (!age && neighbours === 3) {
     // conditions are right; come alive!
     return new Cell(1);
   }
