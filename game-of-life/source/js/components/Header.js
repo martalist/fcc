@@ -6,7 +6,7 @@ import RadioButtons from './RadioButtons';
 
 class Header extends Component {
   render() {
-    const { speed, playing, generations, togglePlay } = this.props;
+    const { speed, playing, generations, togglePlay, changeSpeed } = this.props;
     return (
       <header>
         <div className="controls-left">
@@ -37,10 +37,8 @@ class Header extends Component {
         </div>
         <div className="controls-right">
           <Slider 
-            min={0} 
-            max={100} 
-            value={50} 
-            changeSpeed={() => console.log('changing')}
+            speed={speed} 
+            changeSpeed={(e) => changeSpeed(+e.target.value)}
           />
           <RadioButtons />
         </div>

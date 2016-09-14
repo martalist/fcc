@@ -1,25 +1,25 @@
 import React, { PropTypes } from 'react';
+import { MIN_SPEED, MAX_SPEED } from '../constants';
 
-const Slider = ({ min, max, value, changeSpeed }) => {
+const Slider = ({ speed, changeSpeed }) => {
   return (
     <div>
       <input 
         type="range"
-        min={min}
-        max={max}
-        value={value}
+        min={MIN_SPEED}
+        max={MAX_SPEED}
+        value={speed}
         step="1"
         onChange={changeSpeed}
       />
+      <span>{speed}ms</span>
     </div>
   );
 };
 
 Slider.propTypes = {
-  min: PropTypes.number,
-  max: PropTypes.number,
-  value: PropTypes.number,
-  changeSpeed: PropTypes.func,
+  speed: PropTypes.number.isRequired,
+  changeSpeed: PropTypes.func.isRequired,
 };
 
 export default Slider;
