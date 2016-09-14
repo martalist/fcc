@@ -1,16 +1,13 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import game from './reducers';
-import { newGame, reproduce } from './actions';
 import App from './components/App';
+import configureStore from './configureStore';
 
 // Stylesheets
 import '../sass/style.scss';
 
-const store = createStore(game)
-store.dispatch(newGame());
+const store = configureStore();
 
 // Render the application
 render(
