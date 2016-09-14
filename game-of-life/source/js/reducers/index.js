@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import board from './board';
+import playing from './playing';
 
 /* State should look something like this:
   {
@@ -16,6 +17,7 @@ import board from './board';
 
 const game = combineReducers({
   board,
+  playing,
 });
 
 export default game;
