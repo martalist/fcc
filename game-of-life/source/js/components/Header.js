@@ -6,7 +6,7 @@ import RadioButtons from './RadioButtons';
 
 class Header extends Component {
   render() {
-    const { speed, playing, togglePlay } = this.props;
+    const { speed, playing, generations, togglePlay } = this.props;
     return (
       <header>
         <div className="controls-left">
@@ -30,11 +30,10 @@ class Header extends Component {
           <Button 
             iconClass="fa fa-random" 
             text="Random" 
-            disabled={playing}
-          />
+            disabled={playing} />
         </div>
         <div className="controls-center">
-          <Counter description="generations" count={0}/>
+          <Counter description="generations" count={generations}/>
         </div>
         <div className="controls-right">
           <Slider 

@@ -5,6 +5,7 @@ import { togglePlay } from '../actions';
 const mapStateToProps = state => ({
   speed: state.speed,
   playing: state.playing,
+  generations: state.generations,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -4,7 +4,7 @@ const Counter = ({ count, description }) => {
   return (
     <div className="counter">
       <span className="counter-number">{count}</span>
-      <span className="counter-desc">{description.toUpperCase()}</span>
+      <span className="counter-desc"> {description.toUpperCase()}</span>
     </div>
   );
 };
