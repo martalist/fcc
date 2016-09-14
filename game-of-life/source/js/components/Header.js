@@ -6,13 +6,32 @@ import RadioButtons from './RadioButtons';
 
 class Header extends Component {
   render() {
+    const { speed, playing, togglePlay } = this.props;
     return (
       <header>
         <div className="controls-left">
-          <Button iconClass="fa fa-play" text="Start" />
-          <Button iconClass="fa fa-pause" text="Pause" />
-          <Button iconClass="fa fa-eraser" text="Clear" />
-          <Button iconClass="fa fa-random" text="Random" />
+          <Button 
+            iconClass="fa fa-play" 
+            text="Start" 
+            onClick={togglePlay}
+            disabled={playing}
+          />
+          <Button 
+            iconClass="fa fa-pause" 
+            text="Pause" 
+            onClick={togglePlay}
+            disabled={!playing}
+          />
+          <Button 
+            iconClass="fa fa-eraser" 
+            text="Clear" 
+            disabled={playing}
+          />
+          <Button 
+            iconClass="fa fa-random" 
+            text="Random" 
+            disabled={playing}
+          />
         </div>
         <div className="controls-center">
           <Counter description="generations" count={0}/>

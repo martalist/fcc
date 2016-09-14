@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Header from './Header';
+import HeaderContainer from '../containers/HeaderContainer';
 import BoardContainer from '../containers/BoardContainer';
 
 class App extends Component {
@@ -11,7 +11,7 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <Header /> 
+        <HeaderContainer /> 
         <BoardContainer />
       </div>
     );

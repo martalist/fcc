@@ -1,0 +1,19 @@
+import { connect } from 'react-redux';
+import Header from '../components/Header';
+import { togglePlay } from '../actions';
+
+const mapStateToProps = state => ({
+  speed: state.speed,
+  playing: state.playing,
+});
+
+const mapDispatchToProps = dispatch => ({
+  togglePlay: () => dispatch(togglePlay()),
+});
+
+const HeaderContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);
+
+export default HeaderContainer;
