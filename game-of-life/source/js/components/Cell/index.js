@@ -1,24 +1,21 @@
 import React, { PropTypes } from 'react';
+import './index.scss';
 
-function getColor(age) {
+function colorClass(age) {
   switch (age) {
     case 0:
-      return "white";
+      return "cell-dead";
     case 1:
-      return "pink";
+      return "cell-young";
     default:
-      return "red";
+      return "cell-old";
   }
 }
 
-const Cell = ({ age, style }) => {
+const Cell = ({ age }) => {
   return (
     <div
-      style={Object.assign(
-        {},
-        {"backgroundColor": getColor(age)},
-        style
-      )}
+      className={`cell ${colorClass(age)}`}
     >
     </div>
   );

@@ -28,7 +28,7 @@ module.exports = validate({
       },
       {
         test: /\.scss$/,
-        include: /sass/,
+        // include: /sass/,
         loader: ExtractTextPlugin.extract('css!postcss!sass')
       }
     ]

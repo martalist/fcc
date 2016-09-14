@@ -1,0 +1,25 @@
+$dead: white;
+$young: pink;
+$old: red;
+
+
+.cell {
+    border: 1px solid #f5f5f5;
+    border-radius: 50%;
+    width: 3.333%;
+    height: 3.333%;
+    
+    &.cell-dead {
+        background-color: $dead;
+    }
+
+    &.cell-young {
+        background-color: $young;
+    }
+    
+    &.cell-old {
+        background-color: $old;
+    }
+
+}
+
