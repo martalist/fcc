@@ -61,8 +61,18 @@ const board = (state=[], action) => {
           c => new Cell(Math.floor(Math.random() * 2))
         )
       );
+      
     case 'CLEAR_BOARD':
       return state.map(r => r.map(c => new Cell()));
+      
+    case 'TOGGLE_LIFE':
+      return state.map((r, ri) => r.map((c, ci) => {
+        if (action.row === ri && action.column === ci) {
+          return new Cell(!!c.age ? 0 : 2)
+        }
+        return new Cell(c.age)
+      }));
+      
     default:
       return state;
   }

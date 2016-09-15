@@ -12,10 +12,11 @@ function colorClass(age) {
   }
 }
 
-const Cell = ({ age }) => {
+const Cell = ({ age, onClick }) => {
   return (
     <div
       className={`cell ${colorClass(age)}`}
+      onClick={onClick}
     >
     </div>
   );
@@ -24,6 +25,7 @@ const Cell = ({ age }) => {
 Cell.propTypes = {
   age: PropTypes.number.isRequired,
   style: PropTypes.object,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default Cell;

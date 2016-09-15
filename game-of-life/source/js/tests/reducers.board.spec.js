@@ -2,7 +2,7 @@ import expect from 'expect';
 import range from 'lodash/range';
 import deepfreeze from 'deepfreeze';
 import board, { Cell, neighbours, regenerateCell } from '../reducers/board';
-import { newGame, reproduce, clearBoard } from '../actions';
+import { newGame, reproduce, clearBoard, toggleLife } from '../actions';
 
 describe('A cell', () => {
 
@@ -55,6 +55,34 @@ describe('A cell, on REPRODUCE', () => {
     expect(
       regenerateCell(1, 4).age
     ).toEqual(0)
+  });
+});
+
+describe('A cell, on TOGGLE_LIFE', function() {
+  let tinyBoard;
+
+  beforeEach(function() {
+    tinyBoard = [
+      [new Cell()], 
+      [new Cell(1)]
+    ];
+  });
+
+  it('should come to life, if it is dead', function() {
+
+    expect(tinyBoard[0][0].age).toEqual(0);
+    tinyBoard = board(tinyBoard, toggleLife(0, 0));
+    expect(tinyBoard[0][0].age).toEqual(2);
+    expect(tinyBoard[1][0].age).toEqual(1);
+   
+  });
+
+  it('should die, if it is alive', function() {
+    
+    expect(tinyBoard[1][0].age).toEqual(1);
+    tinyBoard = board(tinyBoard, toggleLife(1, 0));
+    expect(tinyBoard[1][0].age).toEqual(0);
+    
   });
 });
 

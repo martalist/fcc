@@ -24,3 +24,9 @@ export const changeSpeed = (speed) => ({
   type: t.CHANGE_SPEED,
   speed
 });
+
+export const toggleLife = (row, column) => ({
+  type: t.TOGGLE_LIFE,
+  row,
+  column
+});

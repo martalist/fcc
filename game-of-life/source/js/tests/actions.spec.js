@@ -1,6 +1,6 @@
 import expect from 'expect';
 import * as t from '../constants';
-import { newGame, reproduce, togglePlay, clearBoard, changeSpeed } from '../actions';
+import { newGame, reproduce, togglePlay, clearBoard, changeSpeed, toggleLife } from '../actions';
 
 describe('Game of Life actions', () => {
 
@@ -46,6 +46,15 @@ describe('Game of Life actions', () => {
     expect(changeSpeed(300)).toEqual({
       type: 'CHANGE_SPEED',
       speed: 300
+    });
+  });
+
+  it('toggleLife should return a TOGGLE_LIFE action', () => {
+
+    expect(toggleLife(11, 31)).toEqual({
+      type: 'TOGGLE_LIFE',
+      row: 11,
+      column: 31
     });
   });
 

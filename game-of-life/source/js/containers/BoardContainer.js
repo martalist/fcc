@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { toggleLife } from '../actions';
 import Board from '../components/Board';
 
 const mapStateToProps = (state) => ({
@@ -7,6 +8,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  toggleLife: (row, column) => dispatch(toggleLife(row, column)),
 });
 
 const BoardContainer = connect(
