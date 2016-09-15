@@ -1,6 +1,8 @@
 import * as t from '../constants';
 
-export const newGame = (width=30, height=30) => ({
+const { medium } = t.SIZES;
+
+export const newGame = (width = medium.width, height = medium.height) => ({
   type: t.NEW_GAME,
   width,
   height
@@ -22,4 +24,3 @@ export const changeSpeed = (speed) => ({
   type: t.CHANGE_SPEED,
   speed
 });
-

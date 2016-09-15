@@ -1,3 +1,5 @@
+import deepfreeze from 'deepfreeze';
+
 // generate a new game, with random objects
 export const NEW_GAME = 'NEW_GAME'; 
 
@@ -13,3 +15,22 @@ export const MAX_SPEED = 500;
 
 // allow user to set cells
 export const TOGGLE_CELL = 'TOGGLE_LIFE';
+
+// Board sizes
+export const SIZES = {  
+  small: {
+    label: "Small",
+    width: 50,
+    height: 30,
+  },
+  medium: {
+    label: "Medium",
+    width: 80,
+    height: 48,
+  },
+  large: {
+    label: "Large",
+    width: 120,
+    height: 72,
+  }
+};

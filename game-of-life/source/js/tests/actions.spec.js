@@ -1,4 +1,5 @@
 import expect from 'expect';
+import * as t from '../constants';
 import { newGame, reproduce, togglePlay, clearBoard, changeSpeed } from '../actions';
 
 describe('Game of Life actions', () => {
@@ -7,8 +8,8 @@ describe('Game of Life actions', () => {
 
     expect(newGame()).toEqual({
       type: 'NEW_GAME',
-      width: 30,
-      height: 30
+      width: t.SIZES.medium.width,
+      height: t.SIZES.medium.height,
     });
 
     expect(newGame(50, 100)).toEqual({
@@ -47,4 +48,5 @@ describe('Game of Life actions', () => {
       speed: 300
     });
   });
+
 });
