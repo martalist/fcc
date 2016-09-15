@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import Button from './Button';
 import Counter from './Counter';
 import Slider from './Slider';
-import RadioButtons from './RadioButtons';
+import RadioButtonsContainer from '../containers/RadioButtonsContainer';
 
 class Header extends Component {
   render() {
-    const { speed, playing, generations, togglePlay, changeSpeed } = this.props;
+    const { 
+      speed, playing, generations, boardWidth, boardHeight,
+      togglePlay, changeSpeed, newGame, clearBoard
+    } = this.props;
+    
     return (
       <header>
         <div className="controls-left">
@@ -25,22 +29,27 @@ class Header extends Component {
           <Button 
             iconClass="fa fa-eraser" 
             text="Clear" 
+            onClick={clearBoard}
             disabled={playing}
           />
           <Button 
             iconClass="fa fa-random" 
             text="Random" 
+            onClick={() => newGame(boardWidth, boardHeight)}
             disabled={playing} />
-        </div>
+       </div>
+
         <div className="controls-center">
           <Counter description="generations" count={generations}/>
         </div>
+        
         <div className="controls-right">
           <Slider 
             speed={speed} 
             changeSpeed={(e) => changeSpeed(+e.target.value)}
           />
-          <RadioButtons />
+          
+          <RadioButtonsContainer />
         </div>
       </header>
     );

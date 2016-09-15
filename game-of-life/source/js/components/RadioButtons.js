@@ -1,10 +1,30 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { SIZES } from '../constants';
+import Radio from './Radio';
 
-const Slider = () => {
+const RadioButtons = ({ boardHeight, boardWidth, onChange }) => {
   return (
-    <div>
-    </div>
+    <form>
+      {Object.keys(SIZES).map(size => {
+        const { width, height, label } = SIZES[size];
+        return (
+          <Radio
+            key={label}
+            group="sizes"
+            label={label}
+            checked={width === boardWidth && height === boardHeight} 
+            onChange={() => onChange(width, height)} 
+          />
+        )
+      })}
+    </form>
   );
 };
 
-export default Slider;
+RadioButtons.propTypes = {
+  boardHeight: PropTypes.number.isRequired,
+  boardWidth: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
+
+export default RadioButtons;
