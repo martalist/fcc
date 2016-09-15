@@ -1,6 +1,6 @@
 import expect from 'expect';
 import generations from '../reducers/generations';
-import { reproduce } from '../actions';
+import { reproduce, newGame, clearBoard } from '../actions';
 
 describe('The Speed reducer', () => {
 
@@ -22,6 +22,21 @@ describe('The Speed reducer', () => {
       generations(1293029382, reproduce())
     ).toEqual(1293029383);
     
+  });
+
+  it('should reset to 1 when the board changes size', () => {
+
+    expect(
+      generations(250, newGame(30, 30))
+    ).toEqual(1);
+    
+  });
+
+  it('should reset to 1 when the board is cleared', function() {
+
+    expect(
+      generations(250, clearBoard())
+    ).toEqual(1);
   });
 
 });

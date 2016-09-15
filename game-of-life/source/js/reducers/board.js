@@ -61,6 +61,8 @@ const board = (state=[], action) => {
           c => new Cell(Math.floor(Math.random() * 2))
         )
       );
+    case 'CLEAR_BOARD':
+      return state.map(r => r.map(c => new Cell()));
     default:
       return state;
   }

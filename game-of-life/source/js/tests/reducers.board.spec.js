@@ -2,7 +2,7 @@ import expect from 'expect';
 import range from 'lodash/range';
 import deepfreeze from 'deepfreeze';
 import board, { Cell, neighbours, regenerateCell } from '../reducers/board';
-import { newGame, reproduce } from '../actions';
+import { newGame, reproduce, clearBoard } from '../actions';
 
 describe('A cell', () => {
 
@@ -91,6 +91,22 @@ describe('The board', () => {
     expect(newBoard[0].length).toEqual(HEIGHT);
     expect(newBoard[0][0]).toBeA(Cell);
 
+  });
+
+  it('CLEAR_BOARD should kill all cells', () => {
+
+    const init = board([], newGame(10, 10))
+        , newBoard = board(init, clearBoard());
+
+    expect(
+      newBoard.reduce((total, row) => {
+        return row.reduce((count, cell) => cell.age + count, 0) + total
+      }, 0)
+    ).toEqual(0);
+
+    expect(newBoard.length).toEqual(10);
+    expect(newBoard[0].length).toEqual(10);
+    expect(newBoard[0][0]).toBeA(Cell);
   });
 });
 
