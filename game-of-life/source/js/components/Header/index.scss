@@ -1,0 +1,103 @@
+@import '../../../sass/_variables';
+
+header {
+    width: 100%;
+    height: $header-height;
+    background-color: #eee;
+    font: $font-controls;
+    box-shadow: 0 1px 5px black;
+    z-index: 5;
+}
+
+.row {
+    margin: 0 auto;
+    max-width: 1200px;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+button {
+    width: 60px;
+    height: 48px;
+    margin: 0 2px;
+    border: none;
+    border-radius: 5px;
+    background: inherit;
+    cursor: pointer;
+
+    i { 
+        width: 100%; 
+        &.fa {
+            font-size: 18px;
+        }
+    }
+
+    span {
+        text-transform: uppercase;
+        font: $font-controls;
+    }
+
+    &:hover {
+        background-color: #e1e1e1;
+        box-shadow: inset 1px 1px 1px rgba(255,255,255,.3),
+            inset -1px -1px 1px rgba(0,0,0,.3);
+    }
+
+    &:disabled {
+        background-color: inherit;
+        box-shadow: none;
+    }
+}
+
+.controls-left,
+.controls-center {
+    width: 30%;
+}
+
+.counter {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    span {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.counter-number {
+    font-size: 20px;
+    line-height: 120%;
+}
+
+.controls-right {
+    @extend .controls-left;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    form {
+        width: 50%;
+        label {
+            margin: 0 3px;
+            // font-size: 12px;
+            text-transform: uppercase;
+        }
+    }
+
+    div {
+        width: 50%;
+        display: flex;
+        flex-wrap: wrap;
+        input,
+        span {
+            width: 80%;
+            margin: 3px 0;
+            font-size: 12px;
+            text-align: center;
+        }
+    }
+}
+
+

@@ -1,0 +1,31 @@
+@import url(https://fonts.googleapis.com/css?family=Righteous);
+
+$header-height: 60px;
+$font-controls: 10px/100% 'Righteous', cursive;
+
+// Board
+$sm-width: 480px;
+$sm-height: 270px;
+$md-width: 720px;
+$md-height: 405px;
+$lg-width: 960px;
+$lg-height: 540px;
+
+
+// Cells
+$dead: #333;
+$young: #9f96ff;
+$one: #a3ecff;
+$old: #53b245;
+
+$cell-diameter: 13px;
+$cell-border-radius: 50%;
+
+// Mixins
+@mixin respond-to($query, $value) {
+  @media ($query: $value) {
+    @content;
+  }
+}
+
+

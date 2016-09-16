@@ -27,17 +27,19 @@ class Board extends Component {
         , currentSize = boardClass(width * height);
     
     return (
-      <div className={"board-skirting " + currentSize}>
-        <div className={"board " + currentSize}>
-          {board.map((row, ri) => row.map((cell, ci) => (
-            <Cell 
-              key={ri + ',' + ci}
-              age={cell.age}
-              onClick={() => toggleLife(ri, ci)}
-            />
-          )))}
+      <main>
+        <div className={"board-skirting " + currentSize}>
+          <div className={"board " + currentSize}>
+            {board.map((row, ri) => row.map((cell, ci) => (
+              <Cell 
+                key={ri + ',' + ci}
+                age={cell.age}
+                onClick={() => toggleLife(ri, ci)}
+              />
+            )))}
+          </div>
         </div>
-      </div>
+      </main>
     );
   }
 }

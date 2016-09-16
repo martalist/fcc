@@ -1,19 +1,13 @@
-$sm-width: 480px;
-$sm-height: 270px;
-$md-width: 720px;
-$md-height: 405px;
-$lg-width: 960px;
-$lg-height: 540px;
+@import '../../../sass/_variables';
 
 .board-skirting {
-    margin: 40px auto;
     width: calc(#{$md-width} + 30px);
     height: calc(#{$md-height} + 30px);
     display: flex;
     justify-content: center;
     align-items: center;
+    
     border-radius: 15px;
-    // border: 1px solid rgba(0, 0, 0, .3);
     box-shadow: inset 1px 1px 1px rgba(255,255,255,.1),
         inset -1px -1px 1px rgba(0,0,0,.3);
 
@@ -29,7 +23,6 @@ $lg-height: 540px;
 }
 
 .board {
-    // margin: 40px auto;
     display: flex;
     flex-wrap: wrap;
     width: $md-width;

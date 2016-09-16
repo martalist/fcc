@@ -1,10 +1,4 @@
-$dead: #333;
-$young: #9F96FF;
-$one: #A3ECFF;
-$old: #53B245;
-
-$cell-diameter: 13px;
-$cell-border-radius: 50%;
+@import '../../../sass/_variables';
 
 .cell {
     margin: 1px;
