@@ -9,12 +9,6 @@ const configureStore = () => {
   );
   store.dispatch(newGame());
 
-  store.timer = setInterval(() => {
-    if (store.getState().playing) {
-      store.dispatch(reproduce())
-    }
-  }, 50);
-
   return store;
 };
 

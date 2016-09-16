@@ -20,6 +20,25 @@ function boardClass(numberOfCells) {
 
 
 class Board extends Component {
+  componentDidMount() {
+    this.tick();
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.tick);
+  }
+
+  tick() {
+    const { playing, reproduce } = this.props;
+    this.speed = this.props.speed;
+    setTimeout((board) => {
+      if (playing) {
+        reproduce();
+      }
+      board.tick();
+    }, this.speed, this);
+  }
+  
   render() {
     const { board, toggleLife } = this.props
         , width = board[0].length
