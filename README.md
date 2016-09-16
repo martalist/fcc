@@ -29,7 +29,7 @@ This is a set of projects I'm working on as part of [Free Code Camp](http://www.
 - [x] Build a Markdown Previewer | [Requirements](https://www.freecodecamp.com/challenges/build-a-markdown-previewer) | [Demo](http://martalist.github.io/fcc/markdown)
 - [x] Build a Camper Leaderboard | [Requirements](https://www.freecodecamp.com/challenges/build-a-camper-leaderboard) | [Demo](http://martalist.github.io/fcc/campers)
 - [x] Build a Recipe Box | [Requirements](https://www.freecodecamp.com/challenges/build-a-recipe-box) | [Demo](http://martalist.github.io/fcc/recipe-box)
-- [ ] Build the Game of Life | [Requirements](https://www.freecodecamp.com/challenges/build-the-game-of-life) | Demo
+- [x] Build the Game of Life | [Requirements](https://www.freecodecamp.com/challenges/build-the-game-of-life) | [Demo](http://martalist.github.io/fcc/game-of-life)
 - [ ] Build a Roguelike Dungeon Crawler Game | [Requirements](https://www.freecodecamp.com/challenges/build-a-roguelike-dungeon-crawler-game) | Demo
 
 
