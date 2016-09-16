@@ -1,23 +1,34 @@
-$dead: white;
-$young: pink;
-$old: red;
+$dead: #333;
+$young: #9F96FF;
+$one: #A3ECFF;
+$old: #53B245;
 
+$cell-diameter: 13px;
+$cell-border-radius: 50%;
 
 .cell {
-    border: 1px solid #f5f5f5;
-    border-radius: 50%;
-    width: 3.333%;
-    height: 3.333%;
+    margin: 1px;
+    border-radius: $cell-border-radius;
+    width: $cell-diameter;
+    height: $cell-diameter;
+    box-shadow: inset 1px 1px 1px rgba(255, 255, 255, .3),
+        inset -1px -1px 1px rgba(0, 0, 0, .3);
     
-    &.cell-dead {
+    &.dead {
         background-color: $dead;
+        box-shadow: inset -1px -1px 1px rgba(255, 255, 255, .1),
+            inset 1px 1px 1px rgba(0, 0, 0, .3);
     }
 
-    &.cell-young {
+    &.young {
         background-color: $young;
     }
     
-    &.cell-old {
+    &.one {
+        background-color: $one;
+    }
+    
+    &.old {
         background-color: $old;
     }
 

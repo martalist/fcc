@@ -4,11 +4,13 @@ import './index.scss';
 function colorClass(age) {
   switch (age) {
     case 0:
-      return "cell-dead";
+      return "dead";
     case 1:
-      return "cell-young";
+      return "young";
+    case 2:
+      return "one";
     default:
-      return "cell-old";
+      return "old";
   }
 }
 
@@ -24,7 +26,6 @@ const Cell = ({ age, onClick }) => {
 
 Cell.propTypes = {
   age: PropTypes.number.isRequired,
-  style: PropTypes.object,
   onClick: PropTypes.func.isRequired,
 };
 

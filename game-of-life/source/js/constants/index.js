@@ -20,17 +20,17 @@ export const TOGGLE_LIFE = 'TOGGLE_LIFE';
 export const SIZES = {  
   small: {
     label: "Small",
-    width: 50,
-    height: 30,
+    width: 32,
+    height: 18,
   },
   medium: {
     label: "Medium",
-    width: 80,
-    height: 48,
+    width: 48,
+    height: 27,
   },
   large: {
     label: "Large",
-    width: 120,
-    height: 72,
+    width: 64,
+    height: 36,
   }
 };

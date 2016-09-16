@@ -1,0 +1,18 @@
+@mixin respond-to($query, $value) {
+  @media ($query: $value) {
+    @content;
+  }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #333;
+}
+
+header {
+    width: 100%;
+    background-color: #eee;
+}
