@@ -10,12 +10,12 @@ const mapStateToProps = state => ({
   boardHeight: state.board.length,
 });
 
-const mapDispatchToProps = dispatch => ({
-  togglePlay: () => dispatch(togglePlay()),
-  changeSpeed: (newSpeed) => dispatch(changeSpeed(newSpeed)),
-  newGame: (width, height) => dispatch(newGame(width, height)),
-  clearBoard: () => dispatch(clearBoard()),
-});
+const mapDispatchToProps = {
+  togglePlay,
+  changeSpeed,
+  newGame,
+  clearBoard,
+};
 
 const HeaderContainer = connect(
   mapStateToProps,

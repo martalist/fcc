@@ -38,12 +38,7 @@ const mapStateToProps = (state) => ({
   speed: state.speed,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  toggleLife: (row, column) => dispatch(toggleLife(row, column)),
-  reproduce: () => dispatch(reproduce()),
-});
-
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  { toggleLife, reproduce }
 )(BoardContainer);

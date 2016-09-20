@@ -7,13 +7,14 @@ const mapStateToProps = state => ({
   boardHeight: state.board.length,
 });
 
-const mapDispatchToProps = dispatch => ({
-  onChange: (width, height) => dispatch(newGame(width, height)),
-});
+// Longhand mapDispatchToProps
+// const mapDispatchToProps = dispatch => ({
+  // onChange: (width, height) => dispatch(newGame(width, height)),
+// });
 
 const RadioButtonsContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  { onChange: newGame }   // shorthand mapDispatchToProps
 )(RadioButtons);
 
 export default RadioButtonsContainer;
