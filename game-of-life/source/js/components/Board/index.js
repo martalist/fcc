@@ -8,11 +8,11 @@ function boardClass(numberOfCells) {
       , lg = SIZES.large.width * SIZES.large.height;
 
   if (numberOfCells === sm) {
-    return "small";
+    return " small";
   }
 
   if (numberOfCells === lg) {
-    return "large";
+    return " large";
   }
 
   return "";
@@ -20,25 +20,6 @@ function boardClass(numberOfCells) {
 
 
 class Board extends Component {
-  componentDidMount() {
-    this.tick();
-  }
-
-  componentWillUnmount() {
-    clearTimeout(this.tick);
-  }
-
-  tick() {
-    const { playing, reproduce } = this.props;
-    this.speed = this.props.speed;
-    setTimeout((board) => {
-      if (playing) {
-        reproduce();
-      }
-      board.tick();
-    }, this.speed, this);
-  }
-  
   render() {
     const { board, toggleLife } = this.props
         , width = board[0].length
@@ -48,7 +29,7 @@ class Board extends Component {
     return (
       <main>
         <div className={"board-skirting " + currentSize}>
-          <div className={"board " + currentSize}>
+          <div className={"board" + currentSize}>
             {board.map((row, ri) => row.map((cell, ci) => (
               <Cell 
                 key={ri + ',' + ci}
